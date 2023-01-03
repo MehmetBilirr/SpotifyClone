@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F0C1B53D296469E900DB54B4 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B53C296469E900DB54B4 /* Route.swift */; };
+		F0C1B53F29646A2E00DB54B4 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B53E29646A2E00DB54B4 /* Method.swift */; };
+		F0C1B54129646B6000DB54B4 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B54029646B6000DB54B4 /* AppError.swift */; };
+		F0C1B54329646CC300DB54B4 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B54229646CC300DB54B4 /* AuthResponse.swift */; };
+		F0C1B545296481AC00DB54B4 /* UserDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B544296481AC00DB54B4 /* UserDefaults + Extension.swift */; };
 		F0DE20E4296355BD00BAA2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DE20E3296355BD00BAA2DD /* AppDelegate.swift */; };
 		F0DE20E6296355BD00BAA2DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DE20E5296355BD00BAA2DD /* SceneDelegate.swift */; };
 		F0DE20ED296355BD00BAA2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0DE20EC296355BD00BAA2DD /* Assets.xcassets */; };
@@ -28,6 +33,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F0C1B53C296469E900DB54B4 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		F0C1B53E29646A2E00DB54B4 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		F0C1B54029646B6000DB54B4 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		F0C1B54229646CC300DB54B4 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		F0C1B544296481AC00DB54B4 /* UserDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + Extension.swift"; sourceTree = "<group>"; };
 		F0DE20E0296355BD00BAA2DD /* SpotifyClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DE20E3296355BD00BAA2DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0DE20E5296355BD00BAA2DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +132,7 @@
 		F0DE20FA2963575900BAA2DD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F0C1B54229646CC300DB54B4 /* AuthResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,6 +149,9 @@
 			isa = PBXGroup;
 			children = (
 				F0DE21162963622C00BAA2DD /* Constants.swift */,
+				F0C1B53C296469E900DB54B4 /* Route.swift */,
+				F0C1B53E29646A2E00DB54B4 /* Method.swift */,
+				F0C1B54029646B6000DB54B4 /* AppError.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -216,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				F0DE211C296364B100BAA2DD /* UIKit */,
+				F0C1B544296481AC00DB54B4 /* UserDefaults + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -308,17 +323,22 @@
 			files = (
 				F0DE212329636BAA00BAA2DD /* UIImageView + Extension.swift in Sources */,
 				F0DE2127296372FD00BAA2DD /* WelcomeViewModel.swift in Sources */,
+				F0C1B54129646B6000DB54B4 /* AppError.swift in Sources */,
 				F0DE211A2963629000BAA2DD /* AuthViewController.swift in Sources */,
 				F0DE2112296359D800BAA2DD /* WelcomeViewController.swift in Sources */,
 				F0DE2106296358A400BAA2DD /* HomeViewController.swift in Sources */,
+				F0C1B53D296469E900DB54B4 /* Route.swift in Sources */,
 				F0DE212529636C5C00BAA2DD /* UIView + Extension.swift in Sources */,
+				F0C1B545296481AC00DB54B4 /* UserDefaults + Extension.swift in Sources */,
 				F0DE210B296358CD00BAA2DD /* SearchViewController.swift in Sources */,
 				F0DE210E296358E700BAA2DD /* LibraryViewController.swift in Sources */,
+				F0C1B54329646CC300DB54B4 /* AuthResponse.swift in Sources */,
 				F0DE2108296358B500BAA2DD /* HomeViewModel.swift in Sources */,
 				F0DE21172963622C00BAA2DD /* Constants.swift in Sources */,
 				F0DE21032963586000BAA2DD /* TabBarViewController.swift in Sources */,
 				F0DE20E4296355BD00BAA2DD /* AppDelegate.swift in Sources */,
 				F0DE20E6296355BD00BAA2DD /* SceneDelegate.swift in Sources */,
+				F0C1B53F29646A2E00DB54B4 /* Method.swift in Sources */,
 				F0DE211429635CC800BAA2DD /* AuthManager.swift in Sources */,
 				F0DE211E296364BE00BAA2DD /* UIButton + Extension.swift in Sources */,
 			);

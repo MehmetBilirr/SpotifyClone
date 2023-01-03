@@ -34,8 +34,37 @@ extension WelcomeViewController:WelcomeViewInterface {
     navigationController?.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
 
     signInButton.configureStyle(title: "Sign In", titleColor: .black, backgroundClr: .white.withAlphaComponent(0.9),cornerRds: signInButton.frame.height / 2)
+
+    signInButton.addTarget(self, action: #selector(didTapSignInButton(_:)), for: .touchUpInside)
+
     imageView.configureCustomImageView(imageName: "logo")
 
+  }
+
+  @objc func didTapSignInButton(_ sender:UIButton) {
+    
+    let vc = AuthViewController()
+
+    vc.navigationItem.largeTitleDisplayMode = .never
+    navigationController?.pushViewController(vc, animated: true)
+    vc.completionHandler = { [weak self] success in
+        DispatchQueue.main.async {
+            self?.handleSignIn(success: success)
+        }
+    }
+  }
+
+  private func handleSignIn(success: Bool) {
+      guard success else {
+          let alert = UIAlertController(title: "Oops", message: "Something went wrong when signing in.", preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+          present(alert, animated: true)
+          return
+
+      }
+      let mainAppTabBarVC = TabBarViewController()
+      mainAppTabBarVC.modalPresentationStyle = .fullScreen
+      present(mainAppTabBarVC, animated: true)
   }
 
 

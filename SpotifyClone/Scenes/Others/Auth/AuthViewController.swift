@@ -8,6 +8,7 @@
 import UIKit
 import WebKit
 final class AuthViewController: UIViewController {
+
   private lazy var webView : WKWebView = {
     let prefs = WKWebpagePreferences()
     let config = WKWebViewConfiguration()
@@ -15,8 +16,11 @@ final class AuthViewController: UIViewController {
     let webView = WKWebView(frame: .zero, configuration: config)
     webView.navigationDelegate = self
     view.addSubview(webView)
+    guard let url = AuthManager.shared.signInURL else { return WKWebView()}
+    webView.load(URLRequest(url: url))
     return webView
   }()
+  var completionHandler: ((Bool) -> (Void))?
     override func viewDidLoad() {
         super.viewDidLoad()
       title = "Sign In"
@@ -36,5 +40,18 @@ final class AuthViewController: UIViewController {
 
 
 extension AuthViewController:WKNavigationDelegate {
-  
+
+  func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+
+    guard let url = webView.url else { return }
+    guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == "code" })?.value else { return }
+    
+    AuthManager.shared.exchageCodeForToken(code: code) { [weak self] bool in
+      DispatchQueue.main.async {
+        self?.navigationController?.popViewController(animated: true)
+        self?.completionHandler?(bool)
+      }
+    }
+    print("code:\(code)")
+  }
 }

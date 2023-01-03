@@ -10,6 +10,7 @@ import Foundation
 protocol WelcomeViewModelInterface:AnyObject {
   var view:WelcomeViewInterface? { get set}
   func viewDidLoad()
+  
 
 }
 
@@ -25,6 +26,7 @@ class WelcomeViewModel:WelcomeViewModelInterface {
     view?.style()
     view?.layout()
   }
+
 
 
 }
