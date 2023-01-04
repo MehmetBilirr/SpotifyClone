@@ -45,7 +45,7 @@ extension AuthViewController:WKNavigationDelegate {
 
     guard let url = webView.url else { return }
     guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == "code" })?.value else { return }
-    
+
     AuthManager.shared.exchageCodeForToken(code: code) { [weak self] bool in
       DispatchQueue.main.async {
         self?.navigationController?.popViewController(animated: true)

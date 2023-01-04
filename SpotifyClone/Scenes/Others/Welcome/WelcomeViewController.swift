@@ -22,6 +22,8 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
 
       viewModel.viewDidLoad()
+
+
     }
 
 }

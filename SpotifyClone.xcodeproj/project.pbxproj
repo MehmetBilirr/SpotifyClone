@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F0C1B53D296469E900DB54B4 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B53C296469E900DB54B4 /* Route.swift */; };
 		F0C1B53F29646A2E00DB54B4 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B53E29646A2E00DB54B4 /* Method.swift */; };
 		F0C1B54129646B6000DB54B4 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B54029646B6000DB54B4 /* AppError.swift */; };
 		F0C1B54329646CC300DB54B4 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B54229646CC300DB54B4 /* AuthResponse.swift */; };
@@ -33,7 +32,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F0C1B53C296469E900DB54B4 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		F0C1B53E29646A2E00DB54B4 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		F0C1B54029646B6000DB54B4 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		F0C1B54229646CC300DB54B4 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				F0DE21162963622C00BAA2DD /* Constants.swift */,
-				F0C1B53C296469E900DB54B4 /* Route.swift */,
 				F0C1B53E29646A2E00DB54B4 /* Method.swift */,
 				F0C1B54029646B6000DB54B4 /* AppError.swift */,
 			);
@@ -327,7 +324,6 @@
 				F0DE211A2963629000BAA2DD /* AuthViewController.swift in Sources */,
 				F0DE2112296359D800BAA2DD /* WelcomeViewController.swift in Sources */,
 				F0DE2106296358A400BAA2DD /* HomeViewController.swift in Sources */,
-				F0C1B53D296469E900DB54B4 /* Route.swift in Sources */,
 				F0DE212529636C5C00BAA2DD /* UIView + Extension.swift in Sources */,
 				F0C1B545296481AC00DB54B4 /* UserDefaults + Extension.swift in Sources */,
 				F0DE210B296358CD00BAA2DD /* SearchViewController.swift in Sources */,

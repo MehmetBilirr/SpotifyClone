@@ -11,6 +11,7 @@ extension UserDefaults {
     private enum UserDefaultsKeys:String {
         case accessToken
         case refreshToken
+        case expiresIn
     }
 
     var accessToken:String {
@@ -22,5 +23,15 @@ extension UserDefaults {
         }
     }
 
-  var refreshToken
+  var refreshToken:String {
+
+    get {
+      string(forKey: UserDefaultsKeys.refreshToken.rawValue)!
+    }
+    set {
+      setValue(newValue, forKey: UserDefaultsKeys.refreshToken.rawValue)
+    }
+  }
+
+  
 }

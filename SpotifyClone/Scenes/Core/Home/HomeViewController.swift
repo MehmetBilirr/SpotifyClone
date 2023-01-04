@@ -12,10 +12,10 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+      AuthManager.shared.refreshAccessToken { bool in
+        print(bool)
+      }
         
     }
-    
-
-
 
 }
