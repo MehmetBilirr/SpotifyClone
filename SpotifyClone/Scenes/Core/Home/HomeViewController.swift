@@ -12,10 +12,15 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      AuthManager.shared.refreshAccessToken { bool in
-        print(bool)
-      }
+      navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage( systemName: "gear"), style: .done, target: self, action: #selector(didTapSettings) )
         
     }
 
+
+  @objc func didTapSettings() {
+    let vc = SettingsViewController()
+    vc.title = "Settings"
+    vc.navigationItem.largeTitleDisplayMode = .never
+    navigationController?.pushViewController(vc, animated: true)
+  }
 }

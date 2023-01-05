@@ -22,7 +22,7 @@ final class AuthManager {
   }
 
   var isSignedIn:Bool {
-    return accessToken == nil
+    return accessToken != nil
   }
 
   private var accessToken:String? {
@@ -59,7 +59,7 @@ final class AuthManager {
     let task = URLSession.shared.dataTask(with: createRequest(apiURL: Constants.tokenAPIURL, method: .post,components: components)!) { [weak self] data, _, err in
         guard let data = data else {
             completion(false)
-          print(AppError.unknownError)
+          print(AppError.unknownError.errorDescription)
             return
         }
         do {
@@ -69,7 +69,7 @@ final class AuthManager {
 
             completion(true)
         } catch {
-          print(AppError.errorDecoding)
+          print(AppError.errorDecoding.errorDescription)
             completion(false)
         }
     }
@@ -92,7 +92,7 @@ final class AuthManager {
           }
       } else if let token = accessToken {
           completion(token)
-        
+
       }
   }
 
@@ -112,7 +112,7 @@ final class AuthManager {
     let task = URLSession.shared.dataTask(with: createRequest(apiURL: Constants.tokenAPIURL, method: .post, components: components)!) { [weak self] data, _, error in
       guard let data = data else {
           completion(false)
-        print(AppError.unknownError)
+        print(AppError.unknownError.errorDescription)
           return
       }
 
@@ -123,7 +123,7 @@ final class AuthManager {
 
           completion(true)
       } catch {
-        print(AppError.errorDecoding)
+        print(AppError.errorDecoding.errorDescription)
           completion(false)
       }
   }
@@ -157,6 +157,7 @@ final class AuthManager {
           self.onRefreshBlocks.forEach( { $0(result.access_token)})
           self.onRefreshBlocks.removeAll()
           self.cacheToken(result: result)
+          print(result)
           completion?(true)
       } catch {
           print(err?.localizedDescription)
@@ -186,7 +187,7 @@ final class AuthManager {
   private func createRequest (apiURL: String, method: Method,components:URLComponents) -> URLRequest? {
 
     guard let url = URL(string: apiURL) else { return nil
-      print(AppError.invalidUrl)
+      print(AppError.invalidUrl.errorDescription)
     }
 
     var request = URLRequest(url: url)
@@ -196,7 +197,7 @@ final class AuthManager {
     let data = Constants.basicToken.data(using: .utf8)
 
     guard let base64String  = data?.base64EncodedString() else {
-      print(AppError.serverError("Failed to get base64"))
+      print(AppError.randomError("Failed to get base64"))
       return nil
     }
 

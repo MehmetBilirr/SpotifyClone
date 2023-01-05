@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum AppError:LocalizedError {
+enum AppError:Error {
     case errorDecoding
     case unknownError
     case invalidUrl
-    case serverError(String)
+    case randomError(String)
 
     var errorDescription:String? {
         switch self {
@@ -22,7 +22,7 @@ enum AppError:LocalizedError {
             return "Error is a unknown causes."
         case .invalidUrl:
             return "Url is not valid."
-        case .serverError(let error):
+        case .randomError(let error):
             return error
         }
     }
