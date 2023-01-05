@@ -10,13 +10,13 @@ import UIKit
 
 extension UIImageView {
 
-  func configureCustomImageView(imageName:String,cornerRds:CGFloat?=nil){
+  func configureImageView(imageName:String?=nil){
     translatesAutoresizingMaskIntoConstraints = false
-    layer.cornerRadius = cornerRds ?? 0
+    layer.cornerRadius = self.frame.width / 2
     contentMode = .scaleAspectFit
     clipsToBounds = true
     layer.masksToBounds = true
-    image = UIImage(named: imageName)
+    image = UIImage(named: imageName ?? "")
 
   }
 

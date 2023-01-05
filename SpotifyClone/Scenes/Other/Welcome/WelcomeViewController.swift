@@ -39,7 +39,7 @@ extension WelcomeViewController:WelcomeViewInterface {
 
     signInButton.addTarget(self, action: #selector(didTapSignInButton(_:)), for: .touchUpInside)
 
-    imageView.configureCustomImageView(imageName: "logo")
+    imageView.configureImageView(imageName: "logo")
 
   }
 

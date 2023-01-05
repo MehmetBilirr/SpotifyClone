@@ -95,6 +95,7 @@ final class APIManager {
     guard let url = urlString.asURL else {return nil}
     var request = URLRequest(url: url)
     request.httpMethod = method.rawValue
+    request.timeoutInterval = 30
     AuthManager.shared.withValidToken { token in
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
