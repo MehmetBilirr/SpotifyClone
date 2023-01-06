@@ -13,7 +13,16 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
       navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage( systemName: "gear"), style: .done, target: self, action: #selector(didTapSettings) )
-        
+
+      APIManager.shared.getRecommendedGenres() { result in
+        switch result {
+
+        case .success(let newReleases):
+          print(newReleases)
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
+      }
     }
 
 

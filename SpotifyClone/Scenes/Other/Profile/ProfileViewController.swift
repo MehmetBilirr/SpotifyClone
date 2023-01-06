@@ -15,6 +15,7 @@ protocol ProfileViewInterface:AnyObject {
   func reloadData()
   func style()
   func layout()
+  func failedToGetProfile()
 
 }
 
@@ -74,6 +75,14 @@ extension ProfileViewController:ProfileViewInterface {
   func reloadData() {
       self.tableView.reloadData()
 
+  }
+   func failedToGetProfile() {
+      let label = UILabel(frame: .zero)
+      label.text = "Failed to load profile"
+      label.sizeToFit()
+      label.textColor = .secondaryLabel
+      view.addSubview(label)
+      label.center = view.center
   }
 }
 

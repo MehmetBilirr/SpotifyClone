@@ -20,17 +20,43 @@ final class APIManager {
   
   }
 
+  func getReleases(completion:@escaping(Result<NewReleasesResponse,Error>)->Void){
+
+    request(route: .getNewReleases, method: .get, completion: completion)
+  }
+
+  func getFeaturedPlaylists(completion:@escaping(Result<FeaturedPlaylistsResponse,Error>)->Void){
+    request(route: .getFeaturedPlaylists, method: .get, completion: completion)
+  }
+
+  func getRecommendedGenres(completion:@escaping(Result<RecommendedGenresResponse,Error>)->Void) {
+    request(route: .getRecommendedGenres, method: .get, completion: completion)
+  }
+
+  func getRecommendedGenress(){
+
+
+    createRequest(route: .getRecommendedGenres, method: .get) { request in
+      URLSession.shared.dataTask(with: request) { data, response, error in
+
+
+          if let data = data {
+
+              let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
+              print("The response is :\n \(responseString)")
+
+
+          }
+
+
+      }.resume()
+    }
+  }
 
 
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 
-      guard let request = createRequest(route: route, method: method) else {
-
-          completion(.failure(AppError.unknownError))
-
-          return
-          }
-
+    createRequest(route: route, method: method) { request in
       URLSession.shared.dataTask(with: request) { data, response, error in
 
           var result: Result<Data,Error>?
@@ -54,8 +80,7 @@ final class APIManager {
 
           }
       }.resume()
-
-
+    }
 
       }
 
@@ -89,17 +114,19 @@ final class APIManager {
   }
 
 
-  private func createRequest (route: Route, method: Method) -> URLRequest? {
+  private func createRequest (route: Route, method: Method,completion:@escaping(URLRequest)->Void) {
 
-    let urlString = Route.baseUrl + route.description
-    guard let url = urlString.asURL else {return nil}
-    var request = URLRequest(url: url)
-    request.httpMethod = method.rawValue
-    request.timeoutInterval = 30
+
     AuthManager.shared.withValidToken { token in
+      let urlString = Route.baseUrl + route.description
+      guard let url = urlString.asURL else {return}
+      var request = URLRequest(url: url)
+      request.httpMethod = method.rawValue
+      request.timeoutInterval = 30
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+      completion(request)
     }
-    return request
+
  }
 
 

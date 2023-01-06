@@ -47,6 +47,7 @@ class ProfileViewModel:ProfileViewModelInterface {
         self.configureRows(profile: user)
         self.view?.reloadData()
       case .failure(let error):
+        self.view?.failedToGetProfile()
         print(error.localizedDescription)
       }
     }
