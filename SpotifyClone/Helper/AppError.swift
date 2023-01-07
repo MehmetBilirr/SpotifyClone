@@ -7,15 +7,15 @@
 
 import Foundation
 
-enum AppError:Error {
+enum AppError:LocalizedError {
     case errorDecoding
     case unknownError
     case invalidUrl
     case randomError(String)
 
     var errorDescription:String? {
-        switch self {
 
+        switch self {
         case .errorDecoding:
             return "Response could not be decoded."
         case .unknownError:

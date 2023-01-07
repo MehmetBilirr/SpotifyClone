@@ -33,26 +33,43 @@ final class APIManager {
     request(route: .getRecommendedGenres, method: .get, completion: completion)
   }
 
-  func getRecommendedGenress(){
 
+  func getRecommendations(completion:@escaping(Result<RecommendationsResponse,Error>)->Void) {
 
-    createRequest(route: .getRecommendedGenres, method: .get) { request in
-      URLSession.shared.dataTask(with: request) { data, response, error in
+    getRecommendedGenres { result in
+      switch result {
 
+      case .success(let model):
 
-          if let data = data {
-
-              let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
-              print("The response is :\n \(responseString)")
-
-
-          }
-
-
-      }.resume()
+        let genres = model.genres
+        var seeds = Set<String>()
+        while seeds.count < 5 {
+            if let random = genres.randomElement() {
+                seeds.insert(random)
+            }
+        }
+        self.request(route: .getRecommendations(seeds), method: .get, completion: completion)
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
     }
   }
+  
 
+//  func getUserRecentlyPlayed(){
+//    createRequest(route: .userRecentlyPlayed("20"), method: .get) { request in
+//      URLSession.shared.dataTask(with: request) { data, response, error in
+//        if let data = data {
+//
+//            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
+//            print("The response is :\n \(responseString)")
+//
+//
+//        }
+//      }.resume()
+//    }
+//
+//  }
 
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 
@@ -99,15 +116,12 @@ final class APIManager {
 
           let decoder = JSONDecoder()
           guard let response = try? decoder.decode(T.self, from: data) else {
-              completion(.failure(AppError.errorDecoding))
+            completion(.failure(AppError.errorDecoding))
               return
           }
         completion(.success(response))
-
-
-
       case .failure(let error):
-          completion(.failure(error))
+        completion(.failure(error))
       }
 
 
@@ -115,8 +129,6 @@ final class APIManager {
 
 
   private func createRequest (route: Route, method: Method,completion:@escaping(URLRequest)->Void) {
-
-
     AuthManager.shared.withValidToken { token in
       let urlString = Route.baseUrl + route.description
       guard let url = urlString.asURL else {return}

@@ -10,13 +10,12 @@ import Foundation
 // MARK: - Artist
 struct Artist: Codable {
     let externalUrls: ExternalUrls
-    let href: String
     let id, name: String
     let type: String
-    let uri: String
+    let images: [APIImage]?
 
     enum CodingKeys: String, CodingKey {
         case externalUrls = "external_urls"
-        case href, id, name, type, uri
+        case  id, name, type,images
     }
 }

@@ -7,9 +7,9 @@
 
 struct UserProfile: Codable {
     let country, displayName, email: String
-    let explicitContent: ExplicitContent
-    let externalUrls: ExternalUrls
-    let followers: Followers
+    let explicitContent: String
+    let externalUrls: String
+    let followers: Int
     let href: String
     let id: String
     let images: [APIImage]

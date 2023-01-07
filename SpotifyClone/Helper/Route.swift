@@ -16,7 +16,9 @@ enum Route {
   case getNewReleases
   case getFeaturedPlaylists
   case getRecommendedGenres
+  case getRecommendations(Set<String>)
 
+  
   var description:String {
     switch self {
     case .getCurrentUserProfile:
@@ -27,9 +29,12 @@ enum Route {
       return "/browse/featured-playlists?country=TR"
     case .getRecommendedGenres:
       return "/recommendations/available-genre-seeds"
+    case .getRecommendations(let genres):
+      let seeds = genres.joined(separator: ",")
+      return "/recommendations?limit=40&seed_genres=\(seeds)"
+
     }
+
   }
-
-
 
 }
