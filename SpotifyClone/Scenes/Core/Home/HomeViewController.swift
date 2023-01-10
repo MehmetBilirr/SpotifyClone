@@ -13,6 +13,7 @@ protocol HomeViewInterface:AnyObject {
   func fetchData()
   func reloadData()
 
+
   
 }
 
@@ -59,7 +60,10 @@ extension HomeViewController:HomeViewInterface {
     collectionView.register( NewReleasesCollectionViewCell.self,
                              forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
     collectionView.register(FeaturedPlaylistCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
+
     collectionView.register(TracksCollectionViewCell.self, forCellWithReuseIdentifier: TracksCollectionViewCell.identifier)
+
+    collectionView.register(HomeHeadersCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeHeadersCollectionReusableView.identifier)
 
   }
   func fetchData() {
@@ -88,15 +92,9 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
-//    guard let header = collectionView.dequeueReusableSupplementaryView(
-//        ofKind: kind,
-//        withReuseIdentifier: HomeHeadersCollectionReusableView.identifier,
-//        for: indexPath) as? HomeHeadersCollectionReusableView,
-//          kind == UICollectionView.elementKindSectionHeader else {
-//        return UICollectionReusableView()
-//    }
+    viewModel.configureHeaderView(kind: kind, collectionView: collectionView, indexPath: indexPath)
 
-    return UICollectionReusableView()
+
   }
 
 

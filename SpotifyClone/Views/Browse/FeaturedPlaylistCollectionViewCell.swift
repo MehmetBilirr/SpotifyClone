@@ -29,5 +29,9 @@ class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
     }
   }
 
+  func configure(model:SpotifyModel.PlaylistModel){
+    albumImageView.sd_setImage(with: model.image.asURL)
+  }
+
 
 }

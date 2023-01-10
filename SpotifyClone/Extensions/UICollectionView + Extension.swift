@@ -19,6 +19,7 @@ extension UICollectionView {
         alignment: .top) ]
 
     switch section {
+      //NewReleases
     case 0:
 
      
@@ -43,6 +44,7 @@ extension UICollectionView {
       section.boundarySupplementaryItems = sectionBoundaryItem
       return section
 
+      //Playlists
     case 1:
 
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
@@ -62,7 +64,7 @@ extension UICollectionView {
       //Section
 
       let section = NSCollectionLayoutSection(group: horizontalGroup)
-      section.orthogonalScrollingBehavior = .groupPaging
+      section.orthogonalScrollingBehavior = .continuous
       section.boundarySupplementaryItems = sectionBoundaryItem
       return section
 

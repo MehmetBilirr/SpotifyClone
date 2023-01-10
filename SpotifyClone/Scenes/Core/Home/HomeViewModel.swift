@@ -11,7 +11,7 @@ import UIKit
 
 enum BrowseSectionType {
   case newReleases([SpotifyModel.NewReleaseModel])
-  case featuredPlaylists
+  case featuredPlaylists([SpotifyModel.PlaylistModel])
   case recommendedTracks
 }
 
@@ -22,6 +22,7 @@ protocol HomeViewModelInterface:AnyObject {
   func numberOfSections()->Int
   func cellForItemAt(collectionView:UICollectionView,indexPath:IndexPath)->UICollectionViewCell
   func numberOfItemsInSection(section:Int)->Int
+  func configureHeaderView(kind:String,collectionView:UICollectionView,indexPath:IndexPath)->UICollectionReusableView
 
 }
 
@@ -95,7 +96,7 @@ extension HomeViewModel:HomeViewModelInterface {
               let tracks = recommendedTracks?.tracks
         else { return }
       print("tracks*\(tracks)")
-      self.configureViewModels(newAlbums: releases)
+      self.configureViewModels(newAlbums: releases,playlists: playlists)
 //        self.configureViewModels(newAlbums: releases,
 //                                 playlists: playlists,
 //                                 tracks: tracks)
@@ -103,10 +104,15 @@ extension HomeViewModel:HomeViewModelInterface {
     }
   }
 
-  private func configureViewModels(newAlbums:[Album]) {
+  private func configureViewModels(newAlbums:[Album],playlists:[Playlist]) {
     sections.append(.newReleases(newAlbums.compactMap({
-      return SpotifyModel.NewReleaseModel(name: $0.name, image: $0.images.first?.url ?? "", numberOfTracks: $0.totalTracks, artistName: $0.artists.first?.name ?? "")
+      .init(name: $0.name, image: $0.images.first?.url ?? "", numberOfTracks: $0.totalTracks, artistName: $0.artists.first?.name ?? "")
     })))
+
+    sections.append(.featuredPlaylists(playlists.compactMap({
+      .init(name: $0.name, image: $0.images.first?.url ?? "", creatorName: $0.owner.displayName)
+    })))
+
     view?.reloadData()
 
   }
@@ -121,12 +127,13 @@ extension HomeViewModel:HomeViewModelInterface {
 
     switch section {
 
-    case .newReleases(let model):
+    case .newReleases(let albums):
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReleasesCollectionViewCell.identifier, for: indexPath) as! NewReleasesCollectionViewCell
-      cell.configure(album: model[indexPath.row])
+      cell.configure(album: albums[indexPath.row])
       return cell
-    case .featuredPlaylists:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath)
+    case .featuredPlaylists(let playlists):
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as! FeaturedPlaylistCollectionViewCell
+      cell.configure(model: playlists[indexPath.row])
       return cell
     case .recommendedTracks:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath)
@@ -141,13 +148,34 @@ extension HomeViewModel:HomeViewModelInterface {
 
     case .newReleases(let albums):
       return albums.count
-    case .featuredPlaylists:
-      return 1
+    case .featuredPlaylists(let playlists):
+      return playlists.count
     case .recommendedTracks:
       return 1
     }
   }
 
+  func configureHeaderView(kind: String, collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView {
+    guard let header = collectionView.dequeueReusableSupplementaryView(
+        ofKind: kind,
+        withReuseIdentifier: HomeHeadersCollectionReusableView.identifier,
+        for: indexPath) as? HomeHeadersCollectionReusableView,
+          kind == UICollectionView.elementKindSectionHeader else {
+        return UICollectionReusableView()
+    }
+    let type = sections[indexPath.section]
+    switch type {
+
+    case .newReleases(_):
+      header.configure(with: "New Releases")
+    case .featuredPlaylists:
+      header.configure(with: "Featured Playlists")
+    case .recommendedTracks:
+      header.configure(with: "Recommended Tracks")
+    }
+    return header
+
+  }
 
 
 }
