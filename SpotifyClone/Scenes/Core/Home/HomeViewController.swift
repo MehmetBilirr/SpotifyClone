@@ -7,45 +7,30 @@
 
 import UIKit
 
-enum BrowseSectionType {
-    case newReleases
-    case featuredPlaylists
-    case recommendedTracks
+protocol HomeViewInterface:AnyObject {
+  func configureCollectionView()
+  func configureNavBarItems()
+  func fetchData()
+  func reloadData()
+
+  
 }
 
 class HomeViewController: UIViewController {
+
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
     return self.collectionView.browseSectionLayout(section: sectionIndex)
 
   })
-  var sections : [BrowseSectionType] = [.newReleases,.featuredPlaylists,.recommendedTracks]
+  private lazy var viewModel = HomeViewModel(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage( systemName: "gear"), style: .done, target: self, action: #selector(didTapSettings) )
+      viewModel.viewDidLoad()
 
-      configureCollectionView()
+
     }
 
-
-
-  @objc func didTapSettings() {
-    let vc = SettingsViewController()
-    vc.title = "Settings"
-    vc.navigationItem.largeTitleDisplayMode = .never
-    navigationController?.pushViewController(vc, animated: true)
-  }
-
-  private func configureCollectionView(){
-    view.addSubview(collectionView)
-    collectionView.dataSource = self
-    collectionView.delegate = self
-    collectionView.register( NewReleasesCollectionViewCell.self,
-                             forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
-    collectionView.register(FeaturedPlaylistCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
-    collectionView.register(TracksCollectionViewCell.self, forCellWithReuseIdentifier: TracksCollectionViewCell.identifier)
-
-  }
 
   override func viewDidLayoutSubviews() {
     collectionView.frame = view.bounds
@@ -55,36 +40,67 @@ class HomeViewController: UIViewController {
 
 }
 
+extension HomeViewController:HomeViewInterface {
+  func configureNavBarItems() {
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage( systemName: "gear"), style: .done, target: self, action: #selector(didTapSettings) )
+  }
+
+  @objc func didTapSettings() {
+    let vc = SettingsViewController()
+    vc.title = "Settings"
+    vc.navigationItem.largeTitleDisplayMode = .never
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
+  func configureCollectionView(){
+    view.addSubview(collectionView)
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    collectionView.register( NewReleasesCollectionViewCell.self,
+                             forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
+    collectionView.register(FeaturedPlaylistCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
+    collectionView.register(TracksCollectionViewCell.self, forCellWithReuseIdentifier: TracksCollectionViewCell.identifier)
+
+  }
+  func fetchData() {
+    viewModel.fetchData()
+  }
+
+  func reloadData() {
+    collectionView.reloadData()
+  }
+
+}
+
 
 extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 20
+    return viewModel.numberOfItemsInSection(section: section)
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let section = sections[indexPath.section]
-
-    switch section {
-
-    case .newReleases:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReleasesCollectionViewCell.identifier, for: indexPath)
-      return cell
-    case .featuredPlaylists:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath)
-      return cell
-    case .recommendedTracks:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath)
-      return cell
-    }
+    viewModel.cellForItemAt(collectionView: collectionView, indexPath: indexPath)
     }
 
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return sections.count
+    return viewModel.numberOfSections()
+  }
+
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+//    guard let header = collectionView.dequeueReusableSupplementaryView(
+//        ofKind: kind,
+//        withReuseIdentifier: HomeHeadersCollectionReusableView.identifier,
+//        for: indexPath) as? HomeHeadersCollectionReusableView,
+//          kind == UICollectionView.elementKindSectionHeader else {
+//        return UICollectionReusableView()
+//    }
+
+    return UICollectionReusableView()
   }
 
 
 }
-
 
 
 

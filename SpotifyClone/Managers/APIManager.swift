@@ -29,7 +29,7 @@ final class APIManager {
     request(route: .getFeaturedPlaylists, method: .get, completion: completion)
   }
 
-  func getRecommendedGenres(completion:@escaping(Result<RecommendedGenresResponse,Error>)->Void) {
+  private func getRecommendedGenres(completion:@escaping(Result<RecommendedGenresResponse,Error>)->Void) {
     request(route: .getRecommendedGenres, method: .get, completion: completion)
   }
 

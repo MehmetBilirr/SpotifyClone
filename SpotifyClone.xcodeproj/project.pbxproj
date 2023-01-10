@@ -34,6 +34,7 @@
 		F0D2F51D296860D50052ECB8 /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2F51C296860D50052ECB8 /* Owner.swift */; };
 		F0D2F51F296861C30052ECB8 /* FeaturedPlaylistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2F51E296861C30052ECB8 /* FeaturedPlaylistResponse.swift */; };
 		F0D2F521296867AA0052ECB8 /* RecommendedGenresResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2F520296867AA0052ECB8 /* RecommendedGenresResponse.swift */; };
+		F0D457D6296DD713000A9054 /* SpotifyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D457D5296DD713000A9054 /* SpotifyModel.swift */; };
 		F0DE20E4296355BD00BAA2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DE20E3296355BD00BAA2DD /* AppDelegate.swift */; };
 		F0DE20E6296355BD00BAA2DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DE20E5296355BD00BAA2DD /* SceneDelegate.swift */; };
 		F0DE20ED296355BD00BAA2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0DE20EC296355BD00BAA2DD /* Assets.xcassets */; };
@@ -84,6 +85,7 @@
 		F0D2F51C296860D50052ECB8 /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
 		F0D2F51E296861C30052ECB8 /* FeaturedPlaylistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistResponse.swift; sourceTree = "<group>"; };
 		F0D2F520296867AA0052ECB8 /* RecommendedGenresResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedGenresResponse.swift; sourceTree = "<group>"; };
+		F0D457D5296DD713000A9054 /* SpotifyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyModel.swift; sourceTree = "<group>"; };
 		F0DE20E0296355BD00BAA2DD /* SpotifyClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DE20E3296355BD00BAA2DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0DE20E5296355BD00BAA2DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				F0D2F51A296860B50052ECB8 /* Playlist.swift */,
 				F0D2F51C296860D50052ECB8 /* Owner.swift */,
 				F0EF49A72968B6D600C178E8 /* Track.swift */,
+				F0D457D5296DD713000A9054 /* SpotifyModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				F0DE2112296359D800BAA2DD /* WelcomeViewController.swift in Sources */,
 				F0D08DC2296A0E5600144A83 /* UILabel + Extension.swift in Sources */,
 				F0DE2106296358A400BAA2DD /* HomeViewController.swift in Sources */,
+				F0D457D6296DD713000A9054 /* SpotifyModel.swift in Sources */,
 				F0D2F51F296861C30052ECB8 /* FeaturedPlaylistResponse.swift in Sources */,
 				F0D2F50229673E2B0052ECB8 /* UserProfile.swift in Sources */,
 				F0D2F521296867AA0052ECB8 /* RecommendedGenresResponse.swift in Sources */,

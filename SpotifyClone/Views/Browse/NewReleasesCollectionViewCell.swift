@@ -33,6 +33,7 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
 
 
     albumImageView.configureImageView(imageName: "dummyalbum")
+    albumImageView.layer.cornerRadius = 20
     artistNameLbl.configureStyle(size: 18, weight: .light, color: .white)
     artistNameLbl.text = "Pink Floyd"
 
@@ -55,7 +56,7 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
 
     contentView.addSubview(artistNameLbl)
     artistNameLbl.snp.makeConstraints { make in
-      make.left.equalTo(albumImageView.snp.right).offset(5)
+      make.left.equalTo(albumImageView.snp.right).offset(10)
       make.centerY.equalTo(contentView.snp.centerY)
     }
 
@@ -71,6 +72,14 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
       make.top.equalTo(artistNameLbl.snp.bottom).offset(5)
     }
 
+  }
+
+   func configure(album:SpotifyModel.NewReleaseModel) {
+
+    albumNamelbl.text = album.name
+    artistNameLbl.text = album.artistName
+    albumImageView.sd_setImage(with: album.image.asURL)
+    trackCountLbl.text = String(album.numberOfTracks)
   }
 
 
