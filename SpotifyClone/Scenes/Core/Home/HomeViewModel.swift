@@ -12,7 +12,7 @@ import UIKit
 enum BrowseSectionType {
   case newReleases([SpotifyModel.NewReleaseModel])
   case featuredPlaylists([SpotifyModel.PlaylistModel])
-  case recommendedTracks
+  case recommendedTracks([SpotifyModel.TrackModel])
 }
 
 protocol HomeViewModelInterface:AnyObject {
@@ -95,22 +95,23 @@ extension HomeViewModel:HomeViewModelInterface {
               let playlists = featuredPlaylists?.playlists.items,
               let tracks = recommendedTracks?.tracks
         else { return }
-      print("tracks*\(tracks)")
-      self.configureViewModels(newAlbums: releases,playlists: playlists)
-//        self.configureViewModels(newAlbums: releases,
-//                                 playlists: playlists,
-//                                 tracks: tracks)
+      self.configureViewModels(newAlbums: releases,playlists: playlists,tracks: tracks)
+
 
     }
   }
 
-  private func configureViewModels(newAlbums:[Album],playlists:[Playlist]) {
+  private func configureViewModels(newAlbums:[Album],playlists:[Playlist],tracks:[Track]) {
     sections.append(.newReleases(newAlbums.compactMap({
       .init(name: $0.name, image: $0.images.first?.url ?? "", numberOfTracks: $0.totalTracks, artistName: $0.artists.first?.name ?? "")
     })))
 
     sections.append(.featuredPlaylists(playlists.compactMap({
       .init(name: $0.name, image: $0.images.first?.url ?? "", creatorName: $0.owner.displayName)
+    })))
+
+    sections.append(.recommendedTracks(tracks.compactMap({
+      .init(name: $0.name, artistName: $0.artists.first?.name ?? "", image: $0.album?.images.first?.url ?? "")
     })))
 
     view?.reloadData()
@@ -135,8 +136,9 @@ extension HomeViewModel:HomeViewModelInterface {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as! FeaturedPlaylistCollectionViewCell
       cell.configure(model: playlists[indexPath.row])
       return cell
-    case .recommendedTracks:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath)
+    case .recommendedTracks(let tracks):
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath) as! TracksCollectionViewCell
+      cell.configure(track: tracks[indexPath.row])
       return cell
     }
   }
@@ -150,8 +152,8 @@ extension HomeViewModel:HomeViewModelInterface {
       return albums.count
     case .featuredPlaylists(let playlists):
       return playlists.count
-    case .recommendedTracks:
-      return 1
+    case .recommendedTracks(let tracks):
+      return tracks.count
     }
   }
 

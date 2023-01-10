@@ -57,6 +57,7 @@ extension HomeViewController:HomeViewInterface {
     view.addSubview(collectionView)
     collectionView.dataSource = self
     collectionView.delegate = self
+    
     collectionView.register( NewReleasesCollectionViewCell.self,
                              forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
     collectionView.register(FeaturedPlaylistCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
@@ -95,6 +96,15 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
     viewModel.configureHeaderView(kind: kind, collectionView: collectionView, indexPath: indexPath)
 
 
+  }
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//            let defaultOffset = view.safeAreaInsets.top
+//
+//            let offset = scrollView.contentOffset.y + defaultOffset
+//            print(scrollView.contentOffset.y)
+//
+//
+//            navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
   }
 
 

@@ -26,7 +26,7 @@ class HomeHeadersCollectionReusableView: UICollectionReusableView {
   headerLabel.configureStyle(size: 22, weight: .bold, color: .white)
   headerLabel.snp.makeConstraints { make in
     make.left.equalToSuperview()
-    make.top.equalToSuperview()
+    make.bottom.equalToSuperview()
   }
 
   }

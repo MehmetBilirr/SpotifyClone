@@ -61,4 +61,10 @@ class TracksCollectionViewCell: UICollectionViewCell {
       make.bottom.equalTo(albumImageView.snp.bottom)
     }
   }
+
+  func configure(track:SpotifyModel.TrackModel){
+    albumImageView.sd_setImage(with: track.image.asURL)
+    albumNamelbl.text = track.name
+    artistNameLbl.text = track.artistName
+  }
 }
