@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
     collectionView.register( NewReleasesCollectionViewCell.self,
                              forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
     collectionView.register(FeaturedPlaylistCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
-    collectionView.register(RecommendedTracksCollectionViewCell.self, forCellWithReuseIdentifier: RecommendedTracksCollectionViewCell.identifier)
+    collectionView.register(TracksCollectionViewCell.self, forCellWithReuseIdentifier: TracksCollectionViewCell.identifier)
 
   }
 
@@ -73,7 +73,7 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath)
       return cell
     case .recommendedTracks:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendedTracksCollectionViewCell.identifier, for: indexPath)
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath)
       return cell
     }
     }
