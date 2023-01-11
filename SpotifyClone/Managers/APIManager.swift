@@ -54,10 +54,15 @@ final class APIManager {
       }
     }
   }
+
+  func getAlbumDetails(albumID:String,completion:@escaping(Result<AlbumDetailsResponse,Error>)->Void){
+
+    request(route: .getAlbumDetails(albumID), method: .get, completion: completion)
+  }
   
 
-//  func getUserRecentlyPlayed(){
-//    createRequest(route: .userRecentlyPlayed("20"), method: .get) { request in
+//  func getAlbumDetails(albumID:String){
+//    createRequest(route: .getAlbumDetails(albumID), method: .get) { request in
 //      URLSession.shared.dataTask(with: request) { data, response, error in
 //        if let data = data {
 //
@@ -79,10 +84,6 @@ final class APIManager {
           var result: Result<Data,Error>?
           if let data = data {
               result = .success(data)
-              let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
-              print("The response is :\n \(responseString)")
-
-
           }else if let error = error {
               result = .failure(error)
               print("The error is : \(error.localizedDescription)")

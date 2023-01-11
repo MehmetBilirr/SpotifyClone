@@ -17,6 +17,7 @@ enum Route {
   case getFeaturedPlaylists
   case getRecommendedGenres
   case getRecommendations(Set<String>)
+  case getAlbumDetails(String)
 
   
   var description:String {
@@ -32,7 +33,8 @@ enum Route {
     case .getRecommendations(let genres):
       let seeds = genres.joined(separator: ",")
       return "/recommendations?limit=40&seed_genres=\(seeds)"
-
+    case.getAlbumDetails(let albumID):
+      return "/albums/\(albumID)"
     }
 
   }

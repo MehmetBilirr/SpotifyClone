@@ -23,6 +23,7 @@ protocol HomeViewModelInterface:AnyObject {
   func cellForItemAt(collectionView:UICollectionView,indexPath:IndexPath)->UICollectionViewCell
   func numberOfItemsInSection(section:Int)->Int
   func configureHeaderView(kind:String,collectionView:UICollectionView,indexPath:IndexPath)->UICollectionReusableView
+  func didSelectRowAt(indexPath:IndexPath)
 
 }
 
@@ -30,6 +31,9 @@ class HomeViewModel {
   weak var view: HomeViewInterface?
   private let apiManager : APIManager
   var sections = [BrowseSectionType]()
+  var albums = [Album]()
+  var playlists = [Playlist]()
+  var tracks = [Track]()
   init(view:HomeViewInterface,apiManager:APIManager = APIManager.shared) {
     self.view = view
     self.apiManager = apiManager
@@ -95,6 +99,16 @@ extension HomeViewModel:HomeViewModelInterface {
               let playlists = featuredPlaylists?.playlists.items,
               let tracks = recommendedTracks?.tracks
         else { return }
+
+      self.apiManager.getAlbumDetails(albumID: releases.first?.id ?? "") { result in
+        switch  result {
+
+        case .success(let album):
+          print(album)
+        case .failure(let error):
+          print(error)
+        }
+      }
       self.configureViewModels(newAlbums: releases,playlists: playlists,tracks: tracks)
 
 
@@ -102,6 +116,9 @@ extension HomeViewModel:HomeViewModelInterface {
   }
 
   private func configureViewModels(newAlbums:[Album],playlists:[Playlist],tracks:[Track]) {
+    self.albums = newAlbums
+    self.playlists = playlists
+    self.tracks = tracks
     sections.append(.newReleases(newAlbums.compactMap({
       .init(name: $0.name, image: $0.images.first?.url ?? "", numberOfTracks: $0.totalTracks, artistName: $0.artists.first?.name ?? "")
     })))
@@ -177,6 +194,21 @@ extension HomeViewModel:HomeViewModelInterface {
     }
     return header
 
+  }
+
+  func didSelectRowAt(indexPath: IndexPath) {
+
+    let section = sections[indexPath.section]
+
+    switch section {
+
+    case .newReleases:
+      view?.pushToAlbumDetailsVC()
+    case .featuredPlaylists:
+      return
+    case .recommendedTracks:
+      return
+    }
   }
 
 

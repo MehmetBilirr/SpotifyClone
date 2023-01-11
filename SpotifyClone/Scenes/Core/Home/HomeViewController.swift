@@ -12,6 +12,7 @@ protocol HomeViewInterface:AnyObject {
   func configureNavBarItems()
   func fetchData()
   func reloadData()
+  func pushToAlbumDetailsVC()
 
 
   
@@ -28,6 +29,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
       viewModel.viewDidLoad()
+      
 
 
     }
@@ -37,6 +39,9 @@ class HomeViewController: UIViewController {
     collectionView.frame = view.bounds
   }
 
+  private func pushNavigation(viewController:UIViewController){
+    navigationController?.pushViewController(viewController, animated: true)
+  }
 
 
 }
@@ -74,6 +79,9 @@ extension HomeViewController:HomeViewInterface {
   func reloadData() {
     collectionView.reloadData()
   }
+  func pushToAlbumDetailsVC() {
+    pushNavigation(viewController: AlbumDetailsViewController())
+  }
 
 }
 
@@ -96,6 +104,10 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
     viewModel.configureHeaderView(kind: kind, collectionView: collectionView, indexPath: indexPath)
 
 
+  }
+
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    viewModel.didSelectRowAt(indexPath: indexPath)
   }
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //            let defaultOffset = view.safeAreaInsets.top
