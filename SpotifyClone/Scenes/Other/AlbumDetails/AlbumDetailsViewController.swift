@@ -50,6 +50,7 @@ extension AlbumDetailsViewController:AlbumDetailsViewInterface {
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.register(AlbumDetailsCollectionViewCell.self, forCellWithReuseIdentifier: AlbumDetailsCollectionViewCell.identifier)
+    collectionView.register(AlbumHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier:AlbumHeaderCollectionReusableView.identifier )
   }
 
   func fetchData() {
@@ -73,5 +74,9 @@ extension AlbumDetailsViewController:UICollectionViewDelegate,UICollectionViewDa
     viewModel.cellForItemAt(collectionView: collectionView, indexPath: indexPath)
   }
 
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    viewModel.configureHeader(indexPath: indexPath, album: chosenAlbum, collectionView: collectionView, kind: kind)
+
+    }
 
 }

@@ -10,7 +10,7 @@ import UIKit
 
 extension UIButton {
 
-  func configureStyle(title:String,titleColor:UIColor,backgroundClr:UIColor?=nil,cornerRds:CGFloat?=nil) {
+  func configureStyleTitleButton(title:String,titleColor:UIColor,backgroundClr:UIColor?=nil,cornerRds:CGFloat?=nil) {
     translatesAutoresizingMaskIntoConstraints = false
     setTitle(title, for: .normal)
     setTitleColor(titleColor, for: .normal)
@@ -18,6 +18,15 @@ extension UIButton {
     clipsToBounds = true
     layer.cornerRadius = cornerRds ?? 0
     
+  }
+
+  func configureStyleSymbolButton(systemName:String,backgroundClr:UIColor?=nil,cornerRds:CGFloat?=nil,tintClr:UIColor) {
+    backgroundColor = backgroundClr
+    tintColor = tintClr
+    setImage(UIImage(systemName: systemName), for: .normal)
+    layer.cornerRadius = cornerRds ?? 0
+    layer.masksToBounds = true
+
   }
 }
 

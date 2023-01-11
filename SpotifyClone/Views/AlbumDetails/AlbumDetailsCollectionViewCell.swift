@@ -8,7 +8,6 @@
 import UIKit
 
 class AlbumDetailsCollectionViewCell: UICollectionViewCell {
-
   private let albumNamelbl = UILabel()
   private let artistNameLbl = UILabel()
   private let moreButton = UIButton()
@@ -32,7 +31,7 @@ class AlbumDetailsCollectionViewCell: UICollectionViewCell {
     artistNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
     artistNameLbl.text = "Pink Floyd"
 
-    moreButton.configureStyle(title: "...", titleColor: .gray)
+    moreButton.configureStyleTitleButton(title: "...", titleColor: .gray)
   }
 
   private func layout(){

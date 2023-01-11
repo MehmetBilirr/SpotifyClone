@@ -35,7 +35,7 @@ extension WelcomeViewController:WelcomeViewInterface {
     navigationController?.navigationBar.prefersLargeTitles = true
     navigationController?.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
 
-    signInButton.configureStyle(title: "Sign In", titleColor: .black, backgroundClr: .white.withAlphaComponent(0.9),cornerRds: signInButton.frame.height / 2)
+    signInButton.configureStyleTitleButton(title: "Sign In", titleColor: .black, backgroundClr: .white.withAlphaComponent(0.9),cornerRds: signInButton.frame.height / 2)
 
     signInButton.addTarget(self, action: #selector(didTapSignInButton(_:)), for: .touchUpInside)
 

@@ -14,6 +14,7 @@ protocol AlbumDetailsViewModelInterface {
   func fetchData(album:Album)
   func cellForItemAt(collectionView:UICollectionView,indexPath:IndexPath)->UICollectionViewCell
   func numberOfItemsInSection()->Int
+  func configureHeader(indexPath:IndexPath,album:Album,collectionView:UICollectionView,kind:String)->UICollectionReusableView
 
 }
 
@@ -51,8 +52,8 @@ extension AlbumDetailsViewModel:AlbumDetailsViewModelInterface {
   }
 
   private func configureTracks(album:AlbumDetailsResponse){
-    tracks = album.tracks.items.compactMap({ track in
-        .init(name: track.name, artistName: track.artists.first?.name ?? "", image: nil)
+    tracks = album.tracks.items.compactMap({
+      .init(name: $0.name, artistName: $0.artists.first?.name ?? "", image: nil)
     })
     view?.reloadData()
 
@@ -67,6 +68,19 @@ extension AlbumDetailsViewModel:AlbumDetailsViewModelInterface {
   func numberOfItemsInSection() -> Int {
     return tracks.count
   }
+
+  func configureHeader(indexPath: IndexPath, album: Album, collectionView: UICollectionView, kind: String) -> UICollectionReusableView {
+    guard let header = collectionView.dequeueReusableSupplementaryView(
+        ofKind: kind,
+        withReuseIdentifier: AlbumHeaderCollectionReusableView.identifier,
+        for: indexPath) as? AlbumHeaderCollectionReusableView,
+          kind == UICollectionView.elementKindSectionHeader else {
+        return UICollectionReusableView()
+    }
+    header.configure(album: album)
+    return header
+  }
+
 
 
 }
