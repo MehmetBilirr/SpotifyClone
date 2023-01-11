@@ -1,18 +1,17 @@
 //
-//  RecommendedTracksCollectionViewCell.swift
+//  AlbumDetailsCollectionViewCell.swift
 //  SpotifyClone
 //
-//  Created by Mehmet Bilir on 7.01.2023.
+//  Created by Mehmet Bilir on 11.01.2023.
 //
 
 import UIKit
-import SnapKit
 
-class TracksCollectionViewCell: UICollectionViewCell {
+class AlbumDetailsCollectionViewCell: UICollectionViewCell {
 
-  private let albumImageView = UIImageView()
   private let albumNamelbl = UILabel()
   private let artistNameLbl = UILabel()
+  private let moreButton = UIButton()
   override init(frame: CGRect) {
     super.init(frame: frame)
     style()
@@ -27,43 +26,39 @@ class TracksCollectionViewCell: UICollectionViewCell {
 
   private func style(){
 
-    backgroundColor = .systemBackground
-
-    albumImageView.configureImageView(imageName: "dummyalbum")
-
     albumNamelbl.configureStyle(size: 18, weight: .semibold, color: .white)
     albumNamelbl.text = "Dark Side Of the Moon"
 
     artistNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
     artistNameLbl.text = "Pink Floyd"
+
+    moreButton.configureStyle(title: "...", titleColor: .gray)
   }
 
   private func layout(){
 
-    contentView.addSubview(albumImageView)
-    albumImageView.snp.makeConstraints { make in
-      make.top.left.equalToSuperview().offset(5)
-      make.bottom.equalToSuperview().offset(-10)
-      make.width.equalTo(40)
-
-    }
 
     contentView.addSubview(albumNamelbl)
 
     albumNamelbl.snp.makeConstraints { make in
-      make.left.equalTo(albumImageView.snp.right).offset(20)
-      make.top.equalTo(albumImageView.snp.top)
+      make.left.equalToSuperview().offset(5)
+      make.centerY.equalTo(contentView.snp.centerY)
     }
 
     contentView.addSubview(artistNameLbl)
     artistNameLbl.snp.makeConstraints { make in
       make.left.equalTo(albumNamelbl.snp.left)
-      make.bottom.equalTo(albumImageView.snp.bottom)
+      make.top.equalTo(albumNamelbl.snp.bottom)
+    }
+
+    contentView.addSubview(moreButton)
+    moreButton.snp.makeConstraints { make in
+      make.centerY.equalTo(albumNamelbl.snp.centerY)
+      make.right.equalToSuperview()
     }
   }
 
   func configure(track:SpotifyModel.TrackModel){
-    albumImageView.sd_setImage(with: track.image?.asURL)
     albumNamelbl.text = track.name
     artistNameLbl.text = track.artistName
   }

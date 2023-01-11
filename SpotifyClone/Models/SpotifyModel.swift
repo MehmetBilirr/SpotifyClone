@@ -26,7 +26,7 @@ struct SpotifyModel {
   struct TrackModel {
       let name: String
       let artistName: String
-      let image: String
+      let image: String?
   }
   
 }

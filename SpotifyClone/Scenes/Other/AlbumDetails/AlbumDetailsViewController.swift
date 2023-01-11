@@ -8,18 +8,31 @@
 import UIKit
 
 protocol AlbumDetailsViewInterface:AnyObject {
+  var viewModel:AlbumDetailsViewModel{get set}
   func configureCollectionView()
+  func fetchData()
+  func reloadData()
 
 }
 
 class AlbumDetailsViewController: UIViewController {
+  var chosenAlbum:Album
+  lazy var viewModel = AlbumDetailsViewModel(view: self)
+  init(album:Album){
+    self.chosenAlbum = album
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
     return self.collectionView.albumDetailSectionLayout(section: sectionIndex)
 
   })
     override func viewDidLoad() {
         super.viewDidLoad()
-      configureCollectionView()
+      viewModel.viewDidLoad()
 
     }
 
@@ -32,12 +45,19 @@ class AlbumDetailsViewController: UIViewController {
 }
 
 extension AlbumDetailsViewController:AlbumDetailsViewInterface {
+
   func configureCollectionView() {
     collectionView.delegate = self
     collectionView.dataSource = self
-    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    collectionView.register(AlbumDetailsCollectionViewCell.self, forCellWithReuseIdentifier: AlbumDetailsCollectionViewCell.identifier)
   }
 
+  func fetchData() {
+    viewModel.fetchData(album: chosenAlbum)
+  }
+  func reloadData() {
+    collectionView.reloadData()
+  }
 
 }
 
@@ -46,13 +66,11 @@ extension AlbumDetailsViewController:UICollectionViewDelegate,UICollectionViewDa
     1
   }
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    20
+    viewModel.numberOfItemsInSection()
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-    cell.backgroundColor = .blue
-    return cell
+    viewModel.cellForItemAt(collectionView: collectionView, indexPath: indexPath)
   }
 
 

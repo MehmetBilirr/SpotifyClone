@@ -8,11 +8,12 @@
 import UIKit
 
 protocol HomeViewInterface:AnyObject {
+  var viewModel:HomeViewModel{get set}
   func configureCollectionView()
   func configureNavBarItems()
   func fetchData()
   func reloadData()
-  func pushToAlbumDetailsVC()
+  func pushToAlbumDetailsVC(album:Album)
 
 
   
@@ -24,7 +25,7 @@ class HomeViewController: UIViewController {
     return self.collectionView.browseSectionLayout(section: sectionIndex)
 
   })
-  private lazy var viewModel = HomeViewModel(view: self)
+  lazy var viewModel = HomeViewModel(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -79,8 +80,8 @@ extension HomeViewController:HomeViewInterface {
   func reloadData() {
     collectionView.reloadData()
   }
-  func pushToAlbumDetailsVC() {
-    pushNavigation(viewController: AlbumDetailsViewController())
+  func pushToAlbumDetailsVC(album:Album) {
+    pushNavigation(viewController: AlbumDetailsViewController(album: album))
   }
 
 }

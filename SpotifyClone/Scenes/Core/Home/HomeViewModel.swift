@@ -203,7 +203,7 @@ extension HomeViewModel:HomeViewModelInterface {
     switch section {
 
     case .newReleases:
-      view?.pushToAlbumDetailsVC()
+      view?.pushToAlbumDetailsVC(album: albums[indexPath.row])
     case .featuredPlaylists:
       return
     case .recommendedTracks:
