@@ -10,10 +10,10 @@ import UIKit
 
 extension UIImageView {
 
-  func configureImageView(imageName:String?=nil){
+  func configureImageView(imageName:String?=nil,contentModee:UIView.ContentMode){
     translatesAutoresizingMaskIntoConstraints = false
     layer.cornerRadius = self.frame.width / 2
-    contentMode = .scaleAspectFill
+    contentMode = contentModee
     clipsToBounds = true
     layer.masksToBounds = true
     image = UIImage(named: imageName ?? "")

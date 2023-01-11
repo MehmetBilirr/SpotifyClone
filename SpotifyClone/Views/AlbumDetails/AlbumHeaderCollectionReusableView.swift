@@ -26,7 +26,7 @@ class AlbumHeaderCollectionReusableView: UICollectionReusableView {
   }
   private func style(){
 
-    albumImageView.configureImageView(imageName: "dummyalbum")
+    albumImageView.configureImageView(contentModee: .scaleAspectFit)
 
     albumNameLbl.configureStyle(size: 20, weight: .bold, color: .white)
     albumNameLbl.text = "Dark Side Of The Moon"

@@ -29,7 +29,7 @@ class TracksCollectionViewCell: UICollectionViewCell {
 
     backgroundColor = .systemBackground
 
-    albumImageView.configureImageView(imageName: "dummyalbum")
+    albumImageView.configureImageView(contentModee: .scaleAspectFill)
 
     albumNamelbl.configureStyle(size: 18, weight: .semibold, color: .white)
     albumNamelbl.text = "Dark Side Of the Moon"
@@ -43,8 +43,8 @@ class TracksCollectionViewCell: UICollectionViewCell {
     contentView.addSubview(albumImageView)
     albumImageView.snp.makeConstraints { make in
       make.top.left.equalToSuperview().offset(5)
-      make.bottom.equalToSuperview().offset(-10)
       make.width.equalTo(40)
+      make.height.equalTo(40)
 
     }
 

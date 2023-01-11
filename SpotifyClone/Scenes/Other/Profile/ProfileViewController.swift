@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController:ProfileViewInterface {
 
   func style() {
-    imageView.configureImageView()
+    imageView.configureImageView(contentModee: .scaleAspectFit)
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
       self.imageView.sd_setImage(with: self.viewModel.imageUrl().asURL)
     }

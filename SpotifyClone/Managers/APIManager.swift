@@ -59,10 +59,16 @@ final class APIManager {
 
     request(route: .getAlbumDetails(albumID), method: .get, completion: completion)
   }
+
+  func getPlaylistDetails(playlistId:String,completion:@escaping(Result<PlaylistDetailsResponse,Error>)->Void){
+
+    request(route: .getPlaylistDetails(playlistId), method: .get, completion: completion)
+
+  }
   
 
-//  func getAlbumDetails(albumID:String){
-//    createRequest(route: .getAlbumDetails(albumID), method: .get) { request in
+//  func getPlaylistDetails(playlistId:String){
+//    createRequest(route: .getPlaylistDetails(playlistId), method: .get) { request in
 //      URLSession.shared.dataTask(with: request) { data, response, error in
 //        if let data = data {
 //

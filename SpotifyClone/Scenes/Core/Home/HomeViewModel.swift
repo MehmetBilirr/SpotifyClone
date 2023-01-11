@@ -100,13 +100,13 @@ extension HomeViewModel:HomeViewModelInterface {
               let tracks = recommendedTracks?.tracks
         else { return }
 
-      self.apiManager.getAlbumDetails(albumID: releases.first?.id ?? "") { result in
-        switch  result {
+      self.apiManager.getPlaylistDetails(playlistId: playlists.first?.id ?? "") { result in
+        switch result {
 
-        case .success(let album):
-          print(album)
+        case .success(let playlist):
+          print(playlists)
         case .failure(let error):
-          print(error)
+          print(error.localizedDescription)
         }
       }
       self.configureViewModels(newAlbums: releases,playlists: playlists,tracks: tracks)
@@ -124,7 +124,7 @@ extension HomeViewModel:HomeViewModelInterface {
     })))
 
     sections.append(.featuredPlaylists(playlists.compactMap({
-      .init(name: $0.name, image: $0.images.first?.url ?? "", creatorName: $0.owner.displayName)
+      .init(name: $0.name, image: $0.images.first?.url ?? "", creatorName: $0.owner.displayName, description: $0.itemDescription)
     })))
 
     sections.append(.recommendedTracks(tracks.compactMap({

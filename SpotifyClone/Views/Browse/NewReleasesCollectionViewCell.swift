@@ -32,7 +32,7 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
     backgroundColor = .secondarySystemBackground
 
 
-    albumImageView.configureImageView(imageName: "dummyalbum")
+    albumImageView.configureImageView(contentModee: .scaleAspectFill)
     albumImageView.layer.cornerRadius = 20
     artistNameLbl.configureStyle(size: 18, weight: .light, color: .white)
     artistNameLbl.text = "Pink Floyd"

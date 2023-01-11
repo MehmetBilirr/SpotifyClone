@@ -21,6 +21,7 @@ struct SpotifyModel {
       let name: String
       let image: String
       let creatorName: String
+      let description:String
   }
 
   struct TrackModel {

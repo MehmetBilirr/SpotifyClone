@@ -63,6 +63,7 @@ extension HomeViewController:HomeViewInterface {
     view.addSubview(collectionView)
     collectionView.dataSource = self
     collectionView.delegate = self
+
     
     collectionView.register( NewReleasesCollectionViewCell.self,
                              forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
@@ -110,6 +111,7 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     viewModel.didSelectRowAt(indexPath: indexPath)
   }
+
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //            let defaultOffset = view.safeAreaInsets.top
 //
