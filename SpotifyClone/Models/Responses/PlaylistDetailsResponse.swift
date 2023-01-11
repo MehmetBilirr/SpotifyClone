@@ -23,13 +23,17 @@ struct PlaylistDetailsResponse: Codable {
         case id, images, name, owner
         case tracks
     }
-  struct PlaylistTracksResponse: Codable {
-      let items: [PlaylistItem]
-  }
 
-  struct PlaylistItem: Codable {
-      let track: Track
-  }
 }
+
+struct PlaylistTracksResponse: Codable {
+    let items: [PlaylistItem]
+
+}
+
+struct PlaylistItem: Codable {
+    let track: Track
+}
+
 
 

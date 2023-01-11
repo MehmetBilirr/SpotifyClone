@@ -16,16 +16,21 @@ protocol AlbumDetailsViewInterface:AnyObject {
 }
 
 class AlbumDetailsViewController: UIViewController {
-  var chosenAlbum:Album
+  var chosenAlbum:Album?
+  var chosenPlaylist:Playlist?
+  var item:DetailItemType?
   lazy var viewModel = AlbumDetailsViewModel(view: self)
-  init(album:Album){
-    self.chosenAlbum = album
+
+  init(item:DetailItemType){
+    self.item = item
     super.init(nibName: nil, bundle: nil)
   }
-
+  
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
     return self.collectionView.albumDetailSectionLayout(section: sectionIndex)
 
@@ -54,7 +59,9 @@ extension AlbumDetailsViewController:AlbumDetailsViewInterface {
   }
 
   func fetchData() {
-    viewModel.fetchData(album: chosenAlbum)
+    guard let item = item else {return}
+    viewModel.fetchData(item: item)
+    
   }
   func reloadData() {
     collectionView.reloadData()
@@ -75,7 +82,8 @@ extension AlbumDetailsViewController:UICollectionViewDelegate,UICollectionViewDa
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    viewModel.configureHeader(indexPath: indexPath, album: chosenAlbum, collectionView: collectionView, kind: kind)
+    guard let item = item else {return UICollectionReusableView()}
+    return viewModel.configureHeader(indexPath: indexPath, item: item, collectionView: collectionView, kind: kind)
 
     }
 

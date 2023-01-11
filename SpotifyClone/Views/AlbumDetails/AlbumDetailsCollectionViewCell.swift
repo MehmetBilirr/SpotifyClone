@@ -26,10 +26,9 @@ class AlbumDetailsCollectionViewCell: UICollectionViewCell {
   private func style(){
 
     albumNamelbl.configureStyle(size: 18, weight: .semibold, color: .white)
-    albumNamelbl.text = "Dark Side Of the Moon"
+
 
     artistNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
-    artistNameLbl.text = "Pink Floyd"
 
     moreButton.configureStyleTitleButton(title: "...", titleColor: .gray)
   }
@@ -49,7 +48,7 @@ class AlbumDetailsCollectionViewCell: UICollectionViewCell {
       make.left.equalTo(albumNamelbl.snp.left)
       make.top.equalTo(albumNamelbl.snp.bottom)
     }
-
+    
     contentView.addSubview(moreButton)
     moreButton.snp.makeConstraints { make in
       make.centerY.equalTo(albumNamelbl.snp.centerY)

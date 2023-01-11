@@ -40,7 +40,7 @@ extension UICollectionView {
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(60)),
+            heightDimension: .absolute(70)),
         elementKind: UICollectionView.elementKindSectionHeader,
         alignment: .top) ]
 
@@ -71,7 +71,23 @@ extension UICollectionView {
       return section
 
       //Playlists
-    case 1:
+    case 4:
+      let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+          widthDimension: .fractionalWidth(1),
+          heightDimension: .fractionalHeight(1)))
+      item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+      //Group
+      let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), subitem: item, count: 1)
+
+      //Section
+      let section = NSCollectionLayoutSection(group: verticalGroup)
+      section.boundarySupplementaryItems = sectionBoundaryItem
+      return section
+
+
+    default:
+
+
 
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
 
@@ -91,20 +107,6 @@ extension UICollectionView {
 
       let section = NSCollectionLayoutSection(group: horizontalGroup)
       section.orthogonalScrollingBehavior = .continuous
-      section.boundarySupplementaryItems = sectionBoundaryItem
-      return section
-
-
-    default:
-      let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
-          widthDimension: .fractionalWidth(1),
-          heightDimension: .fractionalHeight(1)))
-      item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-      //Group
-      let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), subitem: item, count: 1)
-
-      //Section
-      let section = NSCollectionLayoutSection(group: verticalGroup)
       section.boundarySupplementaryItems = sectionBoundaryItem
       return section
 

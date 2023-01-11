@@ -35,13 +35,13 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
     albumImageView.configureImageView(contentModee: .scaleAspectFill)
     albumImageView.layer.cornerRadius = 20
     artistNameLbl.configureStyle(size: 18, weight: .light, color: .white)
-    artistNameLbl.text = "Pink Floyd"
+
 
     albumNamelbl.configureStyle(size: 20, weight: .semibold, color: .white)
-    albumNamelbl.text = "Dark Side Of The Moon"
+
 
     trackCountLbl.configureStyle(size: 15, weight: .thin, color: .white)
-    trackCountLbl.text = "Tracks: 10"
+
 
 
   }

@@ -32,10 +32,10 @@ class TracksCollectionViewCell: UICollectionViewCell {
     albumImageView.configureImageView(contentModee: .scaleAspectFill)
 
     albumNamelbl.configureStyle(size: 18, weight: .semibold, color: .white)
-    albumNamelbl.text = "Dark Side Of the Moon"
+    
 
     artistNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
-    artistNameLbl.text = "Pink Floyd"
+
   }
 
   private func layout(){

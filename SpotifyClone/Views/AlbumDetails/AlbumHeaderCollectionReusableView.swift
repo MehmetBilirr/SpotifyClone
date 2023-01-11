@@ -10,10 +10,10 @@ import SnapKit
 
 class AlbumHeaderCollectionReusableView: UICollectionReusableView {
   static let identifier = "AlbumHeaderCollectionReusableView"
-  private let albumImageView = UIImageView()
+  private let imageView = UIImageView()
   private let playButton = UIButton()
-  private let albumNameLbl = UILabel()
-  private let dateLbl = UILabel()
+  private let nameLbl = UILabel()
+  private let descriptionLbl = UILabel()
   private let artistLbl = UILabel()
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -26,13 +26,13 @@ class AlbumHeaderCollectionReusableView: UICollectionReusableView {
   }
   private func style(){
 
-    albumImageView.configureImageView(contentModee: .scaleAspectFit)
+    imageView.configureImageView(contentModee: .scaleAspectFit)
 
-    albumNameLbl.configureStyle(size: 20, weight: .bold, color: .white)
-    albumNameLbl.text = "Dark Side Of The Moon"
+    nameLbl.configureStyle(size: 20, weight: .bold, color: .white)
+    nameLbl.text = "Dark Side Of The Moon"
 
-    dateLbl.configureStyle(size: 18, weight: .thin, color: .white)
-    dateLbl.text = "Release Date: 8 May 1972"
+    descriptionLbl.configureStyle(size: 18, weight: .thin, color: .white)
+    descriptionLbl.text = "Release Date: 8 May 1972"
 
     artistLbl.configureStyle(size: 18, weight: .thin, color: .white)
     artistLbl.text = "Pink Floyd"
@@ -43,8 +43,8 @@ class AlbumHeaderCollectionReusableView: UICollectionReusableView {
   }
 
   private func layout(){
-    addSubview(albumImageView)
-    albumImageView.snp.makeConstraints { make in
+    addSubview(imageView)
+    imageView.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(70)
       make.right.equalToSuperview().offset(-70)
       make.top.equalToSuperview()
@@ -53,37 +53,47 @@ class AlbumHeaderCollectionReusableView: UICollectionReusableView {
 
     addSubview(playButton)
     playButton.snp.makeConstraints { make in
-      make.centerX.equalTo(albumImageView.snp.right)
-      make.centerY.equalTo(albumImageView.snp.bottom)
+      make.centerX.equalTo(imageView.snp.right)
+      make.centerY.equalTo(imageView.snp.bottom)
       make.height.width.equalTo(50)
     }
 
-    addSubview(albumNameLbl)
-    albumNameLbl.snp.makeConstraints { make in
-      make.top.equalTo(albumImageView.snp.bottom).offset(10)
+    addSubview(nameLbl)
+    nameLbl.snp.makeConstraints { make in
+      make.top.equalTo(imageView.snp.bottom).offset(10)
       make.left.equalToSuperview().offset(5)
     }
 
-    addSubview(dateLbl)
-    dateLbl.snp.makeConstraints { make in
-      make.left.equalTo(albumNameLbl.snp.left)
-      make.top.equalTo(albumNameLbl.snp.bottom).offset(5)
+    addSubview(descriptionLbl)
+    descriptionLbl.snp.makeConstraints { make in
+      make.left.equalTo(nameLbl.snp.left)
+      make.top.equalTo(nameLbl.snp.bottom).offset(5)
     }
 
     addSubview(artistLbl)
     artistLbl.snp.makeConstraints { make in
-      make.left.equalTo(albumNameLbl.snp.left)
-      make.top.equalTo(dateLbl.snp.bottom).offset(5)
+      make.left.equalTo(nameLbl.snp.left)
+      make.top.equalTo(descriptionLbl.snp.bottom).offset(5)
     }
 
   }
 
 
-  func configure(album:Album){
-    albumImageView.sd_setImage(with: album.images.first?.url.asURL)
-    albumNameLbl.text = album.name
-    dateLbl.text = "Release Date: \(album.releaseDate)"
-    artistLbl.text = album.artists.first?.name ?? ""
+  func configure(item:DetailItemType){
+    switch item {
+    case .album(let album):
+      imageView.sd_setImage(with: album.images.first?.url.asURL)
+      nameLbl.text = album.name
+      descriptionLbl.text = "Release Date: \(album.releaseDate)"
+      artistLbl.text = album.artists.first?.name ?? ""
+    case .playlist(let playlist):
+      imageView.sd_setImage(with: playlist.images.first?.url.asURL)
+      nameLbl.text = playlist.name
+      artistLbl.text = playlist.itemDescription
+      descriptionLbl.text = playlist.owner.displayName
+
+    }
+
 
   }
 

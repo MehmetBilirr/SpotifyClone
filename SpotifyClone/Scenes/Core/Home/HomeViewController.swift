@@ -13,7 +13,8 @@ protocol HomeViewInterface:AnyObject {
   func configureNavBarItems()
   func fetchData()
   func reloadData()
-  func pushToAlbumDetailsVC(album:Album)
+  func pushToAlbumDetailsVC(item:DetailItemType)
+
 
 
   
@@ -30,8 +31,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
       viewModel.viewDidLoad()
-      
 
+     
 
     }
 
@@ -48,6 +49,8 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController:HomeViewInterface {
+
+
   func configureNavBarItems() {
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage( systemName: "gear"), style: .done, target: self, action: #selector(didTapSettings) )
   }
@@ -81,8 +84,10 @@ extension HomeViewController:HomeViewInterface {
   func reloadData() {
     collectionView.reloadData()
   }
-  func pushToAlbumDetailsVC(album:Album) {
-    pushNavigation(viewController: AlbumDetailsViewController(album: album))
+  func pushToAlbumDetailsVC(item:DetailItemType) {
+    let vc = AlbumDetailsViewController(item: item)
+    navigationController?.pushViewController(vc, animated: true)
+
   }
 
 }

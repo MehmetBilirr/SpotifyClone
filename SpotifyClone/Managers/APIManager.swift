@@ -65,22 +65,32 @@ final class APIManager {
     request(route: .getPlaylistDetails(playlistId), method: .get, completion: completion)
 
   }
-  
 
-//  func getPlaylistDetails(playlistId:String){
-//    createRequest(route: .getPlaylistDetails(playlistId), method: .get) { request in
-//      URLSession.shared.dataTask(with: request) { data, response, error in
-//        if let data = data {
-//
-//            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
-//            print("The response is :\n \(responseString)")
-//
-//
-//        }
-//      }.resume()
-//    }
-//
-//  }
+  func getUserPlaylist(completion:@escaping(Result<PlaylistResponse,Error>)->Void){
+
+    request(route: .userPlaylists, method: .get, completion: completion)
+  }
+
+  func getUserRecentlyPlayed(completion:@escaping(Result<PlaylistTracksResponse,Error>)->Void){
+    request(route: .userRecentlyPlayed, method: .get, completion: completion)
+  }
+
+
+
+  func getUserRecently(){
+    createRequest(route: .userRecentlyPlayed, method: .get) { request in
+      URLSession.shared.dataTask(with: request) { data, response, error in
+        if let data = data {
+
+            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
+            print("The response is :\n \(responseString)")
+
+
+        }
+      }.resume()
+    }
+
+  }
 
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 

@@ -11,10 +11,10 @@ import UIKit
 protocol AlbumDetailsViewModelInterface {
   var view:AlbumDetailsViewInterface?{get set}
   func viewDidLoad()
-  func fetchData(album:Album)
+  func fetchData(item:DetailItemType)
   func cellForItemAt(collectionView:UICollectionView,indexPath:IndexPath)->UICollectionViewCell
   func numberOfItemsInSection()->Int
-  func configureHeader(indexPath:IndexPath,album:Album,collectionView:UICollectionView,kind:String)->UICollectionReusableView
+  func configureHeader(indexPath:IndexPath,item:DetailItemType,collectionView:UICollectionView,kind:String)->UICollectionReusableView
 
 }
 
@@ -38,17 +38,34 @@ extension AlbumDetailsViewModel:AlbumDetailsViewModelInterface {
     view?.fetchData()
   }
 
-  func fetchData(album: Album) {
+  func fetchData(item: DetailItemType) {
 
-    apiManager.getAlbumDetails(albumID: album.id) { result in
-      switch result {
+    switch item {
+    case .album(let album):
+      apiManager.getAlbumDetails(albumID: album.id) { result in
+        switch result {
 
-      case .success(let album):
-        self.configureTracks(album: album)
-      case .failure(let error):
-        print(error.localizedDescription)
+        case .success(let album):
+          self.configureTracks(album: album)
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
+      }
+    case .playlist(let playlist):
+      apiManager.getPlaylistDetails(playlistId: playlist.id) { result in
+        switch result {
+
+        case .success(let playlist):
+          self.tracks = playlist.tracks.items.compactMap({
+            .init(name: $0.track.name, artistName: $0.track.artists.first?.name ?? "", image: nil)
+          })
+          self.view?.reloadData()
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
       }
     }
+
   }
 
   private func configureTracks(album:AlbumDetailsResponse){
@@ -69,7 +86,7 @@ extension AlbumDetailsViewModel:AlbumDetailsViewModelInterface {
     return tracks.count
   }
 
-  func configureHeader(indexPath: IndexPath, album: Album, collectionView: UICollectionView, kind: String) -> UICollectionReusableView {
+  func configureHeader(indexPath: IndexPath, item: DetailItemType, collectionView: UICollectionView, kind: String) -> UICollectionReusableView {
     guard let header = collectionView.dequeueReusableSupplementaryView(
         ofKind: kind,
         withReuseIdentifier: AlbumHeaderCollectionReusableView.identifier,
@@ -77,7 +94,7 @@ extension AlbumDetailsViewModel:AlbumDetailsViewModelInterface {
           kind == UICollectionView.elementKindSectionHeader else {
         return UICollectionReusableView()
     }
-    header.configure(album: album)
+    header.configure(item: item)
     return header
   }
 
