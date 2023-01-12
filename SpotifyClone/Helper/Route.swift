@@ -44,7 +44,7 @@ enum Route {
     case .getUserPlaylists:
       return "/me/playlists"
     case.getUserRecentlyPlayed:
-      return "/me/player/recently-played?limit=20"
+      return "/me/player/recently-played?limit=50"
     case .getUserSavedAlbums:
       return "/me/albums?limit=20"
     }

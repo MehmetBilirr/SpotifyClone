@@ -10,6 +10,26 @@ import UIKit
 
 extension UICollectionView {
 
+  func searchSectionLayout(section:Int)->NSCollectionLayoutSection{
+
+
+    switch section {
+    default:
+      let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+          widthDimension: .fractionalWidth(1),
+          heightDimension: .fractionalHeight(1)))
+      item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+      //Group
+      let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.2)), subitem: item, count: 2)
+
+      //Section
+      let section = NSCollectionLayoutSection(group: horizontalGroup)
+
+      return section
+    }
+  }
+
+
   func albumDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
 
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(

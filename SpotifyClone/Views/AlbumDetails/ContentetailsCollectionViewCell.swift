@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AlbumDetailsCollectionViewCell: UICollectionViewCell {
+class ContentetailsCollectionViewCell: UICollectionViewCell {
   private let albumNamelbl = UILabel()
   private let artistNameLbl = UILabel()
   private let moreButton = UIButton()

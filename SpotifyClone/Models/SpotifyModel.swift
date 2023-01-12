@@ -22,6 +22,9 @@ struct SpotifyModel {
       let creatorName: String
       let description:String
 
+    static func == (lhs: PlaylistModel, rhs: PlaylistModel) -> Bool {
+    return lhs.name == rhs.name
+    }
  
   }
 

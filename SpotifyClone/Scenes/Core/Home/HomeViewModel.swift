@@ -172,7 +172,7 @@ extension HomeViewModel:HomeViewModelInterface {
     self.tracks = tracks
     self.userPlaylists = userPlaylists
 
-    userRecentlyPlayed = userRecently.compactMap({ playlistItem in
+    self.userRecentlyPlayed = userRecently.compactMap({ playlistItem in
       guard let album = playlistItem.track.album else {return .init(albumType: "", artists: [], availableMarkets: [], id: "", images: [], name: "", releaseDate: "", totalTracks: 0, externalUrls: .init(spotify: ""))}
       return .init(albumType: album.albumType, artists: album.artists, availableMarkets: album.availableMarkets, id: album.id, images: album.images, name: album.name, releaseDate: album.releaseDate, totalTracks: album.totalTracks, externalUrls: album.externalUrls)
     })

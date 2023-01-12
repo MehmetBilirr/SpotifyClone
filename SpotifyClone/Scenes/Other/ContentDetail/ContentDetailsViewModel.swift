@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-protocol AlbumDetailsViewModelInterface {
-  var view:AlbumDetailsViewInterface?{get set}
+protocol ContentDetailsViewModelInterface {
+  var view:ContentDetailsViewInterface?{get set}
   func viewDidLoad()
   func fetchData(item:DetailItemType)
   func cellForItemAt(collectionView:UICollectionView,indexPath:IndexPath)->UICollectionViewCell
@@ -18,12 +18,12 @@ protocol AlbumDetailsViewModelInterface {
 
 }
 
-class AlbumDetailsViewModel {
-  weak var view: AlbumDetailsViewInterface?
+class ContentDetailsViewModel {
+  weak var view: ContentDetailsViewInterface?
   var tracks = [SpotifyModel.TrackModel]()
   var apiManager:APIManager
 
-  init(view:AlbumDetailsViewInterface,apiManager:APIManager = APIManager.shared){
+  init(view:ContentDetailsViewInterface,apiManager:APIManager = APIManager.shared){
     self.view = view
     self.apiManager = apiManager
   }
@@ -31,11 +31,12 @@ class AlbumDetailsViewModel {
 }
 
 
-extension AlbumDetailsViewModel:AlbumDetailsViewModelInterface {
+extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
 
   func viewDidLoad() {
     view?.configureCollectionView()
     view?.fetchData()
+    view?.configureShareButton()
   }
 
   func fetchData(item: DetailItemType) {
@@ -77,7 +78,7 @@ extension AlbumDetailsViewModel:AlbumDetailsViewModelInterface {
   }
 
   func cellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDetailsCollectionViewCell.identifier, for: indexPath) as! AlbumDetailsCollectionViewCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentetailsCollectionViewCell.identifier, for: indexPath) as! ContentetailsCollectionViewCell
     cell.configure(track: tracks[indexPath.row])
     return cell
   }
@@ -89,8 +90,8 @@ extension AlbumDetailsViewModel:AlbumDetailsViewModelInterface {
   func configureHeader(indexPath: IndexPath, item: DetailItemType, collectionView: UICollectionView, kind: String) -> UICollectionReusableView {
     guard let header = collectionView.dequeueReusableSupplementaryView(
         ofKind: kind,
-        withReuseIdentifier: AlbumHeaderCollectionReusableView.identifier,
-        for: indexPath) as? AlbumHeaderCollectionReusableView,
+        withReuseIdentifier: ContentHeaderCollectionReusableView.identifier,
+        for: indexPath) as? ContentHeaderCollectionReusableView,
           kind == UICollectionView.elementKindSectionHeader else {
         return UICollectionReusableView()
     }

@@ -7,19 +7,20 @@
 
 import UIKit
 
-protocol AlbumDetailsViewInterface:AnyObject {
-  var viewModel:AlbumDetailsViewModel{get set}
+protocol ContentDetailsViewInterface:AnyObject {
+  var viewModel:ContentDetailsViewModel{get set}
   func configureCollectionView()
   func fetchData()
   func reloadData()
+  func configureShareButton()
 
 }
 
-class AlbumDetailsViewController: UIViewController {
+class ContentDetailsViewController: UIViewController {
   var chosenAlbum:Album?
   var chosenPlaylist:Playlist?
   var item:DetailItemType?
-  lazy var viewModel = AlbumDetailsViewModel(view: self)
+  lazy var viewModel = ContentDetailsViewModel(view: self)
 
   init(item:DetailItemType){
     self.item = item
@@ -39,6 +40,7 @@ class AlbumDetailsViewController: UIViewController {
         super.viewDidLoad()
       viewModel.viewDidLoad()
 
+
     }
 
   override func viewDidLayoutSubviews() {
@@ -46,16 +48,38 @@ class AlbumDetailsViewController: UIViewController {
     collectionView.frame = view.bounds
   }
 
+  @objc private func didTapShare() {
+
+    switch item {
+    case .album(let album):
+      guard let url = URL(string: album.externalUrls.spotify) else {return}
+      activityView(url: url)
+    case .playlist(let playlist):
+      guard let url = URL(string: playlist.externalUrls.spotify) else {return}
+      activityView(url: url)
+    default:
+      break
+    }
+  }
+
+  private func activityView(url:URL){
+    let vc = UIActivityViewController(
+        activityItems: [url],
+        applicationActivities: [])
+    vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+    present(vc, animated: true)
+  }
+
 
 }
 
-extension AlbumDetailsViewController:AlbumDetailsViewInterface {
+extension ContentDetailsViewController:ContentDetailsViewInterface {
 
   func configureCollectionView() {
     collectionView.delegate = self
     collectionView.dataSource = self
-    collectionView.register(AlbumDetailsCollectionViewCell.self, forCellWithReuseIdentifier: AlbumDetailsCollectionViewCell.identifier)
-    collectionView.register(AlbumHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier:AlbumHeaderCollectionReusableView.identifier )
+    collectionView.register(ContentetailsCollectionViewCell.self, forCellWithReuseIdentifier: ContentetailsCollectionViewCell.identifier)
+    collectionView.register(ContentHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier:ContentHeaderCollectionReusableView.identifier )
   }
 
   func fetchData() {
@@ -66,10 +90,16 @@ extension AlbumDetailsViewController:AlbumDetailsViewInterface {
   func reloadData() {
     collectionView.reloadData()
   }
+  func configureShareButton() {
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+      barButtonSystemItem: .action,
+        target: self,
+        action: #selector(didTapShare))
+  }
 
 }
 
-extension AlbumDetailsViewController:UICollectionViewDelegate,UICollectionViewDataSource {
+extension ContentDetailsViewController:UICollectionViewDelegate,UICollectionViewDataSource {
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     1
   }

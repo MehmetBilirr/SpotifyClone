@@ -86,7 +86,7 @@ extension HomeViewController:HomeViewInterface {
     collectionView.reloadData()
   }
   func pushToAlbumDetailsVC(item:DetailItemType) {
-    let vc = AlbumDetailsViewController(item: item)
+    let vc = ContentDetailsViewController(item: item)
     navigationController?.pushViewController(vc, animated: true)
 
   }
