@@ -23,7 +23,7 @@ protocol HomeViewInterface:AnyObject {
 class HomeViewController: UIViewController {
 
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
-    return self.collectionView.browseSectionLayout(section: sectionIndex)
+    return self.collectionView.homeSectionLayout(section: sectionIndex)
 
   })
   lazy var viewModel = HomeViewModel(view: self)

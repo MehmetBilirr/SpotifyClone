@@ -1,5 +1,5 @@
 //
-//  SearchViewModel.swift
+//  CategoryViewModel.swift
 //  SpotifyClone
 //
 //  Created by Mehmet Bilir on 12.01.2023.
@@ -8,29 +8,28 @@
 import Foundation
 import UIKit
 
-protocol SearchViewModelInterface:AnyObject {
-  var view:SearchViewInterface?{get set}
+protocol CategoryViewModelInterface:AnyObject {
+  var view:CategoryViewInterface?{get set}
   func viewDidLoad()
   func fetchData()
   func cellForItemAt(_ indexPath:IndexPath,_ collectionView:UICollectionView)->UICollectionViewCell
   func numberOfItemsIn()->Int
-  func didSelectItemAt(_ indexPath:IndexPath)
 
 }
 
 
-class SearchViewModel{
-  weak var view: SearchViewInterface?
+class CategoryViewModel{
+  weak var view: CategoryViewInterface?
   let apiManager:APIManager?
   var categories = [Category]()
-  init(view:SearchViewInterface,apiManager:APIManager = APIManager.shared){
+  init(view:CategoryViewInterface,apiManager:APIManager = APIManager.shared){
     self.view = view
     self.apiManager = apiManager
   }
 
 }
 
-extension SearchViewModel:SearchViewModelInterface{
+extension CategoryViewModel:CategoryViewModelInterface{
 
   func viewDidLoad() {
     view?.configureCollectionView()
@@ -60,7 +59,4 @@ extension SearchViewModel:SearchViewModelInterface{
     return categories.count
   }
 
-  func didSelectItemAt(_ indexPath: IndexPath) {
-    view?.pushToView(category: categories[indexPath.row])
-  }
 }

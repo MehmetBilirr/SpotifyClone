@@ -10,6 +10,26 @@ import UIKit
 
 extension UICollectionView {
 
+  func categorySectionLayout(section:Int)->NSCollectionLayoutSection{
+
+    let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+
+    item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+    //Group
+
+
+    //vertical
+    let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.absolute(200)), subitem: item, count: 1)
+
+
+    //horizontal
+    let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)), subitem: verticalGroup, count: 2)
+
+    //Section
+    let section = NSCollectionLayoutSection(group: horizontalGroup)
+    return section
+  }
+
   func searchSectionLayout(section:Int)->NSCollectionLayoutSection{
 
 
@@ -46,7 +66,7 @@ extension UICollectionView {
           heightDimension: .fractionalHeight(1)))
       item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
       //Group
-      let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(70)), subitem: item, count: 1)
+      let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), subitem: item, count: 1)
 
       //Section
       let section = NSCollectionLayoutSection(group: verticalGroup)
@@ -55,7 +75,7 @@ extension UICollectionView {
     }
   }
 
-  func browseSectionLayout(section:Int)-> NSCollectionLayoutSection{
+  func homeSectionLayout(section:Int)-> NSCollectionLayoutSection{
 
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(
@@ -90,7 +110,7 @@ extension UICollectionView {
       section.boundarySupplementaryItems = sectionBoundaryItem
       return section
 
-      //Playlists
+      //Tracks
     case 5:
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
           widthDimension: .fractionalWidth(1),

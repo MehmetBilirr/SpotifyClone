@@ -1,27 +1,26 @@
 //
-//  SearchViewController.swift
+//  CategoryViewController.swift
 //  SpotifyClone
 //
-//  Created by Mehmet Bilir on 2.01.2023.
+//  Created by Mehmet Bilir on 12.01.2023.
 //
 
 import UIKit
 
-protocol SearchViewInterface:AnyObject {
-  var viewModel:SearchViewModel{get set}
+protocol CategoryViewInterface:AnyObject {
+  var viewModel:CategoryViewModel{get set}
   func configureCollectionView()
   func fetchData()
   func reloadData()
-  func pushToView(category:Category)
 }
 
-class SearchViewController: UIViewController {
+class CategoryViewController: UIViewController {
 
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
-    return self.collectionView.searchSectionLayout(section: sectionIndex)
+    return self.collectionView.categorySectionLayout(section: sectionIndex)
 
   })
-  internal lazy var viewModel = SearchViewModel(view: self)
+  internal lazy var viewModel = CategoryViewModel(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,7 +36,7 @@ class SearchViewController: UIViewController {
 }
 
 
-extension SearchViewController:SearchViewInterface {
+extension CategoryViewController:CategoryViewInterface {
 
   func configureCollectionView() {
     view.addSubview(collectionView)
@@ -51,7 +50,7 @@ extension SearchViewController:SearchViewInterface {
   }
 }
 
-extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSource {
+extension CategoryViewController:UICollectionViewDelegate,UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return viewModel.numberOfItemsIn()
   }
@@ -63,13 +62,6 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
   func reloadData() {
     collectionView.reloadData()
   }
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    viewModel.didSelectItemAt(indexPath)
-  }
 
-  func pushToView(category: Category) {
-    let vc = CategoryViewController()
-    navigationController?.pushViewController(vc, animated: true)
-  }
 
 }
