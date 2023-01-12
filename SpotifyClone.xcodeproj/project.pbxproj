@@ -22,6 +22,7 @@
 		F0D08DBE296A0A0C00144A83 /* FeaturedPlaylistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBD296A0A0C00144A83 /* FeaturedPlaylistCollectionViewCell.swift */; };
 		F0D08DC0296A0A2000144A83 /* TracksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBF296A0A2000144A83 /* TracksCollectionViewCell.swift */; };
 		F0D08DC2296A0E5600144A83 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DC1296A0E5600144A83 /* UILabel + Extension.swift */; };
+		F0D0CEAC2970285200F3D360 /* SavedAlbumsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D0CEAB2970285200F3D360 /* SavedAlbumsResponse.swift */; };
 		F0D2F4FB2967371F0052ECB8 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2F4FA2967371F0052ECB8 /* APIManager.swift */; };
 		F0D2F4FD2967384C0052ECB8 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2F4FC2967384C0052ECB8 /* Route.swift */; };
 		F0D2F4FF296739620052ECB8 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2F4FE296739620052ECB8 /* String + Extension.swift */; };
@@ -81,6 +82,7 @@
 		F0D08DBD296A0A0C00144A83 /* FeaturedPlaylistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0D08DBF296A0A2000144A83 /* TracksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0D08DC1296A0E5600144A83 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
+		F0D0CEAB2970285200F3D360 /* SavedAlbumsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumsResponse.swift; sourceTree = "<group>"; };
 		F0D2F4FA2967371F0052ECB8 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		F0D2F4FC2967384C0052ECB8 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		F0D2F4FE296739620052ECB8 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				F0EF49A92968B75400C178E8 /* RecommendationsResponse.swift */,
 				F0C2FDFA296EBFB8002247F7 /* AlbumDetailsResponse.swift */,
 				F0C2FE08296F2CB2002247F7 /* PlaylistDetailsResponse.swift */,
+				F0D0CEAB2970285200F3D360 /* SavedAlbumsResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				F0C2FDFB296EBFB8002247F7 /* AlbumDetailsResponse.swift in Sources */,
 				F0C1B54129646B6000DB54B4 /* AppError.swift in Sources */,
 				F0DE211A2963629000BAA2DD /* AuthViewController.swift in Sources */,
+				F0D0CEAC2970285200F3D360 /* SavedAlbumsResponse.swift in Sources */,
 				F0DE2112296359D800BAA2DD /* WelcomeViewController.swift in Sources */,
 				F0D08DC2296A0E5600144A83 /* UILabel + Extension.swift in Sources */,
 				F0DE2106296358A400BAA2DD /* HomeViewController.swift in Sources */,

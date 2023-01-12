@@ -19,8 +19,9 @@ enum Route {
   case getRecommendations(Set<String>)
   case getAlbumDetails(String)
   case getPlaylistDetails(String)
-  case userPlaylists
-  case userRecentlyPlayed
+  case getUserPlaylists
+  case getUserRecentlyPlayed
+  case getUserSavedAlbums
 
   
   var description:String {
@@ -40,11 +41,14 @@ enum Route {
       return "/albums/\(albumID)"
     case.getPlaylistDetails(let playlistID):
       return "/playlists/\(playlistID)"
-    case .userPlaylists:
+    case .getUserPlaylists:
       return "/me/playlists"
-    case.userRecentlyPlayed:
+    case.getUserRecentlyPlayed:
       return "/me/player/recently-played?limit=20"
+    case .getUserSavedAlbums:
+      return "/me/albums?limit=20"
     }
+
 
 
 

@@ -71,7 +71,7 @@ extension UICollectionView {
       return section
 
       //Playlists
-    case 4:
+    case 5:
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
           widthDimension: .fractionalWidth(1),
           heightDimension: .fractionalHeight(1)))

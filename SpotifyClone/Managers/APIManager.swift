@@ -68,17 +68,21 @@ final class APIManager {
 
   func getUserPlaylist(completion:@escaping(Result<PlaylistResponse,Error>)->Void){
 
-    request(route: .userPlaylists, method: .get, completion: completion)
+    request(route: .getUserPlaylists, method: .get, completion: completion)
   }
 
   func getUserRecentlyPlayed(completion:@escaping(Result<PlaylistTracksResponse,Error>)->Void){
-    request(route: .userRecentlyPlayed, method: .get, completion: completion)
+    request(route: .getUserRecentlyPlayed, method: .get, completion: completion)
+  }
+
+  func getUserSavedAlbums(completion:@escaping(Result<SavedAlbumsResponse,Error>)->Void) {
+    request(route: .getUserSavedAlbums, method: .get, completion: completion)
   }
 
 
 
-  func getUserRecently(){
-    createRequest(route: .userRecentlyPlayed, method: .get) { request in
+  func getSeveralAlbums(){
+    createRequest(route: .getUserSavedAlbums, method: .get) { request in
       URLSession.shared.dataTask(with: request) { data, response, error in
         if let data = data {
 

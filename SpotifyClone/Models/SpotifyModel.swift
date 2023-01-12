@@ -9,19 +9,20 @@ import Foundation
 
 struct SpotifyModel {
 
-  struct NewReleaseModel {
+  struct AlbumModel {
       let name: String
       let image: String
       let numberOfTracks: Int
       let artistName: String
   }
 
-  struct PlaylistModel {
-
+  struct PlaylistModel:Hashable {
       let name: String
       let image: String
       let creatorName: String
       let description:String
+
+ 
   }
 
   struct TrackModel {

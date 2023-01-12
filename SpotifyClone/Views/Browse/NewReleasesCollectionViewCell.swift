@@ -74,7 +74,7 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
 
   }
 
-   func configure(album:SpotifyModel.NewReleaseModel) {
+   func configure(album:SpotifyModel.AlbumModel) {
 
     albumNamelbl.text = album.name
     artistNameLbl.text = album.artistName
