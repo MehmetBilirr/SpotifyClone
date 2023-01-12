@@ -19,6 +19,9 @@
 		F0C2FE07296F20B8002247F7 /* ContentHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C2FE06296F20B8002247F7 /* ContentHeaderCollectionReusableView.swift */; };
 		F0C2FE09296F2CB2002247F7 /* PlaylistDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C2FE08296F2CB2002247F7 /* PlaylistDetailsResponse.swift */; };
 		F0C9867A29709B60009102CC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C9867929709B60009102CC /* SearchViewModel.swift */; };
+		F0C9867C29709E2C009102CC /* CategoriesResponse.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C9867B29709E2C009102CC /* CategoriesResponse.swift.swift */; };
+		F0C9867E29709E45009102CC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C9867D29709E44009102CC /* Category.swift */; };
+		F0C986812970A25D009102CC /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C986802970A25D009102CC /* CategoryCollectionViewCell.swift */; };
 		F0D08DBA296A035E00144A83 /* NewReleasesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DB9296A035E00144A83 /* NewReleasesCollectionViewCell.swift */; };
 		F0D08DBC296A070800144A83 /* UICollectionViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBB296A070800144A83 /* UICollectionViewCell + Extension.swift */; };
 		F0D08DBE296A0A0C00144A83 /* FeaturedPlaylistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBD296A0A0C00144A83 /* FeaturedPlaylistCollectionViewCell.swift */; };
@@ -81,6 +84,9 @@
 		F0C2FE06296F20B8002247F7 /* ContentHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F0C2FE08296F2CB2002247F7 /* PlaylistDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailsResponse.swift; sourceTree = "<group>"; };
 		F0C9867929709B60009102CC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		F0C9867B29709E2C009102CC /* CategoriesResponse.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesResponse.swift.swift; sourceTree = "<group>"; };
+		F0C9867D29709E44009102CC /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		F0C986802970A25D009102CC /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0D08DB9296A035E00144A83 /* NewReleasesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0D08DBB296A070800144A83 /* UICollectionViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Extension.swift"; sourceTree = "<group>"; };
 		F0D08DBD296A0A0C00144A83 /* FeaturedPlaylistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -152,6 +158,14 @@
 			path = AlbumDetails;
 			sourceTree = "<group>";
 		};
+		F0C9867F2970A240009102CC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F0C986802970A25D009102CC /* CategoryCollectionViewCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		F0D0CEAD297074E700F3D360 /* ContentDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +186,7 @@
 				F0C2FDFA296EBFB8002247F7 /* AlbumDetailsResponse.swift */,
 				F0C2FE08296F2CB2002247F7 /* PlaylistDetailsResponse.swift */,
 				F0D0CEAB2970285200F3D360 /* SavedAlbumsResponse.swift */,
+				F0C9867B29709E2C009102CC /* CategoriesResponse.swift.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -266,6 +281,7 @@
 				F0D2F51C296860D50052ECB8 /* Owner.swift */,
 				F0EF49A72968B6D600C178E8 /* Track.swift */,
 				F0D457D5296DD713000A9054 /* SpotifyModel.swift */,
+				F0C9867D29709E44009102CC /* Category.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -273,6 +289,7 @@
 		F0DE20FB2963575C00BAA2DD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F0C9867F2970A240009102CC /* Search */,
 				F0C2FE05296F2096002247F7 /* AlbumDetails */,
 				F0EBEBAA2969C9C3004DF189 /* Browse */,
 				F0DE20EE296355BD00BAA2DD /* LaunchScreen.storyboard */,
@@ -480,11 +497,13 @@
 			files = (
 				F0471664297075F800126F14 /* DateFormatter.swift in Sources */,
 				F0DE212329636BAA00BAA2DD /* UIImageView + Extension.swift in Sources */,
+				F0C9867E29709E45009102CC /* Category.swift in Sources */,
 				F0D08DC0296A0A2000144A83 /* TracksCollectionViewCell.swift in Sources */,
 				F0DE2127296372FD00BAA2DD /* WelcomeViewModel.swift in Sources */,
 				F0C2FDFB296EBFB8002247F7 /* AlbumDetailsResponse.swift in Sources */,
 				F0C1B54129646B6000DB54B4 /* AppError.swift in Sources */,
 				F0DE211A2963629000BAA2DD /* AuthViewController.swift in Sources */,
+				F0C986812970A25D009102CC /* CategoryCollectionViewCell.swift in Sources */,
 				F0D0CEAC2970285200F3D360 /* SavedAlbumsResponse.swift in Sources */,
 				F0DE2112296359D800BAA2DD /* WelcomeViewController.swift in Sources */,
 				F0D08DC2296A0E5600144A83 /* UILabel + Extension.swift in Sources */,
@@ -511,6 +530,7 @@
 				F0D2F4FB2967371F0052ECB8 /* APIManager.swift in Sources */,
 				F0C2FE07296F20B8002247F7 /* ContentHeaderCollectionReusableView.swift in Sources */,
 				F0EF49A82968B6D600C178E8 /* Track.swift in Sources */,
+				F0C9867C29709E2C009102CC /* CategoriesResponse.swift.swift in Sources */,
 				F0EBEBAC2969D553004DF189 /* UICollectionView + Extension.swift in Sources */,
 				F0D2F51529685B390052ECB8 /* NewReleasesResponse.swift in Sources */,
 				F0DE21032963586000BAA2DD /* TabBarViewController.swift in Sources */,

@@ -7,8 +7,11 @@
 
 import UIKit
 
-protocol SearchViewInterface {
+protocol SearchViewInterface:AnyObject {
+  var viewModel:SearchViewModel{get set}
   func configureCollectionView()
+  func fetchData()
+  func reloadData()
 }
 
 class SearchViewController: UIViewController {
@@ -17,11 +20,12 @@ class SearchViewController: UIViewController {
     return self.collectionView.searchSectionLayout(section: sectionIndex)
 
   })
+  internal lazy var viewModel = SearchViewModel(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-      configureCollectionView()
+      viewModel.viewDidLoad()
     }
 
   override func viewDidLayoutSubviews() {
@@ -38,19 +42,25 @@ extension SearchViewController:SearchViewInterface {
     view.addSubview(collectionView)
     collectionView.delegate = self
     collectionView.dataSource = self
-    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+  }
+
+  func fetchData() {
+    viewModel.fetchData()
   }
 }
 
 extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 20
+    return viewModel.numberOfItemsIn()
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-    cell.backgroundColor = .blue
-    return cell
+    viewModel.cellForItemAt(indexPath, collectionView)
+  }
+
+  func reloadData() {
+    collectionView.reloadData()
   }
 
 

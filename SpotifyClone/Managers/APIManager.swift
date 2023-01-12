@@ -79,22 +79,25 @@ final class APIManager {
     request(route: .getUserSavedAlbums, method: .get, completion: completion)
   }
 
-
-
-  func getSeveralAlbums(){
-    createRequest(route: .getUserSavedAlbums, method: .get) { request in
-      URLSession.shared.dataTask(with: request) { data, response, error in
-        if let data = data {
-
-            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
-            print("The response is :\n \(responseString)")
-
-
-        }
-      }.resume()
-    }
-
+  func getAllCategories(completion:@escaping(Result<CategoriesResponse,Error>)->Void){
+    request(route: .getAllCategories, method: .get, completion: completion)
   }
+
+//
+//  func getcat(){
+//    createRequest(route: .getAllCategories, method: .get) { request in
+//      URLSession.shared.dataTask(with: request) { data, response, error in
+//        if let data = data {
+//
+//            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
+//            print("The response is :\n \(responseString)")
+//
+//
+//        }
+//      }.resume()
+//    }
+//
+//  }
 
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 

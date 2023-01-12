@@ -31,7 +31,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
       viewModel.viewDidLoad()
-     
 
      
 
