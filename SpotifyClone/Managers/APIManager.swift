@@ -88,20 +88,20 @@ final class APIManager {
   }
 
 
-//  func getcatplaylists(id:String){
-//    createRequest(route: .getCategoryPlaylists(id), method: .get) { request in
-//      URLSession.shared.dataTask(with: request) { data, response, error in
-//        if let data = data {
-//
-//            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
-//            print("The response is :\n \(responseString)")
-//
-//
-//        }
-//      }.resume()
-//    }
-//
-//  }
+  func getalbums(id:String){
+    createRequest(route: .getUserSavedAlbums, method: .get) { request in
+      URLSession.shared.dataTask(with: request) { data, response, error in
+        if let data = data {
+
+            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
+            print("The response is :\n \(responseString)")
+
+
+        }
+      }.resume()
+    }
+
+  }
 
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 

@@ -19,11 +19,11 @@ protocol ContentDetailsViewInterface:AnyObject {
 class ContentDetailsViewController: UIViewController {
   var chosenAlbum:Album?
   var chosenPlaylist:Playlist?
-  var item:DetailItemType?
+  var content:ContentType?
   lazy var viewModel = ContentDetailsViewModel(view: self)
 
-  init(item:DetailItemType){
-    self.item = item
+  init(item:ContentType){
+    self.content = item
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -50,7 +50,7 @@ class ContentDetailsViewController: UIViewController {
 
   @objc private func didTapShare() {
 
-    switch item {
+    switch content {
     case .album(let album):
       guard let url = URL(string: album.externalUrls.spotify) else {return}
       activityView(url: url)
@@ -83,7 +83,7 @@ extension ContentDetailsViewController:ContentDetailsViewInterface {
   }
 
   func fetchData() {
-    guard let item = item else {return}
+    guard let item = content else {return}
     viewModel.fetchData(item: item)
     
   }
@@ -112,7 +112,7 @@ extension ContentDetailsViewController:UICollectionViewDelegate,UICollectionView
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    guard let item = item else {return UICollectionReusableView()}
+    guard let item = content else {return UICollectionReusableView()}
     return viewModel.configureHeader(indexPath: indexPath, item: item, collectionView: collectionView, kind: kind)
 
     }

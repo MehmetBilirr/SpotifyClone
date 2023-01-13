@@ -79,7 +79,7 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
   }
 
 
-  func configure(item:DetailItemType){
+  func configure(item:ContentType){
     switch item {
     case .album(let album):
       imageView.sd_setImage(with: album.images.first?.url.asURL)

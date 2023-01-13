@@ -19,7 +19,7 @@ enum BrowseSectionType {
   
 }
 
-enum DetailItemType{
+enum ContentType{
   case album(Album)
   case playlist(Playlist)
 }
@@ -173,12 +173,12 @@ extension HomeViewModel:HomeViewModelInterface {
     self.userPlaylists = userPlaylists
 
     self.userRecentlyPlayed = userRecently.compactMap({ playlistItem in
-      guard let album = playlistItem.track.album else {return .init(albumType: "", artists: [], availableMarkets: [], id: "", images: [], name: "", releaseDate: "", totalTracks: 0, externalUrls: .init(spotify: ""))}
-      return .init(albumType: album.albumType, artists: album.artists, availableMarkets: album.availableMarkets, id: album.id, images: album.images, name: album.name, releaseDate: album.releaseDate, totalTracks: album.totalTracks, externalUrls: album.externalUrls)
+      guard let album = playlistItem.track.album else {return .init(albumType: "", id: "", images: [], externalUrls: .init(spotify: ""), name: "", releaseDate: "", totalTracks: 0, artists: [], availableMarkets: [])}
+      return .init(albumType: album.albumType, id: album.id, images: album.images, externalUrls: album.externalUrls, name: album.name, releaseDate: album.releaseDate, totalTracks: album.totalTracks, artists: album.artists, availableMarkets: album.availableMarkets)
     })
 
     self.userSavedAlbums = userSavedAlbums.compactMap({
-      .init(albumType: $0.album.albumType, artists: $0.album.artists, availableMarkets: $0.album.availableMarkets, id: $0.album.id, images: $0.album.images, name: $0.album.name, releaseDate: $0.album.releaseDate, totalTracks: $0.album.totalTracks, externalUrls: $0.album.externalUrls)
+      .init(albumType: $0.album.albumType, id: $0.album.id, images: $0.album.images, externalUrls: $0.album.externalUrls, name: $0.album.name, releaseDate: $0.album.releaseDate, totalTracks: $0.album.totalTracks, artists: $0.album.artists, availableMarkets: $0.album.availableMarkets)
     })
    
     sections.append(.newReleases(newAlbums.compactMap({

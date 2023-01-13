@@ -12,6 +12,7 @@ protocol CategoryViewInterface:AnyObject {
   func configureCollectionView()
   func fetchData()
   func reloadData()
+  func pushToContentDetail(content:ContentType)
 }
 
 class CategoryViewController: UIViewController {
@@ -49,6 +50,13 @@ extension CategoryViewController:CategoryViewInterface {
     guard let category = category else{return}
     viewModel.fetchData(category: category)
   }
+  func reloadData() {
+    collectionView.reloadData()
+  }
+  func pushToContentDetail(content: ContentType) {
+    let vc = ContentDetailsViewController(item: content)
+    navigationController?.pushViewController(vc, animated: true)
+  }
 }
 
 extension CategoryViewController:UICollectionViewDelegate,UICollectionViewDataSource {
@@ -60,9 +68,8 @@ extension CategoryViewController:UICollectionViewDelegate,UICollectionViewDataSo
     viewModel.cellForItemAt(indexPath, collectionView)
   }
 
-  func reloadData() {
-    collectionView.reloadData()
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    viewModel.didSelectItemAt(indexPath)
   }
-
 
 }

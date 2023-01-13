@@ -11,10 +11,10 @@ import UIKit
 protocol ContentDetailsViewModelInterface {
   var view:ContentDetailsViewInterface?{get set}
   func viewDidLoad()
-  func fetchData(item:DetailItemType)
+  func fetchData(item:ContentType)
   func cellForItemAt(collectionView:UICollectionView,indexPath:IndexPath)->UICollectionViewCell
   func numberOfItemsInSection()->Int
-  func configureHeader(indexPath:IndexPath,item:DetailItemType,collectionView:UICollectionView,kind:String)->UICollectionReusableView
+  func configureHeader(indexPath:IndexPath,item:ContentType,collectionView:UICollectionView,kind:String)->UICollectionReusableView
 
 }
 
@@ -39,7 +39,7 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
     view?.configureShareButton()
   }
 
-  func fetchData(item: DetailItemType) {
+  func fetchData(item: ContentType) {
 
     switch item {
     case .album(let album):
@@ -87,7 +87,7 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
     return tracks.count
   }
 
-  func configureHeader(indexPath: IndexPath, item: DetailItemType, collectionView: UICollectionView, kind: String) -> UICollectionReusableView {
+  func configureHeader(indexPath: IndexPath, item: ContentType, collectionView: UICollectionView, kind: String) -> UICollectionReusableView {
     guard let header = collectionView.dequeueReusableSupplementaryView(
         ofKind: kind,
         withReuseIdentifier: ContentHeaderCollectionReusableView.identifier,
