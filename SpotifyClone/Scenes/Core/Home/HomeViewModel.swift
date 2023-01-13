@@ -68,7 +68,7 @@ extension HomeViewModel:HomeViewModelInterface {
 
 
     var newReleases: NewReleasesResponse?
-    var featuredPlaylists: FeaturedPlaylistsResponse?
+    var featuredPlaylists: CategoryPlaylistsResponse?
     var recommendedTracks: RecommendationsResponse?
     var userPlaylists : PlaylistResponse?
     var userRecently : PlaylistTracksResponse?
@@ -227,21 +227,21 @@ extension HomeViewModel:HomeViewModelInterface {
       cell.configure(album: albums[indexPath.row])
       return cell
     case .featuredPlaylists(let playlists):
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as! FeaturedPlaylistCollectionViewCell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
       cell.configure(model: playlists[indexPath.row])
       return cell
     case .userPlaylists(let playlists):
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as! FeaturedPlaylistCollectionViewCell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
       cell.configure(model: playlists[indexPath.row])
       return cell
 
     case.userRecently(let playlists):
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as! FeaturedPlaylistCollectionViewCell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
       cell.configure(model: playlists[indexPath.row])
       return cell
 
     case.userSavedAlbums(let playlists):
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as! FeaturedPlaylistCollectionViewCell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
       cell.configure(model: playlists[indexPath.row])
       return cell
     case .recommendedTracks(let tracks):

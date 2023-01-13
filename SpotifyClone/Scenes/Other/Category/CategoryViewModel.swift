@@ -11,7 +11,7 @@ import UIKit
 protocol CategoryViewModelInterface:AnyObject {
   var view:CategoryViewInterface?{get set}
   func viewDidLoad()
-  func fetchData()
+  func fetchData(category:Category)
   func cellForItemAt(_ indexPath:IndexPath,_ collectionView:UICollectionView)->UICollectionViewCell
   func numberOfItemsIn()->Int
 
@@ -21,7 +21,7 @@ protocol CategoryViewModelInterface:AnyObject {
 class CategoryViewModel{
   weak var view: CategoryViewInterface?
   let apiManager:APIManager?
-  var categories = [Category]()
+  var playlists = [SpotifyModel.PlaylistModel]()
   init(view:CategoryViewInterface,apiManager:APIManager = APIManager.shared){
     self.view = view
     self.apiManager = apiManager
@@ -36,12 +36,14 @@ extension CategoryViewModel:CategoryViewModelInterface{
     view?.fetchData()
   }
 
-  func fetchData() {
-    apiManager?.getAllCategories(completion: { result in
+  func fetchData(category:Category) {
+    apiManager?.getCategoryPlaylists(categoryId: category.id, completion: { result in
       switch result {
 
-      case .success(let categories):
-        self.categories = categories.categories.items
+      case .success(let category):
+        self.playlists = category.playlists.items.compactMap({
+         .init(name: $0.name, image: $0.images.first?.url ?? "", creatorName: $0.owner.displayName, description: "")
+        })
         self.view?.reloadData()
       case .failure(let error):
         print(error.localizedDescription)
@@ -50,13 +52,13 @@ extension CategoryViewModel:CategoryViewModelInterface{
   }
 
   func cellForItemAt(_ indexPath: IndexPath, _ collectionView: UICollectionView) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as! CategoryCollectionViewCell
-    cell.configure(category: categories[indexPath.row])
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
+    cell.configure(model: playlists[indexPath.row])
     return cell
   }
 
   func numberOfItemsIn() -> Int {
-    return categories.count
+    return playlists.count
   }
 
 }

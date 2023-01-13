@@ -69,6 +69,7 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
 
   func pushToView(category: Category) {
     let vc = CategoryViewController()
+    vc.category = category
     navigationController?.pushViewController(vc, animated: true)
   }
 

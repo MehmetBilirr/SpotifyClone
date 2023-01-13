@@ -15,7 +15,7 @@ protocol CategoryViewInterface:AnyObject {
 }
 
 class CategoryViewController: UIViewController {
-
+  var category:Category?
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
     return self.collectionView.categorySectionLayout(section: sectionIndex)
 
@@ -42,11 +42,12 @@ extension CategoryViewController:CategoryViewInterface {
     view.addSubview(collectionView)
     collectionView.delegate = self
     collectionView.dataSource = self
-    collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+    collectionView.register(PlaylistCollectionViewCell.self, forCellWithReuseIdentifier: PlaylistCollectionViewCell.identifier)
   }
 
   func fetchData() {
-    viewModel.fetchData()
+    guard let category = category else{return}
+    viewModel.fetchData(category: category)
   }
 }
 

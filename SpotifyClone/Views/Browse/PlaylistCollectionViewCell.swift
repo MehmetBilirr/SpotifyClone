@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
+class PlaylistCollectionViewCell: UICollectionViewCell {
   private let albumImageView = UIImageView()
   private let descriptionLbl = UILabel()
   override init(frame: CGRect) {

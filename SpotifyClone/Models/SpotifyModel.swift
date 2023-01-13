@@ -14,17 +14,17 @@ struct SpotifyModel {
       let image: String
       let numberOfTracks: Int
       let artistName: String
+
   }
 
-  struct PlaylistModel:Hashable {
+  struct PlaylistModel {
       let name: String
       let image: String
       let creatorName: String
       let description:String
 
-    static func == (lhs: PlaylistModel, rhs: PlaylistModel) -> Bool {
-    return lhs.name == rhs.name
-    }
+
+
  
   }
 
@@ -32,6 +32,7 @@ struct SpotifyModel {
       let name: String
       let artistName: String
       let image: String?
+
   }
   
 }

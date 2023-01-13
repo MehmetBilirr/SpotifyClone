@@ -70,7 +70,7 @@ extension HomeViewController:HomeViewInterface {
     
     collectionView.register( NewReleasesCollectionViewCell.self,
                              forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
-    collectionView.register(FeaturedPlaylistCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
+    collectionView.register(PlaylistCollectionViewCell.self, forCellWithReuseIdentifier: PlaylistCollectionViewCell.identifier)
 
     collectionView.register(TracksCollectionViewCell.self, forCellWithReuseIdentifier: TracksCollectionViewCell.identifier)
 

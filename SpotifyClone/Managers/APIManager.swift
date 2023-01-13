@@ -25,7 +25,7 @@ final class APIManager {
     request(route: .getNewReleases, method: .get, completion: completion)
   }
 
-  func getFeaturedPlaylists(completion:@escaping(Result<FeaturedPlaylistsResponse,Error>)->Void){
+  func getFeaturedPlaylists(completion:@escaping(Result<CategoryPlaylistsResponse,Error>)->Void){
     request(route: .getFeaturedPlaylists, method: .get, completion: completion)
   }
 
@@ -83,9 +83,13 @@ final class APIManager {
     request(route: .getAllCategories, method: .get, completion: completion)
   }
 
-//
-//  func getcat(){
-//    createRequest(route: .getAllCategories, method: .get) { request in
+  func getCategoryPlaylists(categoryId:String,completion:@escaping(Result<CategoryPlaylistsResponse,Error>)->Void){
+    request(route: .getCategoryPlaylists(categoryId), method: .get, completion: completion)
+  }
+
+
+//  func getcatplaylists(id:String){
+//    createRequest(route: .getCategoryPlaylists(id), method: .get) { request in
 //      URLSession.shared.dataTask(with: request) { data, response, error in
 //        if let data = data {
 //
