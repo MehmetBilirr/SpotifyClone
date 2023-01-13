@@ -74,12 +74,12 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
 
   }
 
-   func configure(album:SpotifyModel.AlbumModel) {
+   func configure(album:Album) {
 
     albumNamelbl.text = album.name
-    artistNameLbl.text = album.artistName
-    albumImageView.sd_setImage(with: album.image.asURL)
-    trackCountLbl.text = String(album.numberOfTracks)
+     artistNameLbl.text = album.artists.first?.name
+     albumImageView.sd_setImage(with: album.images.first?.url.asURL)
+     trackCountLbl.text = String(album.totalTracks)
   }
 
 

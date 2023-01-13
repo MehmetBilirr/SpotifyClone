@@ -7,7 +7,14 @@
 
 import Foundation
 
-struct Album: Codable {
+struct Album: Codable,Hashable {
+  static func == (lhs: Album, rhs: Album) -> Bool {
+    return lhs.id == rhs.id
+  }
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+  }
+  
     let albumType: String
     let id: String
     let images: [APIImage]
@@ -27,5 +34,7 @@ struct Album: Codable {
       case id, images, name,artists
 
   }
+
+
 }
 

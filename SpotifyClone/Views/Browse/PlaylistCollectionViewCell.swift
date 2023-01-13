@@ -41,9 +41,9 @@ class PlaylistCollectionViewCell: UICollectionViewCell {
     }
   }
 
-  func configure(model:SpotifyModel.PlaylistModel){
-    descriptionLbl.text = model.description
-    albumImageView.sd_setImage(with: model.image.asURL)
+  func configure(playlist:Playlist){
+    descriptionLbl.text = playlist.itemDescription
+    albumImageView.sd_setImage(with: playlist.images.first?.url.asURL)
   }
 
 

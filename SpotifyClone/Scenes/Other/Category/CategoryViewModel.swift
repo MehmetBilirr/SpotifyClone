@@ -56,7 +56,7 @@ extension CategoryViewModel:CategoryViewModelInterface{
 
   func cellForItemAt(_ indexPath: IndexPath, _ collectionView: UICollectionView) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
-    cell.configure(model: playlists[indexPath.row])
+    cell.configure(playlist: playlist[indexPath.row])
     return cell
   }
 

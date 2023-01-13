@@ -74,6 +74,8 @@ extension HomeViewController:HomeViewInterface {
 
     collectionView.register(HomeHeadersCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeHeadersCollectionReusableView.identifier)
 
+    collectionView.register(RecentlyPlayedCollectionViewCell.self, forCellWithReuseIdentifier: RecentlyPlayedCollectionViewCell.identifier)
+
   }
   func fetchData() {
     viewModel.fetchData()

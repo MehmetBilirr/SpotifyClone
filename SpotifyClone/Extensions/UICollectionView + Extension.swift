@@ -85,8 +85,37 @@ extension UICollectionView {
         alignment: .top) ]
 
     switch section {
-      //NewReleases
+
+
+    //User recently
     case 0:
+
+
+      //Item
+      let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+
+      item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+      //Group
+
+
+      //vertical
+      let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.absolute(220)), subitem: item, count: 3)
+
+
+      //horizontal
+      let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(220)), subitem: verticalGroup, count: 2)
+
+      //Section
+
+      let section = NSCollectionLayoutSection(group: horizontalGroup)
+      section.orthogonalScrollingBehavior = .groupPaging
+      section.boundarySupplementaryItems = sectionBoundaryItem
+      return section
+
+      
+
+      //NewReleases
+    case 4:
 
      
       //Item
