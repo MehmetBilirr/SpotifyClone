@@ -22,6 +22,8 @@ enum BrowseSectionType {
 enum ContentType{
   case album(Album)
   case playlist(Playlist)
+  case track(Track)
+  case artist(Artist)
 }
 
 protocol HomeViewModelInterface:AnyObject {

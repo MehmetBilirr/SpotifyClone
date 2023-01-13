@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Section {
+struct SettingsSection {
     let sectionName: String
     let rowsInSection: [Row]
 }

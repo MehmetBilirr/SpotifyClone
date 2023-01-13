@@ -63,6 +63,7 @@ class NewReleasesCollectionViewCell: UICollectionViewCell {
     contentView.addSubview(albumNamelbl)
     albumNamelbl.snp.makeConstraints { make in
       make.left.equalTo(artistNameLbl.snp.left)
+      make.right.equalToSuperview()
       make.bottom.equalTo(artistNameLbl.snp.top).offset(-5)
     }
 

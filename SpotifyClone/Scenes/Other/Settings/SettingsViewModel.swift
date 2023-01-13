@@ -21,7 +21,7 @@ protocol SettingsViewModelInterface:AnyObject{
 }
 
 final class SettingsViewModel {
-  var sections = [Section]()
+  var sections = [SettingsSection]()
   weak var view: SettingsViewInterface?
 
   init(view:SettingsViewInterface){

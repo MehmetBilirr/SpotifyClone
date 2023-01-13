@@ -22,8 +22,8 @@ protocol CategoryViewModelInterface:AnyObject {
 class CategoryViewModel{
   weak var view: CategoryViewInterface?
   let apiManager:APIManager?
-  var playlists = [SpotifyModel.PlaylistModel]()
-  var playlist = [Playlist]()
+  var playlists = [Playlist]()
+
   init(view:CategoryViewInterface,apiManager:APIManager = APIManager.shared){
     self.view = view
     self.apiManager = apiManager
@@ -44,9 +44,9 @@ extension CategoryViewModel:CategoryViewModelInterface{
 
       case .success(let category):
         self.playlists = category.playlists.items.compactMap({
-         .init(name: $0.name, image: $0.images.first?.url ?? "", creatorName: $0.owner.displayName, description: "")
+          .init(itemDescription: "", externalUrls: $0.externalUrls, id: $0.id, images: $0.images, name: $0.name, owner: $0.owner)
         })
-        self.playlist = category.playlists.items
+
         self.view?.reloadData()
       case .failure(let error):
         print(error.localizedDescription)
@@ -56,7 +56,7 @@ extension CategoryViewModel:CategoryViewModelInterface{
 
   func cellForItemAt(_ indexPath: IndexPath, _ collectionView: UICollectionView) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
-    cell.configure(playlist: playlist[indexPath.row])
+    cell.configure(playlist: playlists[indexPath.row])
     return cell
   }
 
@@ -66,7 +66,7 @@ extension CategoryViewModel:CategoryViewModelInterface{
 
   func didSelectItemAt(_ indexPath: IndexPath) {
 
-    view?.pushToContentDetail(content: .playlist(playlist[indexPath.row]))
+    view?.pushToContentDetail(content: .playlist(playlists[indexPath.row]))
   }
 
 }

@@ -35,6 +35,7 @@ extension SearchViewModel:SearchViewModelInterface{
   func viewDidLoad() {
     view?.configureCollectionView()
     view?.fetchData()
+    view?.configureSearchController()
   }
 
   func fetchData() {

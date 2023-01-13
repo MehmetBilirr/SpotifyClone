@@ -65,6 +65,8 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
           print(error.localizedDescription)
         }
       }
+    default:
+      break
     }
 
   }

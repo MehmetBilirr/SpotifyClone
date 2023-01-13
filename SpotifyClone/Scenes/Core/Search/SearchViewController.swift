@@ -9,10 +9,12 @@ import UIKit
 
 protocol SearchViewInterface:AnyObject {
   var viewModel:SearchViewModel{get set}
+  var isActive: Bool {get}
   func configureCollectionView()
   func fetchData()
   func reloadData()
   func pushToView(category:Category)
+  func configureSearchController()
 }
 
 class SearchViewController: UIViewController {
@@ -21,6 +23,7 @@ class SearchViewController: UIViewController {
     return self.collectionView.searchSectionLayout(section: sectionIndex)
 
   })
+  let searchController = UISearchController(searchResultsController: SearchResultViewController())
   internal lazy var viewModel = SearchViewModel(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,9 @@ class SearchViewController: UIViewController {
 
 
 extension SearchViewController:SearchViewInterface {
+  var isActive: Bool {
+    return searchController.isActive
+  }
 
   func configureCollectionView() {
     view.addSubview(collectionView)
@@ -48,6 +54,12 @@ extension SearchViewController:SearchViewInterface {
 
   func fetchData() {
     viewModel.fetchData()
+  }
+  func configureSearchController() {
+    searchController.searchBar.delegate = self
+    searchController.searchResultsUpdater = self
+    navigationItem.searchController = searchController
+    searchController.searchBar.placeholder = "What do you want listen to?"
   }
 }
 
@@ -72,5 +84,14 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
     vc.category = category
     navigationController?.pushViewController(vc, animated: true)
   }
+
+}
+
+
+extension SearchViewController:UISearchResultsUpdating, UISearchBarDelegate{
+  func updateSearchResults(for searchController: UISearchController) {
+
+  }
+
 
 }

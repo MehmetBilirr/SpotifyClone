@@ -92,6 +92,9 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
       artistLbl.text = playlist.itemDescription
       descriptionLbl.text = playlist.owner.displayName
 
+    default:
+      break
+
     }
 
 
