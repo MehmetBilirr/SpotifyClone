@@ -87,21 +87,27 @@ final class APIManager {
     request(route: .getCategoryPlaylists(categoryId), method: .get, completion: completion)
   }
 
-
-  func getalbums(id:String){
-    createRequest(route: .getUserSavedAlbums, method: .get) { request in
-      URLSession.shared.dataTask(with: request) { data, response, error in
-        if let data = data {
-
-            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
-            print("The response is :\n \(responseString)")
-
-
-        }
-      }.resume()
-    }
-
+  func search(query:String,completion:@escaping(Result<SearchResultResponse,Error>)->Void){
+    request(route: .search(query), method: .get, completion: completion)
   }
+
+
+//  func search(query:String){
+//
+//    createRequest(route: .search(query), method: .get) { request in
+//      URLSession.shared.dataTask(with: request) { data, response, error in
+//        if let data = data {
+//
+//            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
+//            print("The response is :\n \(responseString)")
+//
+//
+//        }
+//
+//      }.resume()
+//    }
+//
+//  }
 
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 
@@ -159,7 +165,8 @@ final class APIManager {
   private func createRequest (route: Route, method: Method,completion:@escaping(URLRequest)->Void) {
     AuthManager.shared.withValidToken { token in
       let urlString = Route.baseUrl + route.description
-      guard let url = urlString.asURL else {return}
+
+      guard let url = urlString.asURL else {return print(AppError.invalidUrl.localizedDescription)}
       var request = URLRequest(url: url)
       request.httpMethod = method.rawValue
       request.timeoutInterval = 30

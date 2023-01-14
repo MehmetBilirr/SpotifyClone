@@ -31,6 +31,4 @@ struct AlbumDetailsResponse: Codable {
     }
 }
 
-struct TracksResponse: Codable {
-    let items: [Track]
-}
+

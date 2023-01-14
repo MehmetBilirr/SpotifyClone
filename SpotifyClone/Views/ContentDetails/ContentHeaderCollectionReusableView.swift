@@ -89,8 +89,8 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     case .playlist(let playlist):
       imageView.sd_setImage(with: playlist.images.first?.url.asURL)
       nameLbl.text = playlist.name
-      artistLbl.text = playlist.itemDescription
-      descriptionLbl.text = playlist.owner.displayName
+      artistLbl.text = playlist.owner.displayName
+      descriptionLbl.text = playlist.itemDescription
 
     default:
       break

@@ -9,10 +9,12 @@ import UIKit
 
 protocol SearchResultViewInterface {
   func configureTableView()
+
 }
 
 class SearchResultViewController: UIViewController {
-    private let tableView = UITableView()
+    let tableView = UITableView()
+    var searchResults = [ContentType]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +51,7 @@ extension SearchResultViewController:UITableViewDataSource,UITableViewDelegate{
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return searchResults.count
   }
 
 }

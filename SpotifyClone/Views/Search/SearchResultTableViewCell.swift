@@ -69,6 +69,24 @@ class SearchResultTableViewCell: UITableViewCell {
 
   func configure(content:ContentType){
 
+    switch content {
+    case .album(let album):
+      contentImageView.sd_setImage(with: album.images.first?.url.asURL)
+      contentName.text = album.name
+      contentOwner.text = album.artists.first?.name
+    case .playlist(let playlist):
+      contentImageView.sd_setImage(with: playlist.images.first?.url.asURL)
+      contentName.text = playlist.name
+      contentOwner.text = playlist.owner.displayName
+    case .track(let track):
+      contentImageView.sd_setImage(with: track.album?.images.first?.url.asURL)
+      contentName.text = track.album?.name
+      contentOwner.text = track.album?.artists.first?.name
+    case .artist(let artist):
+      contentImageView.sd_setImage(with: artist.images?.first?.url.asURL)
+      contentName.text = artist.name
+      contentOwner.text = ""
+    }
   }
   
 }

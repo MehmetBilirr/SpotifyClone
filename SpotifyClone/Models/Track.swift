@@ -30,3 +30,7 @@ struct Track: Codable {
         case previewURL = "preview_url"
     }
 }
+
+struct TracksResponse: Codable {
+    let items: [Track]
+}

@@ -32,6 +32,7 @@ class HomeViewController: UIViewController {
 
       viewModel.viewDidLoad()
 
+
     }
 
 

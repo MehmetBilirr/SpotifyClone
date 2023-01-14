@@ -38,3 +38,7 @@ struct Album: Codable,Hashable {
 
 }
 
+struct AlbumResponse: Codable {
+    let items: [Album]
+}
+

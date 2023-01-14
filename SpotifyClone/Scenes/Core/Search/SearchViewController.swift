@@ -91,6 +91,8 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
 extension SearchViewController:UISearchResultsUpdating, UISearchBarDelegate{
   func updateSearchResults(for searchController: UISearchController) {
 
+    guard let text = searchController.searchBar.text,!text.trimmingCharacters(in: .whitespaces).isEmpty,text.trimmingCharacters(in: .whitespaces).count >= 3 else {return}
+    viewModel.search(query: text, searchController: searchController)
   }
 
 

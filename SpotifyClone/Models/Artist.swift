@@ -19,3 +19,8 @@ struct Artist: Codable {
         case  id, name, type,images
     }
 }
+
+
+struct ArtistResponse: Codable {
+    let items: [Artist]
+}

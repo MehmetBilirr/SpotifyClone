@@ -22,3 +22,7 @@ struct Playlist: Codable {
         case id, images, name, owner
     }
 }
+
+struct PlaylistResponse: Codable {
+    let items: [Playlist]
+}
