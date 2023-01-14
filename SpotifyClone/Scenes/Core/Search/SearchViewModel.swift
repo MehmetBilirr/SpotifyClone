@@ -69,6 +69,7 @@ extension SearchViewModel:SearchViewModelInterface{
 
   func search(query: String,searchController:UISearchController) {
     guard let resultController = searchController.searchResultsController as? SearchResultViewController else {return}
+    searchResults = []
     apiManager?.search(query: query, completion: { result in
       switch result {
 
@@ -79,7 +80,7 @@ extension SearchViewModel:SearchViewModelInterface{
         self.searchResults.append(contentsOf: data.artists.items.compactMap({.artist($0)}))
         self.searchResults.append(contentsOf: data.playlists.items.compactMap({.playlist($0)}))
 
-        resultController.searchResults = self.searchResults
+        resultController.getResults(result: self.searchResults)
         resultController.tableView.reloadData()
 
       case .failure(let error):

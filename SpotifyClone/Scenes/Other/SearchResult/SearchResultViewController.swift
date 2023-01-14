@@ -7,19 +7,22 @@
 
 import UIKit
 
-protocol SearchResultViewInterface {
+protocol SearchResultViewInterface:AnyObject {
   func configureTableView()
+  func getResults(result:[ContentType])
+  func reloadData()
 
 }
 
 class SearchResultViewController: UIViewController {
     let tableView = UITableView()
-    var searchResults = [ContentType]()
+    private lazy var viewModel = SearchResultViewModel(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-      configureTableView()
+      viewModel.viewDidLoad()
+
     }
 
   override func viewDidLayoutSubviews() {
@@ -38,20 +41,34 @@ extension SearchResultViewController:SearchResultViewInterface{
     
   }
 
+  func getResults(result: [ContentType]) {
+
+    viewModel.getResults(result: result)
+  }
+
+  func reloadData() {
+    tableView.reloadData()
+  }
+
 
 }
 
 extension SearchResultViewController:UITableViewDataSource,UITableViewDelegate{
 
+  func numberOfSections(in tableView: UITableView) -> Int {
+    viewModel.numberOfSections()
+  }
+
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    viewModel.titleForHeaderInSection(section)
+  }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath)
-
-    return cell
+    viewModel.cellForRowAt(indexPath, tableView)
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return searchResults.count
+    viewModel.numberOfRowsInSection(section)
   }
 
 }
