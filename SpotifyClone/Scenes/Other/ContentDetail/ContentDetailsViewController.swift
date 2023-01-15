@@ -22,8 +22,8 @@ class ContentDetailsViewController: UIViewController {
   var content:ContentType?
   lazy var viewModel = ContentDetailsViewModel(view: self)
 
-  init(item:ContentType){
-    self.content = item
+  init(content:ContentType){
+    self.content = content
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -33,7 +33,7 @@ class ContentDetailsViewController: UIViewController {
   }
   
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
-    return self.collectionView.albumDetailSectionLayout(section: sectionIndex)
+    return self.collectionView.contentDetailSectionLayout(section: sectionIndex)
 
   })
     override func viewDidLoad() {
@@ -83,8 +83,8 @@ extension ContentDetailsViewController:ContentDetailsViewInterface {
   }
 
   func fetchData() {
-    guard let item = content else {return}
-    viewModel.fetchData(item: item)
+    guard let content = content else {return}
+    viewModel.fetchData(content: content)
     
   }
   func reloadData() {
@@ -113,7 +113,7 @@ extension ContentDetailsViewController:UICollectionViewDelegate,UICollectionView
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     guard let item = content else {return UICollectionReusableView()}
-    return viewModel.configureHeader(indexPath: indexPath, item: item, collectionView: collectionView, kind: kind)
+    return viewModel.configureHeader(indexPath: indexPath, content: item, collectionView: collectionView, kind: kind)
 
     }
 

@@ -11,16 +11,16 @@ import UIKit
 protocol ContentDetailsViewModelInterface {
   var view:ContentDetailsViewInterface?{get set}
   func viewDidLoad()
-  func fetchData(item:ContentType)
+  func fetchData(content:ContentType)
   func cellForItemAt(collectionView:UICollectionView,indexPath:IndexPath)->UICollectionViewCell
   func numberOfItemsInSection()->Int
-  func configureHeader(indexPath:IndexPath,item:ContentType,collectionView:UICollectionView,kind:String)->UICollectionReusableView
+  func configureHeader(indexPath:IndexPath,content:ContentType,collectionView:UICollectionView,kind:String)->UICollectionReusableView
 
 }
 
 class ContentDetailsViewModel {
   weak var view: ContentDetailsViewInterface?
-  var tracks = [SpotifyModel.TrackModel]()
+  var tracks = [Track]()
   var apiManager:APIManager
 
   init(view:ContentDetailsViewInterface,apiManager:APIManager = APIManager.shared){
@@ -39,15 +39,16 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
     view?.configureShareButton()
   }
 
-  func fetchData(item: ContentType) {
-
-    switch item {
+  func fetchData(content: ContentType) {
+    tracks = []
+    switch content {
     case .album(let album):
       apiManager.getAlbumDetails(albumID: album.id) { result in
         switch result {
 
         case .success(let album):
-          self.configureTracks(album: album)
+          let tracks = album.tracks.items
+          self.configureTracks(tracks: tracks)
         case .failure(let error):
           print(error.localizedDescription)
         }
@@ -57,10 +58,8 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
         switch result {
 
         case .success(let playlist):
-          self.tracks = playlist.tracks.items.compactMap({
-            .init(name: $0.track.name, artistName: $0.track.artists.first?.name ?? "", image: nil)
-          })
-          self.view?.reloadData()
+          let tracks = playlist.tracks.items.compactMap({$0.track})
+          self.configureTracks(tracks: tracks)
         case .failure(let error):
           print(error.localizedDescription)
         }
@@ -71,10 +70,8 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
 
   }
 
-  private func configureTracks(album:AlbumDetailsResponse){
-    tracks = album.tracks.items.compactMap({
-      .init(name: $0.name, artistName: $0.artists.first?.name ?? "", image: nil)
-    })
+  private func configureTracks(tracks:[Track]){
+    self.tracks = tracks
     view?.reloadData()
 
   }
@@ -89,7 +86,7 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
     return tracks.count
   }
 
-  func configureHeader(indexPath: IndexPath, item: ContentType, collectionView: UICollectionView, kind: String) -> UICollectionReusableView {
+  func configureHeader(indexPath: IndexPath, content: ContentType, collectionView: UICollectionView, kind: String) -> UICollectionReusableView {
     guard let header = collectionView.dequeueReusableSupplementaryView(
         ofKind: kind,
         withReuseIdentifier: ContentHeaderCollectionReusableView.identifier,
@@ -97,7 +94,7 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
           kind == UICollectionView.elementKindSectionHeader else {
         return UICollectionReusableView()
     }
-    header.configure(item: item)
+    header.configure(content: content)
     return header
   }
 

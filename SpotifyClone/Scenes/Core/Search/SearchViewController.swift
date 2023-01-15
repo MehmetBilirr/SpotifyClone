@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol SearchViewInterface:AnyObject {
   var viewModel:SearchViewModel{get set}
@@ -13,8 +14,10 @@ protocol SearchViewInterface:AnyObject {
   func configureCollectionView()
   func fetchData()
   func reloadData()
-  func pushToView(category:Category)
+  func pushToCategoryView(category:Category)
   func configureSearchController()
+  func didTapContent(content:ContentType)
+
 }
 
 class SearchViewController: UIViewController {
@@ -23,6 +26,7 @@ class SearchViewController: UIViewController {
     return self.collectionView.searchSectionLayout(section: sectionIndex)
 
   })
+
   let searchController = UISearchController(searchResultsController: SearchResultViewController())
   internal lazy var viewModel = SearchViewModel(view: self)
     override func viewDidLoad() {
@@ -61,6 +65,10 @@ extension SearchViewController:SearchViewInterface {
     navigationItem.searchController = searchController
     searchController.searchBar.placeholder = "What do you want listen to?"
   }
+
+  func didTapContent(content: ContentType) {
+    pushToDetailView(content: content)
+  }
 }
 
 extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSource {
@@ -79,21 +87,37 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
     viewModel.didSelectItemAt(indexPath)
   }
 
-  func pushToView(category: Category) {
+  func pushToCategoryView(category: Category) {
     let vc = CategoryViewController()
     vc.category = category
     navigationController?.pushViewController(vc, animated: true)
   }
+
+  func pushToDetailView(content:ContentType){
+    switch content {
+    case .artist(let artist):
+      guard let url = artist.externalUrls.spotify.asURL else {return }
+      let vc = SFSafariViewController(url: url)
+      present(vc, animated: true)
+    default:
+      break
+    }
+    let vc = ContentDetailsViewController(content: content)
+    navigationController?.pushViewController(vc, animated: true)
+
+
+  }
+
 
 }
 
 
 extension SearchViewController:UISearchResultsUpdating, UISearchBarDelegate{
   func updateSearchResults(for searchController: UISearchController) {
-
+    guard let resultController = searchController.searchResultsController as? SearchResultViewController else {return}
+    resultController.viewModel.delegate = self
     guard let text = searchController.searchBar.text,!text.trimmingCharacters(in: .whitespaces).isEmpty,text.trimmingCharacters(in: .whitespaces).count >= 3 else {return}
     viewModel.search(query: text, searchController: searchController)
   }
-
 
 }

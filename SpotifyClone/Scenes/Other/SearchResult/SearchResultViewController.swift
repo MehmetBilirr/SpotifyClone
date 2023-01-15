@@ -7,16 +7,20 @@
 
 import UIKit
 
+
+
+
 protocol SearchResultViewInterface:AnyObject {
   func configureTableView()
   func getResults(result:[ContentType])
   func reloadData()
+  func pushToContentDetail(content:ContentType)
 
 }
 
 class SearchResultViewController: UIViewController {
     let tableView = UITableView()
-    private lazy var viewModel = SearchResultViewModel(view: self)
+    lazy var viewModel = SearchResultViewModel(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,6 +54,10 @@ extension SearchResultViewController:SearchResultViewInterface{
     tableView.reloadData()
   }
 
+  func pushToContentDetail(content: ContentType) {
+    let vc = ContentDetailsViewController(content: content)
+    navigationController?.pushViewController(vc, animated: true)
+  }
 
 }
 
@@ -69,6 +77,10 @@ extension SearchResultViewController:UITableViewDataSource,UITableViewDelegate{
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     viewModel.numberOfRowsInSection(section)
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    viewModel.didSelectRowAt(indexPath: indexPath)
   }
 
 }

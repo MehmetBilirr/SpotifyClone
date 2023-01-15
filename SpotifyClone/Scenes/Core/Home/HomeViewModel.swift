@@ -13,7 +13,7 @@ enum BrowseSectionType {
   case newReleases([Album])
   case featuredPlaylists([Playlist])
   case userPlaylists([Playlist])
-  case recommendedTracks([SpotifyModel.TrackModel])
+  case recommendedTracks([Track])
   case userRecently(Set<Album>)
   case userSavedAlbums([Playlist])
   
@@ -196,9 +196,7 @@ extension HomeViewModel:HomeViewModelInterface {
 
     sections.append(.newReleases(newAlbums))
 
-    sections.append(.recommendedTracks(tracks.compactMap({
-      .init(name: $0.name, artistName: $0.artists.first?.name ?? "", image: $0.album?.images.first?.url ?? "")
-    })))
+    sections.append(.recommendedTracks(tracks))
 
 
     view?.reloadData()

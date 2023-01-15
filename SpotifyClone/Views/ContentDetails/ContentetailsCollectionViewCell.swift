@@ -56,8 +56,9 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
     }
   }
 
-  func configure(track:SpotifyModel.TrackModel){
+  func configure(track:Track){
+
     albumNamelbl.text = track.name
-    artistNameLbl.text = track.artistName
+    artistNameLbl.text = track.artists.first?.name
   }
 }

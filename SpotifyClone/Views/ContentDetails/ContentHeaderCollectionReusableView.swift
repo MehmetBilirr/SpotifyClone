@@ -62,25 +62,28 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     nameLbl.snp.makeConstraints { make in
       make.top.equalTo(imageView.snp.bottom).offset(10)
       make.left.equalToSuperview().offset(5)
+      make.right.equalTo(playButton.snp.left)
     }
 
     addSubview(descriptionLbl)
     descriptionLbl.snp.makeConstraints { make in
       make.left.equalTo(nameLbl.snp.left)
       make.top.equalTo(nameLbl.snp.bottom).offset(5)
+      make.right.equalTo(playButton.snp.left)
     }
 
     addSubview(artistLbl)
     artistLbl.snp.makeConstraints { make in
       make.left.equalTo(nameLbl.snp.left)
       make.top.equalTo(descriptionLbl.snp.bottom).offset(5)
+      make.bottom.equalToSuperview()
     }
 
   }
 
 
-  func configure(item:ContentType){
-    switch item {
+  func configure(content:ContentType){
+    switch content {
     case .album(let album):
       imageView.sd_setImage(with: album.images.first?.url.asURL)
       nameLbl.text = album.name

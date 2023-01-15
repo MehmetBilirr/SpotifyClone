@@ -48,9 +48,7 @@ extension UICollectionView {
       return section
     }
   }
-
-
-  func albumDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
+func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
 
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(

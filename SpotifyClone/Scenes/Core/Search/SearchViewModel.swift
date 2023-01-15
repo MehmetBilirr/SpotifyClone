@@ -64,11 +64,12 @@ extension SearchViewModel:SearchViewModelInterface{
   }
 
   func didSelectItemAt(_ indexPath: IndexPath) {
-    view?.pushToView(category: categories[indexPath.row])
+    view?.pushToCategoryView(category: categories[indexPath.row])
   }
 
   func search(query: String,searchController:UISearchController) {
     guard let resultController = searchController.searchResultsController as? SearchResultViewController else {return}
+
     searchResults = []
     apiManager?.search(query: query, completion: { result in
       switch result {

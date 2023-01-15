@@ -10,6 +10,7 @@ import UIKit
 
 protocol SearchResultViewModelInterface:AnyObject{
   var view:SearchResultViewInterface?{get set}
+  var delegate:SearchViewInterface?{get set}
   func viewDidLoad()
   func getResults(result:[ContentType])
   func prepareSections(searchResults: [ContentType])
@@ -17,12 +18,15 @@ protocol SearchResultViewModelInterface:AnyObject{
   func titleForHeaderInSection(_ section:Int)->String
   func cellForRowAt(_ indexPath:IndexPath,_ tableView:UITableView)->UITableViewCell
  func numberOfRowsInSection(_ section:Int)->Int
+  func didSelectRowAt(indexPath:IndexPath)
 }
+
 
 
 class SearchResultViewModel {
   var sections = [SearchSection]()
   weak var view: SearchResultViewInterface?
+  weak var delegate: SearchViewInterface?
   var searchResults = [ContentType]()
 
   var tracks = [ContentType]()
@@ -56,7 +60,6 @@ extension SearchResultViewModel:SearchResultViewModelInterface {
       switch $0 {
 
       case .album(let album):
-
         albums.append(.album(album))
       case .playlist(let playlist):
         playlists.append(.playlist(playlist))
@@ -103,4 +106,19 @@ extension SearchResultViewModel:SearchResultViewModelInterface {
     let section = sections[section]
     return section.results.count
   }
+
+  func didSelectRowAt(indexPath: IndexPath) {
+    let content = sections[indexPath.section].results[indexPath.row]
+    switch content {
+    case .album(let album):
+      delegate?.didTapContent(content: .album(album))
+    case .playlist(let playlist):
+      delegate?.didTapContent(content: .playlist(playlist))
+    case .track(_):
+      break
+    case .artist(let artist):
+      delegate?.didTapContent(content: .artist(artist))
+    }
+  }
+
 }

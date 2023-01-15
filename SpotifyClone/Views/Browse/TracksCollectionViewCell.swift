@@ -62,9 +62,9 @@ class TracksCollectionViewCell: UICollectionViewCell {
     }
   }
 
-  func configure(track:SpotifyModel.TrackModel){
-    albumImageView.sd_setImage(with: track.image?.asURL)
+  func configure(track:Track){
+    albumImageView.sd_setImage(with: track.album?.images.first?.url.asURL)
     albumNamelbl.text = track.name
-    artistNameLbl.text = track.artistName
+    artistNameLbl.text = track.artists.first?.name
   }
 }

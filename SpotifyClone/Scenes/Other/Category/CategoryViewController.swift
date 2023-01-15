@@ -54,7 +54,7 @@ extension CategoryViewController:CategoryViewInterface {
     collectionView.reloadData()
   }
   func pushToContentDetail(content: ContentType) {
-    let vc = ContentDetailsViewController(item: content)
+    let vc = ContentDetailsViewController(content: content)
     navigationController?.pushViewController(vc, animated: true)
   }
 }

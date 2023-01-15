@@ -80,8 +80,8 @@ class SearchResultTableViewCell: UITableViewCell {
       contentOwner.text = playlist.owner.displayName
     case .track(let track):
       contentImageView.sd_setImage(with: track.album?.images.first?.url.asURL)
-      contentName.text = track.album?.name
-      contentOwner.text = track.album?.artists.first?.name
+      contentName.text = track.name
+      contentOwner.text = track.artists.first?.name
     case .artist(let artist):
       contentImageView.sd_setImage(with: artist.images?.first?.url.asURL)
       contentName.text = artist.name
