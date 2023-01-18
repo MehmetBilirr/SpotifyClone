@@ -67,8 +67,7 @@ extension HomeViewController:HomeViewInterface {
     collectionView.delegate = self
 
     
-    collectionView.register( NewReleasesCollectionViewCell.self,
-                             forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
+
     collectionView.register(PlaylistCollectionViewCell.self, forCellWithReuseIdentifier: PlaylistCollectionViewCell.identifier)
 
     collectionView.register(TracksCollectionViewCell.self, forCellWithReuseIdentifier: TracksCollectionViewCell.identifier)

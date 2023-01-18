@@ -34,7 +34,7 @@ final class APIManager {
   }
 
 
-  func getRecommendations(completion:@escaping(Result<RecommendationsResponse,Error>)->Void) {
+  func getRecommendations(completion:@escaping(Result<TopTracksResponse,Error>)->Void) {
 
     getRecommendedGenres { result in
       switch result {
@@ -91,10 +91,16 @@ final class APIManager {
     request(route: .search(query), method: .get, completion: completion)
   }
 
+  func getArtistTopTracks(id:String,completion:@escaping(Result<TopTracksResponse,Error>)->Void){
+    request(route: .getArtistTopTracks(id), method: .get, completion: completion)
+  }
 
-//  func search(query:String){
+  func getArtistAlbums(id:String,completion:@escaping(Result<AlbumResponse,Error>)->Void) {
+    request(route: .getArtistAlbums(id), method: .get, completion: completion)
+  }
+//  func getArtistAlbum(query:String){
 //
-//    createRequest(route: .search(query), method: .get) { request in
+//    createRequest(route: .getArtistAlbums(query), method: .get) { request in
 //      URLSession.shared.dataTask(with: request) { data, response, error in
 //        if let data = data {
 //

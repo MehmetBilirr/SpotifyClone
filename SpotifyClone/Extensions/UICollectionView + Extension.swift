@@ -78,7 +78,7 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(70)),
+            heightDimension: .absolute(80)),
         elementKind: UICollectionView.elementKindSectionHeader,
         alignment: .top) ]
 
@@ -110,39 +110,13 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
       section.boundarySupplementaryItems = sectionBoundaryItem
       return section
 
-      
-
-      //NewReleases
-    case 4:
-
-     
-      //Item
-      let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-
-      item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-      //Group
-
-
-      //vertical
-      let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.absolute(360)), subitem: item, count: 3)
-
-
-      //horizontal
-      let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(360)), subitem: verticalGroup, count: 1)
-
-      //Section
-
-      let section = NSCollectionLayoutSection(group: horizontalGroup)
-      section.orthogonalScrollingBehavior = .groupPaging
-      section.boundarySupplementaryItems = sectionBoundaryItem
-      return section
 
       //Tracks
     case 5:
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
           widthDimension: .fractionalWidth(1),
           heightDimension: .fractionalHeight(1)))
-      item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+      item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 2, bottom: 6, trailing: 2)
       //Group
       let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), subitem: item, count: 1)
 
@@ -153,8 +127,6 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
 
 
     default:
-
-
 
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
 

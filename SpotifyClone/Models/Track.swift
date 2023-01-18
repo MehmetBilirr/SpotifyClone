@@ -12,7 +12,6 @@ import Foundation
 struct Track: Codable {
     var album: Album?
     let artists: [Artist]
-    let availableMarkets: [String]
     let discNumber, durationMS: Int
     let externalUrls: ExternalUrls
     let id: String
@@ -21,7 +20,6 @@ struct Track: Codable {
 
     enum CodingKeys: String, CodingKey {
         case album, artists
-        case availableMarkets = "available_markets"
         case discNumber = "disc_number"
         case durationMS = "duration_ms"
         case externalUrls = "external_urls"

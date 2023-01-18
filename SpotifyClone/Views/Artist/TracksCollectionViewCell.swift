@@ -11,8 +11,8 @@ import SnapKit
 class TracksCollectionViewCell: UICollectionViewCell {
 
   private let albumImageView = UIImageView()
-  private let albumNamelbl = UILabel()
-  private let artistNameLbl = UILabel()
+  private let trackNameLbl = UILabel()
+  private let albumNameLbl = UILabel()
   override init(frame: CGRect) {
     super.init(frame: frame)
     style()
@@ -30,11 +30,13 @@ class TracksCollectionViewCell: UICollectionViewCell {
     backgroundColor = .systemBackground
 
     albumImageView.configureImageView(contentModee: .scaleAspectFill)
+    albumImageView.image = UIImage(named: "dummyalbum")
 
-    albumNamelbl.configureStyle(size: 18, weight: .semibold, color: .white)
-    
+    trackNameLbl.configureStyle(size: 18, weight: .semibold, color: .white)
+    trackNameLbl.text = "Hey You"
 
-    artistNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
+    albumNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
+    albumNameLbl.text = "The Wall"
 
   }
 
@@ -43,28 +45,31 @@ class TracksCollectionViewCell: UICollectionViewCell {
     contentView.addSubview(albumImageView)
     albumImageView.snp.makeConstraints { make in
       make.top.left.equalToSuperview().offset(5)
-      make.width.equalTo(40)
-      make.height.equalTo(40)
+      make.bottom.equalToSuperview()
+      make.width.equalTo(60)
 
     }
 
-    contentView.addSubview(albumNamelbl)
-
-    albumNamelbl.snp.makeConstraints { make in
+    contentView.addSubview(trackNameLbl)
+    trackNameLbl.snp.makeConstraints { make in
       make.left.equalTo(albumImageView.snp.right).offset(20)
-      make.top.equalTo(albumImageView.snp.top)
+      make.right.equalToSuperview()
+      make.centerY.equalTo(albumImageView.snp.centerY).offset(-10)
     }
 
-    contentView.addSubview(artistNameLbl)
-    artistNameLbl.snp.makeConstraints { make in
-      make.left.equalTo(albumNamelbl.snp.left)
-      make.bottom.equalTo(albumImageView.snp.bottom)
+    contentView.addSubview(albumNameLbl)
+    albumNameLbl.snp.makeConstraints { make in
+      make.left.equalTo(trackNameLbl.snp.left)
+      make.right.equalToSuperview()
+      make.top.equalTo(trackNameLbl.snp.bottom)
     }
+
+
   }
 
   func configure(track:Track){
     albumImageView.sd_setImage(with: track.album?.images.first?.url.asURL)
-    albumNamelbl.text = track.name
-    artistNameLbl.text = track.artists.first?.name
+    trackNameLbl.text = track.name
+    albumNameLbl.text = track.album?.name
   }
 }

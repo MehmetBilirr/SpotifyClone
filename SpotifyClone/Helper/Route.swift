@@ -25,6 +25,8 @@ enum Route {
   case getAllCategories
   case getCategoryPlaylists(String)
   case search(String)
+  case getArtistTopTracks(String)
+  case getArtistAlbums(String)
 
   
   var description:String {
@@ -57,7 +59,10 @@ enum Route {
     case.search(let string):
       let query = string.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
       return "/search?limit=10&type=album,artist,playlist,track&q=\(query)"
-
+    case .getArtistTopTracks(let artistID):
+      return "/artists/\(artistID)/top-tracks?market=US"
+    case .getArtistAlbums(let artistID):
+      return "/artists/\(artistID)/albums?limit=10"
     }
 
   }

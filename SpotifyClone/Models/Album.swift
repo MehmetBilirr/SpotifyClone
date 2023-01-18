@@ -23,14 +23,13 @@ struct Album: Codable,Hashable {
     let releaseDate: String
     let totalTracks: Int
     let artists: [Artist]
-    let availableMarkets:[String]
+
 
   enum CodingKeys: String, CodingKey {
       case albumType = "album_type"
       case totalTracks = "total_tracks"
       case releaseDate = "release_date"
       case externalUrls = "external_urls"
-      case availableMarkets = "available_markets"
       case id, images, name,artists
 
   }

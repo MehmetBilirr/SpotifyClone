@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 enum BrowseSectionType {
-  case newReleases([Album])
+  case newReleases([Playlist])
   case featuredPlaylists([Playlist])
   case userPlaylists([Playlist])
   case recommendedTracks([Track])
@@ -71,7 +71,7 @@ extension HomeViewModel:HomeViewModelInterface {
 
     var newReleases: NewReleasesResponse?
     var featuredPlaylists: CategoryPlaylistsResponse?
-    var recommendedTracks: RecommendationsResponse?
+    var recommendedTracks: TopTracksResponse?
     var userPlaylists : PlaylistResponse?
     var userRecently : PlaylistTracksResponse?
     var userSavedAlbums : SavedAlbumsResponse?
@@ -163,13 +163,13 @@ extension HomeViewModel:HomeViewModelInterface {
         else { return }
 
 
-      self.configureViewModels(newAlbums: releases,featuredPlaylists: featuredPlaylists,tracks: tracks,userPlaylists: userPlaylists,userRecently: userRecentlyPlayed, userSavedAlbums: userSavedAlbums)
+      self.configureSections(newAlbums: releases,featuredPlaylists: featuredPlaylists,tracks: tracks,userPlaylists: userPlaylists,userRecently: userRecentlyPlayed, userSavedAlbums: userSavedAlbums)
 
 
     }
   }
 
-  private func configureViewModels(newAlbums:[Album],featuredPlaylists:[Playlist],tracks:[Track],userPlaylists:[Playlist],userRecently:[PlaylistItem],userSavedAlbums:[SavedAlbum]) {
+  private func configureSections(newAlbums:[Album],featuredPlaylists:[Playlist],tracks:[Track],userPlaylists:[Playlist],userRecently:[PlaylistItem],userSavedAlbums:[SavedAlbum]) {
     self.albums = newAlbums
     self.featuredPlaylists = featuredPlaylists
     self.tracks = tracks
@@ -181,7 +181,7 @@ extension HomeViewModel:HomeViewModelInterface {
     }
     
     self.userSavedAlbums = userSavedAlbums.compactMap({
-      .init(albumType: $0.album.albumType, id: $0.album.id, images: $0.album.images, externalUrls: $0.album.externalUrls, name: $0.album.name, releaseDate: $0.album.releaseDate, totalTracks: $0.album.totalTracks, artists: $0.album.artists, availableMarkets: $0.album.availableMarkets)
+      .init(albumType: $0.album.albumType, id: $0.album.id, images: $0.album.images, externalUrls: $0.album.externalUrls, name: $0.album.name, releaseDate: $0.album.releaseDate, totalTracks: $0.album.totalTracks, artists: $0.album.artists)
     })
 
     sections.append(.userRecently(userRecentlyPlayed))
@@ -194,7 +194,9 @@ extension HomeViewModel:HomeViewModelInterface {
       .init(itemDescription: $0.album.name, externalUrls: $0.album.externalUrls, id: $0.album.id, images: $0.album.images, name: $0.album.name, owner: .init(displayName: "", externalUrls: .init(spotify: ""), href: "", id: "", type: "", uri: ""))
     })))
 
-    sections.append(.newReleases(newAlbums))
+    sections.append(.newReleases(newAlbums.compactMap({
+      .init(itemDescription: "\($0.name)", externalUrls: $0.externalUrls, id: $0.id, images: $0.images, name: $0.name, owner: .init(displayName: "", externalUrls: .init(spotify: ""), href: "", id: "", type: "", uri: ""))
+    })))
 
     sections.append(.recommendedTracks(tracks))
 
@@ -214,8 +216,8 @@ extension HomeViewModel:HomeViewModelInterface {
     switch section {
 
     case .newReleases(let albums):
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReleasesCollectionViewCell.identifier, for: indexPath) as! NewReleasesCollectionViewCell
-      cell.configure(album: albums[indexPath.row])
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
+      cell.configure(playlist: albums[indexPath.row])
       return cell
     case .featuredPlaylists(let playlists):
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell

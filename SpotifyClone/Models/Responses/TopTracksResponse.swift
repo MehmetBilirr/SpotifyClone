@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecommendationsResponse: Codable {
+struct TopTracksResponse: Codable {
     let tracks: [Track]
 
 }
