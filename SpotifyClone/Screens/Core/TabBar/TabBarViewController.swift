@@ -14,6 +14,7 @@ final class TabBarViewController: UITabBarController {
         super.viewDidLoad()
       configure()
 
+      uview.isHidden = true
 
       view.addSubview(uview)
       uview.backgroundColor = .white

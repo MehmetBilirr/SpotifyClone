@@ -13,6 +13,7 @@ protocol ContentDetailsViewInterface:AnyObject {
   func fetchData()
   func reloadData()
   func configureShareButton()
+  func pushToPlayer(track:Track)
 
 }
 
@@ -46,6 +47,13 @@ class ContentDetailsViewController: UIViewController {
   override func viewDidLayoutSubviews() {
     view.addSubview(collectionView)
     collectionView.frame = view.bounds
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
   }
 
   @objc private func didTapShare() {
@@ -119,7 +127,15 @@ extension ContentDetailsViewController:UICollectionViewDelegate,UICollectionView
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    let vc = PlayerViewController()
-    navigationController?.pushViewController(vc, animated: true)
+    viewModel.didSelectItemAt(indexPath)
+
+  }
+
+  func pushToPlayer(track:Track) {
+    let vc = PlayerViewController(track: track)
+    vc.modalPresentationStyle = .fullScreen
+    present(vc, animated: true)
   }
 }
+
+

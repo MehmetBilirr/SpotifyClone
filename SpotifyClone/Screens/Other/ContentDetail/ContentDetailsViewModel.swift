@@ -15,6 +15,7 @@ protocol ContentDetailsViewModelInterface {
   func cellForItemAt(collectionView:UICollectionView,indexPath:IndexPath)->UICollectionViewCell
   func numberOfItemsInSection()->Int
   func configureHeader(indexPath:IndexPath,content:ContentType,collectionView:UICollectionView,kind:String)->UICollectionReusableView
+  func didSelectItemAt(_ indexPath:IndexPath)
 
 }
 
@@ -99,6 +100,10 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
   }
 
 
+  func didSelectItemAt(_ indexPath: IndexPath) {
+
+    view?.pushToPlayer(track: tracks[indexPath.row])
+  }
 
 }
 
