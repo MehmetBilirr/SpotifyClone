@@ -33,7 +33,7 @@ class SearchResultTableViewCell: UITableViewCell {
     contentOwner.configureStyle(size: 14, weight: .light, color: .white)
     contentOwner.text = "Pink Floyd"
 
-    button.configureStyleSymbolButton(systemName: "chevron.forward", tintClr: .gray)
+    button.configureStyleSymbolButton(systemName: "chevron.forward", tintClr: .gray, pointSize: 20)
 
   }
   private func layout(){

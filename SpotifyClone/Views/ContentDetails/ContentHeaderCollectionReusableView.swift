@@ -37,7 +37,7 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     artistLbl.configureStyle(size: 18, weight: .thin, color: .white)
     artistLbl.text = "Pink Floyd"
 
-    playButton.configureStyleSymbolButton(systemName: "play.fill", backgroundClr: .systemGreen, cornerRds: 25, tintClr: .black)
+    playButton.configureStyleSymbolButton(systemName: "play.fill", backgroundClr: .systemGreen, cornerRds: 25, tintClr: .black, pointSize: 20)
 
 
   }

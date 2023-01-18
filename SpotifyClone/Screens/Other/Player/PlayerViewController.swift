@@ -81,16 +81,16 @@ extension PlayerViewController:PlayerViewInterface {
     totalTimeLbl.configureStyle(size: 12, weight: .thin, color: .gray)
     totalTimeLbl.text = "0.30"
 
-    shuffleButton.configureStyleSymbolButton(systemName: "shuffle", tintClr: .white)
+    shuffleButton.configureStyleSymbolButton(systemName: "shuffle", tintClr: .white,pointSize: 30)
 
 
-    backwardButton.configureStyleSymbolButton(systemName: "backward.end.fill", tintClr: .white)
+    backwardButton.configureStyleSymbolButton(systemName: "backward.end.fill", tintClr: .white, pointSize: 40)
 
-    playButton.configureStyleSymbolButton(systemName: "play.circle.fill", tintClr: .white)
+    playButton.configureStyleSymbolButton(systemName: "play.circle.fill", tintClr: .white, pointSize: 80)
 
-    forwardButton.configureStyleSymbolButton(systemName: "forward.end.fill", tintClr: .white)
+    forwardButton.configureStyleSymbolButton(systemName: "forward.end.fill", tintClr: .white, pointSize: 40)
 
-    repeatButton.configureStyleSymbolButton(systemName: "arrow.rectanglepath", tintClr: .white)
+    repeatButton.configureStyleSymbolButton(systemName: "arrow.rectanglepath", tintClr: .white, pointSize: 30)
 
   }
 
@@ -135,20 +135,42 @@ extension PlayerViewController:PlayerViewInterface {
       make.top.equalTo(slider.snp.bottom).offset(2)
     }
 
+    view.addSubview(playButton)
+
+      playButton.snp.makeConstraints { make in
+        make.top.equalTo(totalTimeLbl.snp.bottom).offset(30)
+        make.centerX.equalToSuperview()
+      }
+
     view.addSubview(shuffleButton)
     shuffleButton.snp.makeConstraints { make in
-      make.top.equalTo(totalTimeLbl.snp.bottom).offset(30)
+      make.centerY.equalTo(playButton.snp.centerY)
       make.left.equalTo(trackNameLbl.snp.left)
+
     }
 
     view.addSubview(backwardButton)
-    backwardButton.snp.makeConstraints { make in
       backwardButton.snp.makeConstraints { make in
-        make.top.equalTo(totalTimeLbl.snp.bottom).offset(30)
-        make.left.equalTo(shuffleButton.snp.left).offset(50)
+        make.centerY.equalTo(playButton.snp.centerY)
+        make.right.equalTo(playButton.snp.left).offset(-20)
       }
+
+
+      view.addSubview(forwardButton)
+        forwardButton.snp.makeConstraints { make in
+          make.centerY.equalTo(playButton.snp.centerY)
+          make.left.equalTo(playButton.snp.right).offset(20)
+        }
+
+
+    view.addSubview(repeatButton)
+      repeatButton.snp.makeConstraints { make in
+        make.centerY.equalTo(playButton.snp.centerY)
+        make.right.equalTo(slider.snp.right)
+      }
+
     }
-  }
+
 
 
 }
