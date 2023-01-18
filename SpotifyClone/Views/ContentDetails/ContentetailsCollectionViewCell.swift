@@ -8,7 +8,7 @@
 import UIKit
 
 class ContentetailsCollectionViewCell: UICollectionViewCell {
-  private let albumNamelbl = UILabel()
+  let trackNamelbl = UILabel()
   private let artistNameLbl = UILabel()
   private let moreButton = UIButton()
   override init(frame: CGRect) {
@@ -25,7 +25,7 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
 
   private func style(){
 
-    albumNamelbl.configureStyle(size: 18, weight: .semibold, color: .white)
+    trackNamelbl.configureStyle(size: 18, weight: .semibold, color: .white)
 
 
     artistNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
@@ -36,29 +36,29 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
   private func layout(){
 
 
-    contentView.addSubview(albumNamelbl)
+    contentView.addSubview(trackNamelbl)
 
-    albumNamelbl.snp.makeConstraints { make in
+    trackNamelbl.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(5)
       make.centerY.equalTo(contentView.snp.centerY)
     }
 
     contentView.addSubview(artistNameLbl)
     artistNameLbl.snp.makeConstraints { make in
-      make.left.equalTo(albumNamelbl.snp.left)
-      make.top.equalTo(albumNamelbl.snp.bottom)
+      make.left.equalTo(trackNamelbl.snp.left)
+      make.top.equalTo(trackNamelbl.snp.bottom)
     }
     
     contentView.addSubview(moreButton)
     moreButton.snp.makeConstraints { make in
-      make.centerY.equalTo(albumNamelbl.snp.centerY)
+      make.centerY.equalTo(trackNamelbl.snp.centerY)
       make.right.equalToSuperview()
     }
   }
 
   func configure(track:Track){
 
-    albumNamelbl.text = track.name
+    trackNamelbl.text = track.name
     artistNameLbl.text = track.artists.first?.name
   }
 }

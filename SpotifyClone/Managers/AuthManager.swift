@@ -55,7 +55,7 @@ final class AuthManager {
         URLQueryItem(name: "code", value: code),
         URLQueryItem(name: "redirect_uri", value: Constants.redirectURI)
     ]
-
+    
     let task = URLSession.shared.dataTask(with: createRequest(apiURL: Constants.tokenAPIURL, method: .post,components: components)!) { [weak self] data, _, err in
         guard let data = data else {
             completion(false)

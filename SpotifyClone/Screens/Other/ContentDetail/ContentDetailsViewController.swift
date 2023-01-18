@@ -117,4 +117,9 @@ extension ContentDetailsViewController:UICollectionViewDelegate,UICollectionView
 
     }
 
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    let vc = PlayerViewController()
+    navigationController?.pushViewController(vc, animated: true)
+  }
 }

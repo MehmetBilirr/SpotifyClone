@@ -6,12 +6,23 @@
 //
 
 import UIKit
+import SnapKit
 
 final class TabBarViewController: UITabBarController {
-
+  let uview = UIView()
     override func viewDidLoad() {
         super.viewDidLoad()
       configure()
+
+
+      view.addSubview(uview)
+      uview.backgroundColor = .white
+      uview.snp.makeConstraints { make in
+        make.left.equalToSuperview()
+        make.bottom.equalTo(tabBar.snp.top)
+        make.right.equalToSuperview()
+        make.height.width.equalTo(50)
+      }
 
     }
 
