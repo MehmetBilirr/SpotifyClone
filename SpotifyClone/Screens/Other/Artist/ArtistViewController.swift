@@ -10,11 +10,14 @@ import UIKit
 protocol ArtistViewInterface:AnyObject {
   func configureCollectionView()
   func reloadData()
+  func fetchData()
+
 }
 
 class ArtistViewController: UIViewController {
+
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
-    return self.collectionView.contentDetailSectionLayout(section: sectionIndex)
+    return self.collectionView.artistSectionLayout(section: sectionIndex)
 
   })
   var artist:Artist?
@@ -53,24 +56,43 @@ extension ArtistViewController:ArtistViewInterface{
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.register(TracksCollectionViewCell.self, forCellWithReuseIdentifier: TracksCollectionViewCell.identifier)
+    collectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.identifier)
+    collectionView.register(ArtistHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ArtistHeaderCollectionReusableView.identifier)
+
   }
 
   func reloadData() {
     collectionView.reloadData()
   }
+
+  func fetchData() {
+    viewModel.fetchData(id: artist?.id ?? "")
+  }
+
+
 }
 
 
 extension ArtistViewController:UICollectionViewDelegate,UICollectionViewDataSource {
+
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return viewModel.numberOfSections()
+  }
+
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 20
+    return viewModel.numberOfItemsInSections(section: section)
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath)
-    return cell
+    viewModel.cellForItemAt(collectionView, indexPath)
+
   }
 
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
+    viewModel.configureHeaderView(kind: kind, collectionView: collectionView, indexPath: indexPath)
+
+
+  }
 
 }

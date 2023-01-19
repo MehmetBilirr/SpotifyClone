@@ -38,7 +38,7 @@
 		F0CB372C297363AC00DEB5D9 /* SearchSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CB372B297363AC00DEB5D9 /* SearchSection.swift */; };
 		F0CEE14E297751A300035241 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CEE14D297751A300035241 /* PlayerViewController.swift */; };
 		F0CEE1502977563800035241 /* UIStakView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CEE14F2977563800035241 /* UIStakView + Extension.swift */; };
-		F0D08DBA296A035E00144A83 /* NewReleasesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DB9296A035E00144A83 /* NewReleasesCollectionViewCell.swift */; };
+		F0D08DBA296A035E00144A83 /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DB9296A035E00144A83 /* AlbumCollectionViewCell.swift */; };
 		F0D08DBC296A070800144A83 /* UICollectionViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBB296A070800144A83 /* UICollectionViewCell + Extension.swift */; };
 		F0D08DBE296A0A0C00144A83 /* PlaylistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBD296A0A0C00144A83 /* PlaylistCollectionViewCell.swift */; };
 		F0D08DC0296A0A2000144A83 /* TracksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBF296A0A2000144A83 /* TracksCollectionViewCell.swift */; };
@@ -117,7 +117,7 @@
 		F0CB372B297363AC00DEB5D9 /* SearchSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSection.swift; sourceTree = "<group>"; };
 		F0CEE14D297751A300035241 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		F0CEE14F2977563800035241 /* UIStakView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStakView + Extension.swift"; sourceTree = "<group>"; };
-		F0D08DB9296A035E00144A83 /* NewReleasesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesCollectionViewCell.swift; sourceTree = "<group>"; };
+		F0D08DB9296A035E00144A83 /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0D08DBB296A070800144A83 /* UICollectionViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Extension.swift"; sourceTree = "<group>"; };
 		F0D08DBD296A0A0C00144A83 /* PlaylistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0D08DBF296A0A2000144A83 /* TracksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -190,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				F0D08DBF296A0A2000144A83 /* TracksCollectionViewCell.swift */,
+				F0D08DB9296A035E00144A83 /* AlbumCollectionViewCell.swift */,
 			);
 			path = Artist;
 			sourceTree = "<group>";
@@ -500,7 +501,6 @@
 		F0EBEBAA2969C9C3004DF189 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
-				F0D08DB9296A035E00144A83 /* NewReleasesCollectionViewCell.swift */,
 				F0D08DBD296A0A0C00144A83 /* PlaylistCollectionViewCell.swift */,
 				F03030282971CD6200714C78 /* RecentlyPlayedCollectionViewCell.swift */,
 			);
@@ -611,7 +611,7 @@
 				F0D457D8296DE511000A9054 /* HomeHeadersCollectionReusableView.swift in Sources */,
 				F0C2FE09296F2CB2002247F7 /* PlaylistDetailsResponse.swift in Sources */,
 				F0C1B545296481AC00DB54B4 /* UserDefaults + Extension.swift in Sources */,
-				F0D08DBA296A035E00144A83 /* NewReleasesCollectionViewCell.swift in Sources */,
+				F0D08DBA296A035E00144A83 /* AlbumCollectionViewCell.swift in Sources */,
 				F0147D072978BA0C00DD0525 /* ArtistViewModel.swift in Sources */,
 				F0DE210B296358CD00BAA2DD /* SearchViewController.swift in Sources */,
 				F0D2F509296768F80052ECB8 /* ProfileViewModel.swift in Sources */,

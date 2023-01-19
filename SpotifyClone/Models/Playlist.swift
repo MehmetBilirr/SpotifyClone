@@ -9,7 +9,7 @@ import Foundation
 
 struct Playlist: Codable {
     let itemDescription: String
-    let externalUrls: ExternalUrls
+    let externalUrls: ExternalUrls?
     let id: String
     let images: [APIImage]
     let name: String

@@ -96,18 +96,13 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
   func pushToDetailView(content:ContentType){
     switch content {
     case .artist(let artist):
-      guard let url = artist.externalUrls.spotify.asURL else {return }
-      let vc = SFSafariViewController(url: url)
-      present(vc, animated: true)
+      let vc = ArtistViewController(artist: artist)
+      navigationController?.pushViewController(vc, animated: true)
     default:
-      break
+      let vc = ContentDetailsViewController(content: content)
+      navigationController?.pushViewController(vc, animated: true)
     }
-    let vc = ContentDetailsViewController(content: content)
-    navigationController?.pushViewController(vc, animated: true)
-
-
   }
-
 
 }
 

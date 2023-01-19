@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let window = UIWindow(windowScene: windowScene)
     if AuthManager.shared.isSignedIn {
       AuthManager.shared.refreshAccesTokenIfNeccessary(completion: nil)
-      window.rootViewController =  ArtistViewController(artist: .init(externalUrls: .init(spotify: ""), id: "", name: "", type: "", images: []))
+      window.rootViewController =  TabBarViewController()
     }else {
       let navVC = UINavigationController(rootViewController: WelcomeViewController())
       window.rootViewController = navVC

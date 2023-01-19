@@ -25,7 +25,7 @@ class ArtistHeaderCollectionReusableView: UICollectionReusableView {
   }
   private func setup(){
     addSubview(headerLabel)
-  headerLabel.configureStyle(size: 15, weight: .bold, color: .white)
+  headerLabel.configureStyle(size: 18, weight: .bold, color: .white)
   headerLabel.snp.makeConstraints { make in
     make.left.equalToSuperview()
     make.bottom.equalToSuperview()

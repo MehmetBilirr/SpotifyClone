@@ -35,7 +35,7 @@ class TracksCollectionViewCell: UICollectionViewCell {
     trackNameLbl.configureStyle(size: 18, weight: .semibold, color: .white)
     trackNameLbl.text = "Hey You"
 
-    albumNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
+    albumNameLbl.configureStyle(size: 15, weight: .thin, color: .white)
     albumNameLbl.text = "The Wall"
 
   }
@@ -46,7 +46,7 @@ class TracksCollectionViewCell: UICollectionViewCell {
     albumImageView.snp.makeConstraints { make in
       make.top.left.equalToSuperview().offset(5)
       make.bottom.equalToSuperview()
-      make.width.equalTo(60)
+      make.width.equalTo(50)
 
     }
 

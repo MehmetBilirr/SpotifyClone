@@ -9,15 +9,7 @@
 import Foundation
 import UIKit
 
-enum BrowseSectionType {
-  case newReleases([Playlist])
-  case featuredPlaylists([Playlist])
-  case userPlaylists([Playlist])
-  case recommendedTracks([Track])
-  case userRecently(Set<Album>)
-  case userSavedAlbums([Playlist])
-  
-}
+
 
 enum ContentType{
   case album(Album)
@@ -39,13 +31,21 @@ protocol HomeViewModelInterface:AnyObject {
 }
 
 class HomeViewModel {
+
+  enum BrowseSectionType {
+    case newReleases([Playlist])
+    case featuredPlaylists([Playlist])
+    case userPlaylists([Playlist])
+    case userRecently(Set<Album>)
+    case userSavedAlbums([Playlist])
+
+  }
   weak var view: HomeViewInterface?
   private let apiManager : APIManager
   var sections = [BrowseSectionType]()
   var albums = [Album]()
   var featuredPlaylists = [Playlist]()
   var userPlaylists = [Playlist]()
-  var tracks = [Track]()
   var userRecentlyPlayed :Set<Album> = []
   var userSavedAlbums = [Album]()
   init(view:HomeViewInterface,apiManager:APIManager = APIManager.shared) {
@@ -71,7 +71,6 @@ extension HomeViewModel:HomeViewModelInterface {
 
     var newReleases: NewReleasesResponse?
     var featuredPlaylists: CategoryPlaylistsResponse?
-    var recommendedTracks: TopTracksResponse?
     var userPlaylists : PlaylistResponse?
     var userRecently : PlaylistTracksResponse?
     var userSavedAlbums : SavedAlbumsResponse?
@@ -105,10 +104,10 @@ extension HomeViewModel:HomeViewModelInterface {
     group.enter()
     apiManager.getUserPlaylist { result in
       switch result {
-
       case .success(let playlists):
         userPlaylists = playlists
       case .failure(let error):
+
         print(error.localizedDescription)
       }
       group.leave()
@@ -139,40 +138,29 @@ extension HomeViewModel:HomeViewModelInterface {
       }
       group.leave()
     }
-    //Recommended
-    group.enter()
-    APIManager.shared.getRecommendations { result in
-      switch result {
-
-      case .success(let model):
-        recommendedTracks = model
-      case .failure(let error):
-        print(error.localizedDescription)
-      }
-      group.leave()
-    }
 
 
     group.notify(queue: .main) {
         guard let releases = newReleases?.albums.items,
               let featuredPlaylists = featuredPlaylists?.playlists.items,
-              let tracks = recommendedTracks?.tracks,
               let userPlaylists = userPlaylists?.items,
               let userRecentlyPlayed = userRecently?.items,
               let userSavedAlbums = userSavedAlbums?.items
-        else { return }
+        else { return
+
+        }
 
 
-      self.configureSections(newAlbums: releases,featuredPlaylists: featuredPlaylists,tracks: tracks,userPlaylists: userPlaylists,userRecently: userRecentlyPlayed, userSavedAlbums: userSavedAlbums)
+      self.configureSections(newAlbums: releases,featuredPlaylists: featuredPlaylists,userPlaylists: userPlaylists,userRecently: userRecentlyPlayed, userSavedAlbums: userSavedAlbums)
 
 
     }
   }
 
-  private func configureSections(newAlbums:[Album],featuredPlaylists:[Playlist],tracks:[Track],userPlaylists:[Playlist],userRecently:[PlaylistItem],userSavedAlbums:[SavedAlbum]) {
+  private func configureSections(newAlbums:[Album],featuredPlaylists:[Playlist],userPlaylists:[Playlist],userRecently:[PlaylistItem],userSavedAlbums:[SavedAlbum]) {
     self.albums = newAlbums
     self.featuredPlaylists = featuredPlaylists
-    self.tracks = tracks
+
     self.userPlaylists = userPlaylists
 
     for items in userRecently {
@@ -197,8 +185,6 @@ extension HomeViewModel:HomeViewModelInterface {
     sections.append(.newReleases(newAlbums.compactMap({
       .init(itemDescription: "\($0.name)", externalUrls: $0.externalUrls, id: $0.id, images: $0.images, name: $0.name, owner: .init(displayName: "", externalUrls: .init(spotify: ""), href: "", id: "", type: "", uri: ""))
     })))
-
-    sections.append(.recommendedTracks(tracks))
 
 
     view?.reloadData()
@@ -238,10 +224,6 @@ extension HomeViewModel:HomeViewModelInterface {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as! PlaylistCollectionViewCell
       cell.configure(playlist: playlists[indexPath.row])
       return cell
-    case .recommendedTracks(let tracks):
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath) as! TracksCollectionViewCell
-      cell.configure(track: tracks[indexPath.row])
-      return cell
     }
   }
 
@@ -260,8 +242,6 @@ extension HomeViewModel:HomeViewModelInterface {
       return playlists.count
     case .userSavedAlbums(let albums):
       return albums.count
-    case .recommendedTracks(let tracks):
-      return tracks.count
     }
   }
 
@@ -286,8 +266,7 @@ extension HomeViewModel:HomeViewModelInterface {
       header.configure(with: "Recently Played")
     case.userSavedAlbums:
       header.configure(with: "Recently Saved Albums")
-    case .recommendedTracks:
-      header.configure(with: "Recommended Tracks")
+
     }
     return header
 
@@ -313,8 +292,6 @@ extension HomeViewModel:HomeViewModelInterface {
     case .userSavedAlbums:
       view?.pushToContentDetailsVC(item: .album(userSavedAlbums[indexPath.row]))
 
-    case .recommendedTracks:
-      return
     }
   }
 

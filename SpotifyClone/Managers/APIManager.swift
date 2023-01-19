@@ -98,22 +98,23 @@ final class APIManager {
   func getArtistAlbums(id:String,completion:@escaping(Result<AlbumResponse,Error>)->Void) {
     request(route: .getArtistAlbums(id), method: .get, completion: completion)
   }
-//  func getArtistAlbum(query:String){
-//
-//    createRequest(route: .getArtistAlbums(query), method: .get) { request in
-//      URLSession.shared.dataTask(with: request) { data, response, error in
-//        if let data = data {
-//
-//            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
-//            print("The response is :\n \(responseString)")
-//
-//
-//        }
-//
-//      }.resume()
-//    }
-//
-//  }
+
+  func getUserPlaylist(){
+
+    createRequest(route: .getUserPlaylists, method: .get) { request in
+      URLSession.shared.dataTask(with: request) { data, response, error in
+        if let data = data {
+
+            let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
+            print("The response is :\n \(responseString)")
+
+
+        }
+
+      }.resume()
+    }
+
+  }
 
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 

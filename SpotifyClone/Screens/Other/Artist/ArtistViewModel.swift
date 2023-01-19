@@ -6,15 +6,18 @@
 //
 
 import Foundation
-
+import UIKit
 
 protocol ArtistViewModelInterface:AnyObject{
   var view:ArtistViewInterface?{get set}
   func viewDidLoad()
   func fetchData(id:String)
+  func numberOfSections()->Int
+  func numberOfItemsInSections(section:Int)->Int
+  func configureHeaderView(kind: String, collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView
+  func cellForItemAt(_ collectionView: UICollectionView,_ indexPath: IndexPath) -> UICollectionViewCell
+
 }
-
-
 
 
 class ArtistViewModel {
@@ -41,6 +44,7 @@ extension ArtistViewModel:ArtistViewModelInterface {
   func viewDidLoad() {
 
     view?.configureCollectionView()
+    view?.fetchData()
   }
 
   func fetchData(id: String) {
@@ -81,7 +85,10 @@ extension ArtistViewModel:ArtistViewModelInterface {
       guard let tracks = topTracksResponse?.tracks,
             let albums = albumResponse?.items
       else { return }
+      self.configureSections(tracks: tracks, albums: albums)
+      print(tracks)
     }
+
   }
 
   private func configureSections(tracks:[Track],albums:[Album]){
@@ -90,6 +97,58 @@ extension ArtistViewModel:ArtistViewModelInterface {
 
     sections.append(.topTracks(tracks))
     sections.append(.albums(albums))
+    view?.reloadData()
   }
+
+  func numberOfSections() -> Int {
+    sections.count
+  }
+
+  func numberOfItemsInSections(section: Int) -> Int {
+    let section = sections[section]
+    switch section {
+
+    case .topTracks(let tracks):
+      return tracks.count
+    case .albums(let albums):
+      return albums.count
+    }
+  }
+
+  func cellForItemAt(_ collectionView: UICollectionView, _ indexPath: IndexPath) -> UICollectionViewCell {
+    let section = sections[indexPath.section]
+    switch section {
+
+    case .topTracks(let tracks):
+
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath) as! TracksCollectionViewCell
+      cell.configure(track: tracks[indexPath.row])
+      return cell
+    case .albums(let albums):
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.identifier, for: indexPath) as! AlbumCollectionViewCell
+      cell.configure(album: albums[indexPath.row])
+      return cell
+
+    }
+  }
+  func configureHeaderView(kind: String, collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView {
+    guard let header = collectionView.dequeueReusableSupplementaryView(
+        ofKind: kind,
+        withReuseIdentifier: ArtistHeaderCollectionReusableView.identifier,
+        for: indexPath) as? ArtistHeaderCollectionReusableView,
+          kind == UICollectionView.elementKindSectionHeader else {
+        return UICollectionReusableView()
+    }
+    let type = sections[indexPath.section]
+    switch type {
+
+    case .topTracks:
+      header.configure(with: "Top Tracks")
+    case .albums:
+      header.configure(with: "Abums")
+    }
+    return header
+  }
+
 
 }

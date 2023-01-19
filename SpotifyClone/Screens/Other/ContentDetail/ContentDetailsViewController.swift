@@ -63,7 +63,7 @@ class ContentDetailsViewController: UIViewController {
       guard let url = URL(string: album.externalUrls.spotify) else {return}
       activityView(url: url)
     case .playlist(let playlist):
-      guard let url = URL(string: playlist.externalUrls.spotify) else {return}
+      guard let url = URL(string: playlist.externalUrls?.spotify ?? "") else {return}
       activityView(url: url)
     default:
       break
