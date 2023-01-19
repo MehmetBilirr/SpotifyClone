@@ -8,6 +8,8 @@
 import UIKit
 
 protocol ArtistViewInterface:AnyObject {
+
+
   func configureCollectionView()
   func reloadData()
   func fetchData()
@@ -17,6 +19,8 @@ protocol ArtistViewInterface:AnyObject {
 
 class ArtistViewController: UIViewController {
 
+  private let artistImageView = UIImageView()
+  private let artistName = UILabel()
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
     return self.collectionView.artistSectionLayout(section: sectionIndex)
 
@@ -61,6 +65,7 @@ class ArtistViewController: UIViewController {
 
 extension ArtistViewController:ArtistViewInterface{
 
+
   func configureCollectionView() {
     collectionView.delegate = self
     collectionView.dataSource = self
@@ -75,7 +80,7 @@ extension ArtistViewController:ArtistViewInterface{
   }
 
   func fetchData() {
-    viewModel.fetchData(id: artist?.id ?? "")
+    viewModel.fetchData(artist: artist ?? .init(externalUrls: .init(spotify: ""), id: "", name: "", type: "", images: []))
   }
 
   func pushToView(content: ContentType) {

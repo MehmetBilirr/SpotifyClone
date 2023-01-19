@@ -15,7 +15,7 @@ final class TabBarViewController: UITabBarController {
       configure()
 
       uview.isHidden = true
-
+      tabBar.backgroundColor = .black
       view.addSubview(uview)
       uview.backgroundColor = .white
       uview.snp.makeConstraints { make in

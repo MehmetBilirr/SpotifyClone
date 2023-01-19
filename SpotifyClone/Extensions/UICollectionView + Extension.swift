@@ -16,7 +16,7 @@ extension UICollectionView {
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(80)),
+            heightDimension: .absolute(120)),
         elementKind: UICollectionView.elementKindSectionHeader,
         alignment: .top) ]
 

@@ -11,7 +11,7 @@ import UIKit
 protocol ArtistViewModelInterface:AnyObject{
   var view:ArtistViewInterface?{get set}
   func viewDidLoad()
-  func fetchData(id:String)
+  func fetchData(artist: Artist)
   func numberOfSections()->Int
   func numberOfItemsInSections(section:Int)->Int
   func configureHeaderView(kind: String, collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView
@@ -33,6 +33,7 @@ class ArtistViewModel {
   var sections = [ArtistSectionType]()
   var albums = [Album]()
   var tracks = [Track]()
+  var artist:Artist?
   init(view:ArtistViewInterface,apiManager:APIManager=APIManager.shared){
     self.view = view
     self.apiManager = apiManager
@@ -46,10 +47,11 @@ extension ArtistViewModel:ArtistViewModelInterface {
 
     view?.configureCollectionView()
     view?.fetchData()
+
   }
 
-  func fetchData(id: String) {
-
+  func fetchData(artist: Artist) {
+    self.artist = artist
     var topTracksResponse:TopTracksResponse?
     var albumResponse:AlbumResponse?
 
@@ -58,7 +60,7 @@ extension ArtistViewModel:ArtistViewModelInterface {
     //User Artist TopTracks
     group.enter()
 
-    apiManager.getArtistTopTracks(id: id) { result in
+    apiManager.getArtistTopTracks(id: artist.id) { result in
       switch result {
 
       case .success(let tracks):
@@ -70,7 +72,7 @@ extension ArtistViewModel:ArtistViewModelInterface {
     }
     //Artist Albums
     group.enter()
-    apiManager.getArtistAlbums(id: id) { result in
+    apiManager.getArtistAlbums(id: artist.id) { result in
       switch result {
 
       case .success(let albums):
@@ -140,13 +142,14 @@ extension ArtistViewModel:ArtistViewModelInterface {
           kind == UICollectionView.elementKindSectionHeader else {
         return UICollectionReusableView()
     }
+    
     let type = sections[indexPath.section]
     switch type {
 
-    case .topTracks:
-      header.configure(with: "Top Tracks")
+    case .topTracks(let tracks):
+      header.configure(headerTitle: "Tracks",artist: artist)
     case .albums:
-      header.configure(with: "Abums")
+      header.configure(headerTitle: "Albums")
     }
     return header
   }
