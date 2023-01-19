@@ -11,6 +11,7 @@ protocol ArtistViewInterface:AnyObject {
   func configureCollectionView()
   func reloadData()
   func fetchData()
+  func pushToView(content:ContentType)
 
 }
 
@@ -48,6 +49,14 @@ class ArtistViewController: UIViewController {
     collectionView.frame = view.bounds
   }
 
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
+  }
+
 }
 
 extension ArtistViewController:ArtistViewInterface{
@@ -69,6 +78,20 @@ extension ArtistViewController:ArtistViewInterface{
     viewModel.fetchData(id: artist?.id ?? "")
   }
 
+  func pushToView(content: ContentType) {
+
+    switch content {
+    case .album(let album):
+      navigationController?.pushViewController(ContentDetailsViewController(content: .album(album)), animated: true)
+    case .track(let track):
+      let vc = PlayerViewController(track: track)
+      vc.modalPresentationStyle = .fullScreen
+      present(vc, animated: true)
+    default:
+      break
+
+  }
+  }
 
 }
 
@@ -92,7 +115,10 @@ extension ArtistViewController:UICollectionViewDelegate,UICollectionViewDataSour
 
     viewModel.configureHeaderView(kind: kind, collectionView: collectionView, indexPath: indexPath)
 
-
+  }
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    viewModel.didSelectItemAt(indexPath)
   }
 
 }
+

@@ -16,6 +16,7 @@ protocol ArtistViewModelInterface:AnyObject{
   func numberOfItemsInSections(section:Int)->Int
   func configureHeaderView(kind: String, collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView
   func cellForItemAt(_ collectionView: UICollectionView,_ indexPath: IndexPath) -> UICollectionViewCell
+  func didSelectItemAt(_ indexPath:IndexPath)
 
 }
 
@@ -148,6 +149,17 @@ extension ArtistViewModel:ArtistViewModelInterface {
       header.configure(with: "Abums")
     }
     return header
+  }
+
+  func didSelectItemAt(_ indexPath: IndexPath) {
+    let section = sections[indexPath.section]
+    switch section {
+
+    case .topTracks(let tracks):
+      view?.pushToView(content: .track(tracks[indexPath.row]))
+    case .albums(let albums):
+      view?.pushToView(content: .album(albums[indexPath.row]))
+    }
   }
 
 
