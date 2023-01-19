@@ -13,17 +13,19 @@ extension UICollectionView {
 
   func artistSectionLayout(section:Int)->NSCollectionLayoutSection{
 
-    let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
-        layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(120)),
-        elementKind: UICollectionView.elementKindSectionHeader,
-        alignment: .top) ]
-
     switch section {
 
       //Tracks
     case 0:
+
+      let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
+          layoutSize: NSCollectionLayoutSize(
+              widthDimension: .fractionalWidth(1),
+              heightDimension: .absolute(300)),
+          elementKind: UICollectionView.elementKindSectionHeader,
+          alignment: .top) ]
+
+
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
           widthDimension: .fractionalWidth(1),
           heightDimension: .fractionalHeight(1)))
@@ -39,6 +41,13 @@ extension UICollectionView {
 
       //Albums
     default:
+
+      let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
+          layoutSize: NSCollectionLayoutSize(
+              widthDimension: .fractionalWidth(1),
+              heightDimension: .absolute(30)),
+          elementKind: UICollectionView.elementKindSectionHeader,
+          alignment: .top) ]
 
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
 

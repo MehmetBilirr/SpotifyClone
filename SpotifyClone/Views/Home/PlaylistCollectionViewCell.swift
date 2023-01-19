@@ -22,23 +22,26 @@ class PlaylistCollectionViewCell: UICollectionViewCell {
 
   }
   private func setup(){
-
+    contentView.addSubview(descriptionLbl)
     descriptionLbl.configureStyle(size: 14, weight: .thin, color: .white)
     descriptionLbl.numberOfLines = 2
     descriptionLbl.lineBreakMode = .byTruncatingTail
 
-    contentView.addSubview(descriptionLbl)
-    contentView.addSubview(albumImageView)
     albumImageView.configureImageView(contentModee: .scaleAspectFill)
+    contentView.addSubview(albumImageView)
+
+
+    albumImageView.snp.makeConstraints { make in
+      make.top.left.right.equalToSuperview()
+      make.bottom.equalToSuperview().offset(-10)
+    }
 
     descriptionLbl.snp.makeConstraints { make in
-      make.top.equalTo(albumImageView.snp.bottom).offset(5)
+      make.top.equalTo(albumImageView.snp.bottom)
       make.left.right.equalToSuperview()
     }
 
-    albumImageView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
-    }
+
   }
 
   func configure(playlist:Playlist){

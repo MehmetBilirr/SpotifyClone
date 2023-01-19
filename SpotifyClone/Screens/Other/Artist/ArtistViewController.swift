@@ -125,5 +125,6 @@ extension ArtistViewController:UICollectionViewDelegate,UICollectionViewDataSour
     viewModel.didSelectItemAt(indexPath)
   }
 
+
 }
 

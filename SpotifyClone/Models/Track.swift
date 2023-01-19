@@ -18,6 +18,7 @@ struct Track: Codable {
     let name: String
     let previewURL: String?
 
+
     enum CodingKeys: String, CodingKey {
         case album, artists
         case discNumber = "disc_number"
@@ -30,5 +31,5 @@ struct Track: Codable {
 }
 
 struct TracksResponse: Codable {
-    let items: [Track]
+ let items: [Track]
 }

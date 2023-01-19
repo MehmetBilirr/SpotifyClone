@@ -82,7 +82,7 @@ extension HomeViewController:HomeViewInterface {
     viewModel.fetchData()
   }
 
-  func reloadData() {
+  func reloadData() {  
     collectionView.reloadData()
   }
   func pushToContentDetailsVC(item:ContentType) {

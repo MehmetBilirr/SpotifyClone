@@ -17,7 +17,7 @@ struct AlbumDetailsResponse: Codable {
     let label, name: String
     let releaseDate: String
     let totalTracks: Int
-    let tracks: TracksResponse
+    var tracks: TracksResponse
 
     enum CodingKeys: String, CodingKey {
         case albumType = "album_type"

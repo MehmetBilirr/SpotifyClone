@@ -98,6 +98,11 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
     case .artist(let artist):
       let vc = ArtistViewController(artist: artist)
       navigationController?.pushViewController(vc, animated: true)
+
+    case.track(let track):
+      let vc = PlayerViewController(track: track)
+      vc.modalPresentationStyle = .fullScreen
+      present(vc, animated: true)
     default:
       let vc = ContentDetailsViewController(content: content)
       navigationController?.pushViewController(vc, animated: true)

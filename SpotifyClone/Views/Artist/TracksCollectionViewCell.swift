@@ -32,10 +32,10 @@ class TracksCollectionViewCell: UICollectionViewCell {
     albumImageView.configureImageView(contentModee: .scaleAspectFill)
     albumImageView.image = UIImage(named: "dummyalbum")
 
-    trackNameLbl.configureStyle(size: 18, weight: .semibold, color: .white)
+    trackNameLbl.configureStyle(size: 15, weight: .semibold, color: .white)
     trackNameLbl.text = "Hey You"
 
-    albumNameLbl.configureStyle(size: 15, weight: .thin, color: .white)
+    albumNameLbl.configureStyle(size: 13, weight: .thin, color: .white)
     albumNameLbl.text = "The Wall"
 
   }

@@ -45,8 +45,8 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
     switch content {
     case .album(let album):
       apiManager.getAlbumDetails(albumID: album.id) { result in
-        switch result {
 
+        switch result {
         case .success(let album):
           let tracks = album.tracks.items
           self.configureTracks(tracks: tracks)

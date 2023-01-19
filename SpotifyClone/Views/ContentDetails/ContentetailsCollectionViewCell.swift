@@ -25,10 +25,10 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
 
   private func style(){
 
-    trackNamelbl.configureStyle(size: 18, weight: .semibold, color: .white)
+    trackNamelbl.configureStyle(size: 15, weight: .semibold, color: .white)
 
 
-    artistNameLbl.configureStyle(size: 18, weight: .thin, color: .white)
+    artistNameLbl.configureStyle(size: 15, weight: .thin, color: .white)
 
     moreButton.configureStyleTitleButton(title: "...", titleColor: .gray)
   }
@@ -40,12 +40,14 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
 
     trackNamelbl.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(5)
+      make.right.equalToSuperview()
       make.centerY.equalTo(contentView.snp.centerY)
     }
 
     contentView.addSubview(artistNameLbl)
     artistNameLbl.snp.makeConstraints { make in
       make.left.equalTo(trackNamelbl.snp.left)
+      make.right.equalToSuperview()
       make.top.equalTo(trackNamelbl.snp.bottom)
     }
     

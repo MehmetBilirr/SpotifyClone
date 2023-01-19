@@ -377,7 +377,7 @@
 				F0147D032978B83F00DD0525 /* Artist */,
 				F0C9867F2970A240009102CC /* Search */,
 				F0C2FE05296F2096002247F7 /* ContentDetails */,
-				F0EBEBAA2969C9C3004DF189 /* Browse */,
+				F0EBEBAA2969C9C3004DF189 /* Home */,
 				F0DE20EE296355BD00BAA2DD /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -498,13 +498,13 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		F0EBEBAA2969C9C3004DF189 /* Browse */ = {
+		F0EBEBAA2969C9C3004DF189 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				F0D08DBD296A0A0C00144A83 /* PlaylistCollectionViewCell.swift */,
 				F03030282971CD6200714C78 /* RecentlyPlayedCollectionViewCell.swift */,
 			);
-			path = Browse;
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

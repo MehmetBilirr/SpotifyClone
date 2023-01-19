@@ -114,8 +114,8 @@ extension SearchResultViewModel:SearchResultViewModelInterface {
       delegate?.didTapContent(content: .album(album))
     case .playlist(let playlist):
       delegate?.didTapContent(content: .playlist(playlist))
-    case .track(_):
-      break
+    case .track(let track):
+      delegate?.didTapContent(content: .track(track))
     case .artist(let artist):
       delegate?.didTapContent(content: .artist(artist))
     }

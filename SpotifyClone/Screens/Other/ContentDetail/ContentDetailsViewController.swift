@@ -132,9 +132,19 @@ extension ContentDetailsViewController:UICollectionViewDelegate,UICollectionView
   }
 
   func pushToPlayer(track:Track) {
-    let vc = PlayerViewController(track: track)
-    vc.modalPresentationStyle = .fullScreen
-    present(vc, animated: true)
+    switch content {
+
+    case .album(let album):
+      let url = album.images.first?.url
+      let vc = PlayerViewController(track: track,url: url)
+      vc.modalPresentationStyle = .fullScreen
+      present(vc, animated: true)
+    default:
+      let vc = PlayerViewController(track: track)
+      vc.modalPresentationStyle = .fullScreen
+      present(vc, animated: true)
+    }
+
   }
 }
 

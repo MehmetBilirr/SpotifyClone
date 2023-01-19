@@ -30,15 +30,14 @@ class ArtistHeaderCollectionReusableView: UICollectionReusableView {
     imageView.configureImageView(contentModee: .scaleAspectFill)
 
     imageView.snp.makeConstraints { make in
-      make.left.right.equalToSuperview()
-      make.top.equalToSuperview().offset(-130)
-      make.height.equalTo(200)
+      make.left.right.top.equalToSuperview()
+      make.height.equalTo(240)
     }
 
     addSubview(artistLbl)
     artistLbl.configureStyle(size: 30, weight: .bold, color: .white)
     artistLbl.snp.makeConstraints { make in
-      make.left.right.equalToSuperview()
+      make.left.equalToSuperview()
       make.bottom.equalTo(imageView.snp.bottom)
     }
 
@@ -46,7 +45,7 @@ class ArtistHeaderCollectionReusableView: UICollectionReusableView {
   headerLabel.configureStyle(size: 18, weight: .bold, color: .white)
   headerLabel.snp.makeConstraints { make in
     make.left.equalToSuperview()
-    make.top.equalTo(imageView.snp.bottom).offset(20)
+    make.bottom.equalToSuperview()
   }
 
   }

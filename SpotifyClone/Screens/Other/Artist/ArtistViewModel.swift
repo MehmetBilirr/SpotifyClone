@@ -147,7 +147,7 @@ extension ArtistViewModel:ArtistViewModelInterface {
     switch type {
 
     case .topTracks(let tracks):
-      header.configure(headerTitle: "Tracks",artist: artist)
+      header.configure(headerTitle: "Popular",artist: artist)
     case .albums:
       header.configure(headerTitle: "Albums")
     }

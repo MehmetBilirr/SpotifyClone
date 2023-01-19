@@ -44,19 +44,21 @@ class PlayerViewController: UIViewController {
   private var player : AVPlayer?
   var playerItem:AVPlayerItem?
   var track:Track?
+  var url:String?
   private var isPlaying = true
     override func viewDidLoad() {
         super.viewDidLoad()
 
       style()
       layout()
-
       configurePlayer()
+    
 
     }
 
-  init(track:Track){
+  init(track:Track,url:String?=nil){
     self.track = track
+    self.url = url
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -104,7 +106,7 @@ extension PlayerViewController:PlayerViewInterface {
     dotButton.tintColor = .gray
 
     imageView.configureImageView(contentModee: .scaleAspectFit)
-    imageView.sd_setImage(with: track?.album?.images.first?.url.asURL)
+    imageView.sd_setImage(with: track?.album?.images.first?.url.asURL ?? url?.asURL)
 
     trackNameLbl.configureStyle(size: 20, weight: .bold, color: .white)
     trackNameLbl.text = track?.name
