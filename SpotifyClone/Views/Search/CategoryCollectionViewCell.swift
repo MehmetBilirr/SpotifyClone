@@ -23,10 +23,10 @@ class CategoryCollectionViewCell: UICollectionViewCell {
   }
 
   private func style(){
-    categoryImageView.configureImageView(imageName: "dummyalbum", contentModee: .scaleAspectFill)
+    categoryImageView.configureImageView(contentModee: .scaleAspectFill)
 
     categoryName.configureStyle(size: 20, weight: .bold, color: .white)
-    categoryName.text = "alşdmalasd"
+
 
   }
   private func layout(){

@@ -87,6 +87,7 @@ extension ContentDetailsViewController:ContentDetailsViewInterface {
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.register(ContentetailsCollectionViewCell.self, forCellWithReuseIdentifier: ContentetailsCollectionViewCell.identifier)
+    collectionView.register(TracksCollectionViewCell.self, forCellWithReuseIdentifier: TracksCollectionViewCell.identifier)
     collectionView.register(ContentHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier:ContentHeaderCollectionReusableView.identifier )
   }
 

@@ -279,18 +279,18 @@ extension HomeViewModel:HomeViewModelInterface {
     switch section {
 
     case .newReleases:
-      view?.pushToContentDetailsVC(item: .album(albums[indexPath.row]))
+      view?.pushToContentDetailsVC(content: .album(albums[indexPath.row]))
     case .featuredPlaylists:
-      view?.pushToContentDetailsVC(item: .playlist(featuredPlaylists[indexPath.row]))
+      view?.pushToContentDetailsVC(content: .playlist(featuredPlaylists[indexPath.row]))
       return
     case.userPlaylists:
-      view?.pushToContentDetailsVC(item: .playlist(userPlaylists[indexPath.row]))
+      view?.pushToContentDetailsVC(content: .playlist(userPlaylists[indexPath.row]))
     case .userRecently:
       let array = Array(userRecentlyPlayed)
-      view?.pushToContentDetailsVC(item: .album(array[indexPath.row]))
+      view?.pushToContentDetailsVC(content: .album(array[indexPath.row]))
 
     case .userSavedAlbums:
-      view?.pushToContentDetailsVC(item: .album(userSavedAlbums[indexPath.row]))
+      view?.pushToContentDetailsVC(content: .album(userSavedAlbums[indexPath.row]))
 
     }
   }

@@ -13,7 +13,7 @@ protocol HomeViewInterface:AnyObject {
   func configureNavBarItems()
   func fetchData()
   func reloadData()
-  func pushToContentDetailsVC(item:ContentType)
+  func pushToContentDetailsVC(content:ContentType)
 
 
 
@@ -93,8 +93,8 @@ extension HomeViewController:HomeViewInterface {
   func reloadData() {  
     collectionView.reloadData()
   }
-  func pushToContentDetailsVC(item:ContentType) {
-    let vc = ContentDetailsViewController(content: item)
+  func pushToContentDetailsVC(content:ContentType) {
+    let vc = ContentDetailsViewController(content: content)
     navigationController?.pushViewController(vc, animated: true)
 
   }

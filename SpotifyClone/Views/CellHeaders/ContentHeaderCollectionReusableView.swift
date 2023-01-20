@@ -31,10 +31,10 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     nameLbl.configureStyle(size: 20, weight: .bold, color: .white)
     nameLbl.text = "Dark Side Of The Moon"
 
-    descriptionLbl.configureStyle(size: 18, weight: .thin, color: .white)
+    descriptionLbl.configureStyle(size: 15, weight: .thin, color: .white)
     descriptionLbl.text = "Release Date: 8 May 1972"
 
-    artistLbl.configureStyle(size: 18, weight: .thin, color: .white)
+    artistLbl.configureStyle(size: 15, weight: .thin, color: .white)
     artistLbl.text = "Pink Floyd"
 
     playButton.configureStyleSymbolButton(systemName: "play.fill", backgroundClr: .systemGreen, cornerRds: 25, tintClr: .black, pointSize: 20)
@@ -51,18 +51,19 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
       make.height.equalTo(height / 1.3)
     }
 
-    addSubview(playButton)
-    playButton.snp.makeConstraints { make in
-      make.centerX.equalTo(imageView.snp.right)
-      make.centerY.equalTo(imageView.snp.bottom)
-      make.height.width.equalTo(50)
-    }
+
 
     addSubview(nameLbl)
     nameLbl.snp.makeConstraints { make in
       make.top.equalTo(imageView.snp.bottom).offset(10)
       make.left.equalToSuperview().offset(5)
-      make.right.equalTo(playButton.snp.left)
+
+    }
+    addSubview(playButton)
+    playButton.snp.makeConstraints { make in
+      make.right.equalToSuperview()
+      make.top.equalTo(nameLbl.snp.bottom)
+      make.height.width.equalTo(50)
     }
 
     addSubview(descriptionLbl)

@@ -78,9 +78,16 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
   }
 
   func cellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentetailsCollectionViewCell.identifier, for: indexPath) as! ContentetailsCollectionViewCell
-    cell.configure(track: tracks[indexPath.row])
-    return cell
+    if tracks[indexPath.row].album == nil {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentetailsCollectionViewCell.identifier, for: indexPath) as! ContentetailsCollectionViewCell
+      cell.configure(track: tracks[indexPath.row])
+      return cell
+    }else {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath) as! TracksCollectionViewCell
+      cell.configure(track: tracks[indexPath.row])
+      return cell
+    }
+
   }
 
   func numberOfItemsInSection() -> Int {

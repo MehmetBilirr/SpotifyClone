@@ -25,7 +25,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
   }
 
   private func style(){
-    albumImageView.configureImageView(imageName: "dummyalbum", contentModee: .scaleAspectFill)
+    albumImageView.configureImageView(contentModee: .scaleAspectFill)
 
 
   }

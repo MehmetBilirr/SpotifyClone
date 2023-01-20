@@ -83,11 +83,11 @@ extension UICollectionView {
 
 
     //vertical
-    let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.absolute(200)), subitem: item, count: 1)
+    let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.absolute(220)), subitem: item, count: 1)
 
 
     //horizontal
-    let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)), subitem: verticalGroup, count: 2)
+    let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(220)), subitem: verticalGroup, count: 2)
 
     //Section
     let section = NSCollectionLayoutSection(group: horizontalGroup)
@@ -116,7 +116,7 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(0.4)),
+            heightDimension: .fractionalHeight(0.5)),
         elementKind: UICollectionView.elementKindSectionHeader,
         alignment: .top) ]
 

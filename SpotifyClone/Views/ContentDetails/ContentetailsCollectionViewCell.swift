@@ -25,6 +25,8 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
 
   private func style(){
 
+
+
     trackNamelbl.configureStyle(size: 15, weight: .semibold, color: .white)
     trackNamelbl.numberOfLines = 1
 
