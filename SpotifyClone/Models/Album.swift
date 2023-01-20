@@ -14,7 +14,7 @@ struct Album: Codable,Hashable {
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
   }
-  
+    
     let albumType: String
     let id: String
     let images: [APIImage]

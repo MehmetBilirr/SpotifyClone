@@ -9,21 +9,24 @@ import UIKit
 import SnapKit
 
 protocol LibraryViewInterface:AnyObject {
-
-
+  var selectedIndex:Int{get set}
   func configureTableView()
   func configureSectionButtons()
+  func fetchData()
+  func reloadData()
+  func goToViewControllers(content:ContentType)
+
 }
 
 class LibraryViewController: UIViewController {
   private enum  SectionTabs:String {
       case songs = "Songs"
       case albums = "Albums"
-      case playlists = "Playlists"
+
 
   }
 
-  private var buttons : [UIButton] = ["Songs","Albums","Playlists"].map { buttonTitle in
+  private var buttons : [UIButton] = ["Songs","Albums"].map { buttonTitle in
     let button = UIButton(type: .system)
     button.configureStyleTitleButton(title: buttonTitle, titleColor: .label)
     button.layer.cornerRadius = 15
@@ -44,6 +47,7 @@ class LibraryViewController: UIViewController {
   let tableView = UITableView()
   var selectedIndex = 0 {
     didSet {
+      print(selectedIndex)
         for i in 0..<buttons.count {
             UIView.animate(withDuration: 0.6, delay: 0) {
                 self.sectionButtonStack.arrangedSubviews[i].backgroundColor = self.selectedIndex == i ? .systemGreen : .systemBackground
@@ -54,8 +58,9 @@ class LibraryViewController: UIViewController {
   private lazy var viewModel = LibraryViewModel(view: self)
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    selectedIndex = 0
     viewModel.viewDidLoad()
+
 
   }
 
@@ -85,6 +90,9 @@ class LibraryViewController: UIViewController {
 
 extension LibraryViewController:LibraryViewInterface{
 
+  func fetchData() {
+    viewModel.fetchData()
+  }
   func configureTableView() {
     view.addSubview(tableView)
     tableView.delegate = self
@@ -105,28 +113,48 @@ extension LibraryViewController:LibraryViewInterface{
      switch label {
      case SectionTabs.songs.rawValue:
          selectedIndex = 0
+       tableView.reloadData()
      case SectionTabs.albums.rawValue:
          selectedIndex = 1
-     case SectionTabs.playlists.rawValue:
-         selectedIndex = 2
+       tableView.reloadData()
      default:
          return selectedIndex = 0
      }
  }
+
+  func reloadData() {
+    tableView.reloadData()
+  }
+
+  func goToViewControllers(content: ContentType) {
+    switch content {
+    case .album(let album):
+      let vc = ContentDetailsViewController(content: .album(album))
+      navigationController?.pushViewController(vc, animated: true)
+    case .track(let track):
+      let vc = PlayerViewController(track: track)
+      vc.modalPresentationStyle = .fullScreen
+      present(vc, animated: true)
+
+    default:
+      break
+    }
+  }
 
   
 }
 
 extension LibraryViewController:UITableViewDataSource,UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return viewModel.numberOfRowsInSection()
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell()
-    cell.textLabel?.text = "deneme"
-    return cell
+    viewModel.cellForRowAt(indexPath, tableView)
   }
 
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    viewModel.didSelectRowAt(indexPath: indexPath)
+  }
 
 }

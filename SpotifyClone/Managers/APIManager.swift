@@ -53,6 +53,10 @@ final class APIManager {
     request(route: .getUserSavedAlbums, method: .get, completion: completion)
   }
 
+  func getUserSavedTracks(completion:@escaping(Result<SavedTracksResponse,Error>)->Void) {
+    request(route: .getUserSavedTracks, method: .get, completion: completion)
+  }
+
   func getAllCategories(completion:@escaping(Result<CategoriesResponse,Error>)->Void){
     request(route: .getAllCategories, method: .get, completion: completion)
   }
@@ -75,7 +79,7 @@ final class APIManager {
 
   func getUserPlaylist(){
 
-    createRequest(route: .getUserPlaylists, method: .get) { request in
+    createRequest(route: .getUserSavedTracks, method: .get) { request in
       URLSession.shared.dataTask(with: request) { data, response, error in
         if let data = data {
 

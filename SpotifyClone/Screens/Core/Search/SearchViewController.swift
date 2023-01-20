@@ -40,6 +40,7 @@ class SearchViewController: UIViewController {
     super.viewDidLayoutSubviews()
     collectionView.frame = view.bounds
   }
+  
 
 }
 

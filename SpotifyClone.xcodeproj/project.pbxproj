@@ -39,6 +39,7 @@
 		F0CEE14E297751A300035241 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CEE14D297751A300035241 /* PlayerViewController.swift */; };
 		F0CEE1502977563800035241 /* UIStakView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CEE14F2977563800035241 /* UIStakView + Extension.swift */; };
 		F0D04E56297ADC1100CA8793 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D04E55297ADC1100CA8793 /* LibraryViewModel.swift */; };
+		F0D04E58297AF34600CA8793 /* SavedTracksResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D04E57297AF34600CA8793 /* SavedTracksResponse.swift */; };
 		F0D08DBA296A035E00144A83 /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DB9296A035E00144A83 /* AlbumCollectionViewCell.swift */; };
 		F0D08DBC296A070800144A83 /* UICollectionViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBB296A070800144A83 /* UICollectionViewCell + Extension.swift */; };
 		F0D08DBE296A0A0C00144A83 /* PlaylistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D08DBD296A0A0C00144A83 /* PlaylistCollectionViewCell.swift */; };
@@ -119,6 +120,7 @@
 		F0CEE14D297751A300035241 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		F0CEE14F2977563800035241 /* UIStakView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStakView + Extension.swift"; sourceTree = "<group>"; };
 		F0D04E55297ADC1100CA8793 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		F0D04E57297AF34600CA8793 /* SavedTracksResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTracksResponse.swift; sourceTree = "<group>"; };
 		F0D08DB9296A035E00144A83 /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0D08DBB296A070800144A83 /* UICollectionViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Extension.swift"; sourceTree = "<group>"; };
 		F0D08DBD296A0A0C00144A83 /* PlaylistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				F0C9867B29709E2C009102CC /* CategoriesResponse.swift.swift */,
 				F03030262971C01900714C78 /* NewReleasesResponse.swift */,
 				F03030342972010500714C78 /* SearchResultResponse.swift */,
+				F0D04E57297AF34600CA8793 /* SavedTracksResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				F0D2F4FD2967384C0052ECB8 /* Route.swift in Sources */,
 				F0DE21172963622C00BAA2DD /* Constants.swift in Sources */,
 				F0C2FE02296ED249002247F7 /* ContentetailsCollectionViewCell.swift in Sources */,
+				F0D04E58297AF34600CA8793 /* SavedTracksResponse.swift in Sources */,
 				F0D2F5102967712A0052ECB8 /* SettingsViewModel.swift in Sources */,
 				F0D2F4FB2967371F0052ECB8 /* APIManager.swift in Sources */,
 				F03030332971FB3100714C78 /* UITableViewCell + Extension.swift in Sources */,

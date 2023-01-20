@@ -31,9 +31,17 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
       viewModel.viewDidLoad()
-      
+//      APIManager.shared.getUserPlaylist()
 
-
+//      APIManager.shared.getUserSavedTracks { result in
+//        switch result {
+//
+//        case .success(let tracks):
+//          print(tracks)
+//        case .failure(let error):
+//          print(error.localizedDescription)
+//        }
+//      }
     }
 
 

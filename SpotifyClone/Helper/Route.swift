@@ -20,6 +20,7 @@ enum Route {
   case getUserPlaylists
   case getUserRecentlyPlayed
   case getUserSavedAlbums
+  case getUserSavedTracks
   case getAllCategories
   case getCategoryPlaylists(String)
   case search(String)
@@ -45,6 +46,8 @@ enum Route {
       return "/me/player/recently-played?limit=50"
     case .getUserSavedAlbums:
       return "/me/albums?limit=20"
+    case .getUserSavedTracks:
+      return "/me/tracks?limit=50"
     case .getAllCategories:
       return "/browse/categories"
     case.getCategoryPlaylists(let categoryID):
