@@ -35,7 +35,7 @@ final class TabBarViewController: UITabBarController {
 
     vc1.title = "Spotify"
     vc2.title = "Search"
-    vc3.title = "Library"
+    vc3.title = "Your Library"
 
     let nav1  = UINavigationController(rootViewController: vc1)
     let nav2  = UINavigationController(rootViewController: vc2)
@@ -48,9 +48,10 @@ final class TabBarViewController: UITabBarController {
         nav.navigationBar.prefersLargeTitles = true
     }
 
-    nav1.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 1)
-    nav2.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 2)
-    nav3.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "square.stack.3d.down.forward"), tag: 3)
+    tabBar.tintColor  = .white
+    nav1.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"),selectedImage: UIImage(systemName: "house.fill"))
+    nav2.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"),selectedImage: UIImage(systemName: "magnifyingglass.fill"))
+    nav3.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "square.stack.3d.down.forward"),selectedImage: UIImage(systemName: "square.stack.3d.down.forward.fill"))
 
     setViewControllers([nav1, nav2, nav3], animated: true)
   }

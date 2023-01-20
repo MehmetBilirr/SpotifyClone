@@ -34,8 +34,8 @@ class PlayerViewController: UIViewController {
       let slider = UISlider()
       slider.value = 0
       slider.tintColor = .white
-      slider.maximumValue = 30
-    slider.setThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
+      slider.maximumValue = 29
+      slider.setThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
       return slider
   }()
   private let dismissButton = UIButton()
@@ -52,7 +52,7 @@ class PlayerViewController: UIViewController {
       style()
       layout()
       configurePlayer()
-    
+
 
     }
 
@@ -118,7 +118,7 @@ extension PlayerViewController:PlayerViewInterface {
     currentTimeLbl.configureStyle(size: 14, weight: .thin, color: .gray)
 
     totalTimeLbl.configureStyle(size: 14, weight: .thin, color: .gray)
-    totalTimeLbl.text = "0.30"
+    totalTimeLbl.text = "0.29"
 
     shuffleButton.configureStyleSymbolButton(systemName: "shuffle", tintClr: .white,pointSize: 30)
 

@@ -151,7 +151,6 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
     //User recently
     case 0:
 
-
       //Item
       let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
 
@@ -172,22 +171,6 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
       section.orthogonalScrollingBehavior = .groupPaging
       section.boundarySupplementaryItems = sectionBoundaryItem
       return section
-
-
-      //Tracks
-    case 5:
-      let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
-          widthDimension: .fractionalWidth(1),
-          heightDimension: .fractionalHeight(1)))
-      item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 2, bottom: 6, trailing: 2)
-      //Group
-      let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), subitem: item, count: 1)
-
-      //Section
-      let section = NSCollectionLayoutSection(group: verticalGroup)
-      section.boundarySupplementaryItems = sectionBoundaryItem
-      return section
-
 
     default:
 

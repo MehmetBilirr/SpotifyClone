@@ -37,7 +37,7 @@ class PlaylistCollectionViewCell: UICollectionViewCell {
     }
 
     descriptionLbl.snp.makeConstraints { make in
-      make.top.equalTo(albumImageView.snp.bottom)
+      make.top.equalTo(albumImageView.snp.bottom).offset(8)
       make.left.right.equalToSuperview()
     }
 

@@ -26,7 +26,7 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
   private func style(){
 
     trackNamelbl.configureStyle(size: 15, weight: .semibold, color: .white)
-
+    trackNamelbl.numberOfLines = 1
 
     artistNameLbl.configureStyle(size: 15, weight: .thin, color: .white)
 
@@ -40,7 +40,7 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
 
     trackNamelbl.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(5)
-      make.right.equalToSuperview()
+
       make.centerY.equalTo(contentView.snp.centerY)
     }
 
