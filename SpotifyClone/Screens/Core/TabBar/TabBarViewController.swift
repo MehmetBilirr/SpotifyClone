@@ -7,27 +7,80 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
+
+protocol TabBarViewInterface:AnyObject{
+  func style()
+  func layout()
+  func configureViewControllers()
+  func configurePlayerView(url:String)
+  func getTrack(track:Track)
+
+}
 
 final class TabBarViewController: UITabBarController {
-  let uview = UIView()
+  let playerView = PlayerView()
+  var player : AVPlayer?
+  var track : Track?
+  lazy var viewModel = TabBarViewModel(view: self)
+  private var playerItem:AVPlayerItem?
     override func viewDidLoad() {
         super.viewDidLoad()
-      configure()
 
-      uview.isHidden = true
-      tabBar.backgroundColor = .black
-      view.addSubview(uview)
-      uview.backgroundColor = .white
-      uview.snp.makeConstraints { make in
-        make.left.equalToSuperview()
-        make.bottom.equalTo(tabBar.snp.top)
-        make.right.equalToSuperview()
-        make.height.width.equalTo(50)
-      }
+      viewModel.viewDidLoad()
 
     }
 
-  private func configure(){
+  @objc func didTapView(_ sender: UITapGestureRecognizer){
+    print("clicked")
+    guard let player = player,let track = track else {
+      return
+      print("adasd")
+    }
+
+    let vc = PlayerViewController(track: track, player: player)
+    vc.modalPresentationStyle = .fullScreen
+    present(vc, animated: true)
+  }
+
+
+  @objc func didGetTrackID(_ track:Notification){
+
+    guard let id = track.object as? String else { return}
+    viewModel.fetchTrack(id: id)
+  }
+
+}
+
+
+extension TabBarViewController:TabBarViewInterface{
+
+  func style() {
+
+
+    playerView.isHidden = true
+    tabBar.backgroundColor = .black
+
+    playerView.isUserInteractionEnabled = true
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
+    playerView.addGestureRecognizer(gesture)
+
+
+    NotificationCenter.default.addObserver(self, selector: #selector(didGetTrackID(_:)), name: .trackNotification, object: nil)
+  }
+
+  func layout() {
+    view.addSubview(playerView)
+    playerView.snp.makeConstraints { make in
+      make.left.equalToSuperview()
+      make.bottom.equalTo(tabBar.snp.top)
+      make.right.equalToSuperview()
+      make.height.width.equalTo(50)
+  }
+
+  }
+
+  func configureViewControllers() {
 
     let vc1 = HomeViewController()
     let vc2 = SearchViewController()
@@ -55,8 +108,33 @@ final class TabBarViewController: UITabBarController {
 
     setViewControllers([nav1, nav2, nav3], animated: true)
   }
-    
 
+  func configurePlayerView(url:String) {
 
+    playerView.isHidden = false
+    guard let trackUrl = url.asURL else {return}
+
+    self.playerItem = AVPlayerItem(url: trackUrl)
+        self.player = AVPlayer(playerItem: self.playerItem)
+
+    player?.play()
+
+    self.player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main, using: { [weak self] (time) in
+
+      if let duration  = self?.player?.currentItem?.duration {
+        let playerCurrentTime = CMTimeGetSeconds((self?.player!.currentTime())!)
+
+        if playerCurrentTime >  CMTimeGetSeconds(duration) - 1{
+        self?.player?.seek(to: .zero)
+      }
+      }
+    })
+
+  }
+
+  func getTrack(track: Track) {
+    playerView.configure(track: track)
+    self.track = track
+  }
 
 }

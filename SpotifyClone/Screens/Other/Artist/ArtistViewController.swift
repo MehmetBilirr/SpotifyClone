@@ -21,8 +21,8 @@ class ArtistViewController: UIViewController {
 
   private let artistImageView = UIImageView()
   private let artistName = UILabel()
-  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
-    return self.collectionView.artistSectionLayout(section: sectionIndex)
+  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ -> NSCollectionLayoutSection? in
+    return self?.collectionView.artistSectionLayout(section: sectionIndex)
 
   })
   var artist:Artist?
@@ -44,8 +44,6 @@ class ArtistViewController: UIViewController {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
@@ -89,12 +87,10 @@ extension ArtistViewController:ArtistViewInterface{
     case .album(let album):
       navigationController?.pushViewController(ContentDetailsViewController(content: .album(album)), animated: true)
     case .track(let track):
-      let vc = PlayerViewController(track: track)
-      vc.modalPresentationStyle = .fullScreen
-      present(vc, animated: true)
+      let trackID : String = track.id
+      NotificationCenter.default.post(name: .trackNotification, object: trackID)
     default:
       break
-
   }
   }
 

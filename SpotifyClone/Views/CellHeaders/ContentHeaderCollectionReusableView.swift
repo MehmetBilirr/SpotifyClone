@@ -34,11 +34,10 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     descriptionLbl.configureStyle(size: 15, weight: .thin, color: .white)
     descriptionLbl.text = "Release Date: 8 May 1972"
 
-    artistLbl.configureStyle(size: 15, weight: .thin, color: .white)
+    artistLbl.configureStyle(size: 14, weight: .thin, color: .white)
     artistLbl.text = "Pink Floyd"
 
     playButton.configureStyleSymbolButton(systemName: "play.fill", backgroundClr: .systemGreen, cornerRds: 25, tintClr: .black, pointSize: 20)
-
 
   }
 
@@ -48,40 +47,36 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
       make.left.equalToSuperview().offset(70)
       make.right.equalToSuperview().offset(-70)
       make.top.equalToSuperview()
-      make.height.equalTo(height / 1.3)
+      make.height.equalTo(height / 1.4)
     }
 
-
-
-    addSubview(nameLbl)
-    nameLbl.snp.makeConstraints { make in
-      make.top.equalTo(imageView.snp.bottom).offset(10)
+    addSubview(artistLbl)
+    artistLbl.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(5)
-
+      make.bottom.equalToSuperview()
     }
+
     addSubview(playButton)
     playButton.snp.makeConstraints { make in
       make.right.equalToSuperview()
-      make.top.equalTo(nameLbl.snp.bottom)
+      make.bottom.equalToSuperview()
       make.height.width.equalTo(50)
     }
 
     addSubview(descriptionLbl)
     descriptionLbl.snp.makeConstraints { make in
-      make.left.equalTo(nameLbl.snp.left)
-      make.top.equalTo(nameLbl.snp.bottom).offset(5)
+      make.left.equalTo(artistLbl.snp.left)
+      make.bottom.equalTo(artistLbl.snp.top).offset(-5)
       make.right.equalTo(playButton.snp.left)
     }
+    addSubview(nameLbl)
+    nameLbl.snp.makeConstraints { make in
+      make.bottom.equalTo(descriptionLbl.snp.top).offset(-5)
+      make.left.equalToSuperview().offset(5)
+      make.right.equalTo(playButton.snp.left)
 
-    addSubview(artistLbl)
-    artistLbl.snp.makeConstraints { make in
-      make.left.equalTo(nameLbl.snp.left)
-      make.top.equalTo(descriptionLbl.snp.bottom).offset(5)
-      make.bottom.equalToSuperview()
     }
-
   }
-
 
   func configure(content:ContentType){
     switch content {
@@ -93,16 +88,12 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     case .playlist(let playlist):
       imageView.sd_setImage(with: playlist.images.first?.url.asURL)
       nameLbl.text = playlist.name
-      artistLbl.text = playlist.owner.displayName
-      descriptionLbl.text = playlist.itemDescription
-
+      artistLbl.text = playlist.itemDescription.description
+      descriptionLbl.text = playlist.owner.displayName
     default:
       break
 
     }
 
-
   }
-
-
 }

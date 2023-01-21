@@ -52,6 +52,6 @@ extension AuthViewController:WKNavigationDelegate {
         self?.completionHandler?(bool)
       }
     }
-    print("code:\(code)")
+    print("codeeeee:\(code)")
   }
 }

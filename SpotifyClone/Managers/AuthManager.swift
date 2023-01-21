@@ -17,6 +17,7 @@ final class AuthManager {
 
   var signInURL: URL? {
       let base = "https://accounts.spotify.com/authorize"
+      let scope = Constants.scopes
       let urlString = "\(base)?response_type=code&client_id=\(Constants.clientID)&scope=\(Constants.scopes)&redirect_uri=\(Constants.redirectURI)&show_dialog=TRUE"
       return URL(string: urlString)
   }
@@ -25,16 +26,14 @@ final class AuthManager {
     return accessToken != nil
   }
 
-  private var accessToken:String? {
-    return UserDefaults.standard.accessToken
+  private var accessToken: String? {
+      return UserDefaults.standard.string(forKey: "access_token")
   }
-
-  private var refreshToken:String? {
-    return UserDefaults.standard.refreshToken
+  private var refreshToken: String? {
+      return UserDefaults.standard.string(forKey: "refresh_token")
   }
-
-  private var tokenExpirationDate:Date? {
-    return UserDefaults.standard.object(forKey: "expires_in") as? Date
+  private var tokenExpirationDate: Date? {
+      return UserDefaults.standard.object(forKey: "expires_in") as? Date
   }
 
   private var shouldRefreshToken:Bool {
@@ -66,7 +65,6 @@ final class AuthManager {
           let json = try JSONDecoder().decode(AuthResponse.self, from: data)
           self?.cacheToken(result: json)
           print(json)
-
             completion(true)
         } catch {
           print(AppError.errorDecoding.errorDescription)
@@ -97,12 +95,12 @@ final class AuthManager {
   }
 
   func refreshAccessToken(completion:@escaping(Bool)-> Void){
+    guard !refreshingToken else { return }
     guard shouldRefreshToken else {
       completion(true)
       return
     }
     guard let refreshToken = refreshToken else {return}
-
     var components = URLComponents()
     components.queryItems = [
         URLQueryItem(name: "grant_type", value: "refresh_token"),
@@ -119,7 +117,7 @@ final class AuthManager {
       do {
         let json = try JSONDecoder().decode(AuthResponse.self, from: data)
         self?.cacheToken(result: json)
-        print(json)
+
 
           completion(true)
       } catch {
@@ -167,22 +165,16 @@ final class AuthManager {
     }
     task.resume()
 
-
-
-
   }
 
   private func cacheToken(result:AuthResponse){
-    guard let refreshToken = refreshToken else {
-      return
+    UserDefaults.standard.setValue(result.access_token, forKey: "access_token")
+    if let refreshToken = result.refresh_token {
+        UserDefaults.standard.setValue(result.refresh_token, forKey: "refresh_token")
     }
-    UserDefaults.standard.refreshToken = refreshToken
-    UserDefaults.standard.accessToken = result.access_token
     UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(result.expires_in)), forKey: "expires_in")
 
   }
-
-
 
   private func createRequest (apiURL: String, method: Method,components:URLComponents) -> URLRequest? {
 
@@ -209,7 +201,12 @@ final class AuthManager {
     
  }
 
-
+  func signOut(completion: (Bool) -> Void) {
+      UserDefaults.standard.setValue(nil, forKey: "access_token")
+      UserDefaults.standard.setValue(nil, forKey: "refresh_token")
+      UserDefaults.standard.setValue(nil, forKey: "expires_in")
+      completion(true)
+  }
   
 }
 

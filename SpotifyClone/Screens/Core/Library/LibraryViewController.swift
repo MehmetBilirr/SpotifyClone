@@ -132,9 +132,9 @@ extension LibraryViewController:LibraryViewInterface{
       let vc = ContentDetailsViewController(content: .album(album))
       navigationController?.pushViewController(vc, animated: true)
     case .track(let track):
-      let vc = PlayerViewController(track: track)
-      vc.modalPresentationStyle = .fullScreen
-      present(vc, animated: true)
+
+      let trackID : String = track.id
+      NotificationCenter.default.post(name: .trackNotification, object: trackID)
 
     default:
       break

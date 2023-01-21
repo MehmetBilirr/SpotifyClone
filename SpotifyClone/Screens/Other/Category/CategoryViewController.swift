@@ -8,7 +8,6 @@
 import UIKit
 
 protocol CategoryViewInterface:AnyObject {
-  var viewModel:CategoryViewModel{get set}
   func configureCollectionView()
   func fetchData()
   func reloadData()
@@ -17,11 +16,11 @@ protocol CategoryViewInterface:AnyObject {
 
 class CategoryViewController: UIViewController {
   var category:Category?
-  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
-    return self.collectionView.categorySectionLayout(section: sectionIndex)
+  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ -> NSCollectionLayoutSection? in
+    return self?.collectionView.categorySectionLayout(section: sectionIndex)
 
   })
-  internal lazy var viewModel = CategoryViewModel(view: self)
+  lazy var viewModel = CategoryViewModel(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
 

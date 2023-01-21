@@ -14,19 +14,19 @@ extension UserDefaults {
         case expiresIn
     }
 
-    var accessToken:String {
+    var accessToken:String? {
         get {
-          string(forKey: UserDefaultsKeys.accessToken.rawValue)!
+          string(forKey: UserDefaultsKeys.accessToken.rawValue)
         }
         set {
           setValue(newValue, forKey: UserDefaultsKeys.accessToken.rawValue)
         }
     }
 
-  var refreshToken:String {
+  var refreshToken:String? {
 
     get {
-      string(forKey: UserDefaultsKeys.refreshToken.rawValue)!
+      string(forKey: UserDefaultsKeys.refreshToken.rawValue)
     }
     set {
       setValue(newValue, forKey: UserDefaultsKeys.refreshToken.rawValue)

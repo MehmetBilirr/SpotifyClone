@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ContentDetailsViewInterface:AnyObject {
-  var viewModel:ContentDetailsViewModel{get set}
+
   func configureCollectionView()
   func fetchData()
   func reloadData()
@@ -27,14 +27,15 @@ class ContentDetailsViewController: UIViewController {
     self.content = content
     super.init(nibName: nil, bundle: nil)
   }
-  
+
+
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
-    return self.collectionView.contentDetailSectionLayout(section: sectionIndex)
+  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ -> NSCollectionLayoutSection? in
+    return self?.collectionView.contentDetailSectionLayout(section: sectionIndex)
 
   })
     override func viewDidLoad() {
@@ -133,20 +134,13 @@ extension ContentDetailsViewController:UICollectionViewDelegate,UICollectionView
   }
 
   func pushToPlayer(track:Track) {
-    switch content {
-
-    case .album(let album):
-      let url = album.images.first?.url
-      let vc = PlayerViewController(track: track,url: url)
-      vc.modalPresentationStyle = .fullScreen
-      present(vc, animated: true)
-    default:
-      let vc = PlayerViewController(track: track)
-      vc.modalPresentationStyle = .fullScreen
-      present(vc, animated: true)
-    }
+    let trackID : String = track.id
+    NotificationCenter.default.post(name: .trackNotification, object: trackID)
+   
 
   }
+
+
 }
 
 

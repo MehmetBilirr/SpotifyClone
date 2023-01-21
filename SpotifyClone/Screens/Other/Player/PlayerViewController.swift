@@ -41,24 +41,21 @@ class PlayerViewController: UIViewController {
   private let dismissButton = UIButton()
   private let dotButton = UIButton()
   private let imageView = UIImageView()
-  private var player : AVPlayer?
-  var playerItem:AVPlayerItem?
+  var player : AVPlayer?
+  private var playerItem:AVPlayerItem?
   var track:Track?
-  var url:String?
-  private var isPlaying = true
     override func viewDidLoad() {
         super.viewDidLoad()
 
       style()
       layout()
       configurePlayer()
-
-
     }
 
-  init(track:Track,url:String?=nil){
+  init(track:Track,player:AVPlayer){
     self.track = track
-    self.url = url
+    self.player = player
+
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -67,27 +64,20 @@ class PlayerViewController: UIViewController {
   }
 
 }
-
 extension PlayerViewController:PlayerViewInterface {
-
-
 
   func configurePlayer() {
 
-    guard let previewUrl = track?.previewURL else {return}
-    self.playerItem = AVPlayerItem(url: previewUrl.asURL!)
-        self.player = AVPlayer(playerItem: self.playerItem)
-    player?.play()
 
-    self.player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main, using: { (time) in
-            if self.player!.currentItem?.status == .readyToPlay {
-                let currentTime = CMTimeGetSeconds(self.player!.currentTime())
+    self.player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main, using: { [weak self] (time) in
+            if self?.player!.currentItem?.status == .readyToPlay {
+              let currentTime = CMTimeGetSeconds(self?.player!.currentTime() ?? CMTime())
 
                 let secs = Int(currentTime)
-              self.slider.value = Float(secs)
-                self.currentTimeLbl.text = NSString(format: "%02d:%02d", secs/60, secs%60) as String//"\(secs/60):\(secs%60)"
-
+              self?.slider.value = Float(secs)
+                self?.currentTimeLbl.text = NSString(format: "%02d:%02d", secs/60, secs%60) as String//"\(secs/60):\(secs%60)"
         }
+
     })
   }
 
@@ -106,7 +96,7 @@ extension PlayerViewController:PlayerViewInterface {
     dotButton.tintColor = .gray
 
     imageView.configureImageView(contentModee: .scaleAspectFit)
-    imageView.sd_setImage(with: track?.album?.images.first?.url.asURL ?? url?.asURL)
+    imageView.sd_setImage(with: track?.album?.images.first?.url.asURL)
 
     trackNameLbl.configureStyle(size: 20, weight: .bold, color: .white)
     trackNameLbl.text = track?.name
@@ -247,6 +237,7 @@ extension PlayerViewController:PlayerViewInterface {
             playButton.configureStyleSymbolButton(systemName: "pause.circle.fill", pointSize: 80)
             playButton.tintColor = .white
           }
+
         }
   }
 
@@ -266,19 +257,9 @@ extension PlayerViewController:PlayerViewInterface {
       }
 
   @objc func didTapBackward() {
-              let moveBackword: Float64 = 5
-              if player == nil
-              {
-                  return
-              }
-              let playerCurrenTime = CMTimeGetSeconds(player!.currentTime())
-              var newTime = playerCurrenTime - moveBackword
-              if newTime < 0
-              {
-                  newTime = 0
-              }
-              let selectedTime: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
-              player?.seek(to: selectedTime)
+    guard let player = player else {return}
+
+              player.seek(to: .zero)
 
           }
 

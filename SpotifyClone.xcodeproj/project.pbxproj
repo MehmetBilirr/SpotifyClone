@@ -19,6 +19,9 @@
 		F03030332971FB3100714C78 /* UITableViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03030322971FB3100714C78 /* UITableViewCell + Extension.swift */; };
 		F03030352972010500714C78 /* SearchResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03030342972010500714C78 /* SearchResultResponse.swift */; };
 		F0471664297075F800126F14 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0471663297075F800126F14 /* DateFormatter.swift */; };
+		F060603E297C6F0500DF10AF /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F060603D297C6F0500DF10AF /* TabBarViewModel.swift */; };
+		F0AB5CF0297C6102007B0230 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AB5CEF297C6102007B0230 /* PlayerView.swift */; };
+		F0AB5CF2297C64A2007B0230 /* Notification + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AB5CF1297C64A2007B0230 /* Notification + Extension.swift */; };
 		F0C1B53F29646A2E00DB54B4 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B53E29646A2E00DB54B4 /* Method.swift */; };
 		F0C1B54129646B6000DB54B4 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B54029646B6000DB54B4 /* AppError.swift */; };
 		F0C1B54329646CC300DB54B4 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1B54229646CC300DB54B4 /* AuthResponse.swift */; };
@@ -100,6 +103,9 @@
 		F03030322971FB3100714C78 /* UITableViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell + Extension.swift"; sourceTree = "<group>"; };
 		F03030342972010500714C78 /* SearchResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultResponse.swift; sourceTree = "<group>"; };
 		F0471663297075F800126F14 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		F060603D297C6F0500DF10AF /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		F0AB5CEF297C6102007B0230 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		F0AB5CF1297C64A2007B0230 /* Notification + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification + Extension.swift"; sourceTree = "<group>"; };
 		F0C1B53E29646A2E00DB54B4 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		F0C1B54029646B6000DB54B4 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		F0C1B54229646CC300DB54B4 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
@@ -216,6 +222,14 @@
 				F030302E2971F8D700714C78 /* SearchResultViewModel.swift */,
 			);
 			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		F0AB5CEE297C60ED007B0230 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				F0AB5CEF297C6102007B0230 /* PlayerView.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		F0C2FE05296F2096002247F7 /* ContentDetails */ = {
@@ -378,6 +392,7 @@
 		F0DE20FB2963575C00BAA2DD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F0AB5CEE297C60ED007B0230 /* Player */,
 				F030302A2971CD7400714C78 /* CellHeaders */,
 				F0147D032978B83F00DD0525 /* Artist */,
 				F0C9867F2970A240009102CC /* Search */,
@@ -414,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				F0DE21022963586000BAA2DD /* TabBarViewController.swift */,
+				F060603D297C6F0500DF10AF /* TabBarViewModel.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -488,6 +504,7 @@
 				F0D08DBB296A070800144A83 /* UICollectionViewCell + Extension.swift */,
 				F0471663297075F800126F14 /* DateFormatter.swift */,
 				F03030322971FB3100714C78 /* UITableViewCell + Extension.swift */,
+				F0AB5CF1297C64A2007B0230 /* Notification + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -603,6 +620,7 @@
 				F0C1B54129646B6000DB54B4 /* AppError.swift in Sources */,
 				F0DE211A2963629000BAA2DD /* AuthViewController.swift in Sources */,
 				F0C986812970A25D009102CC /* CategoryCollectionViewCell.swift in Sources */,
+				F0AB5CF2297C64A2007B0230 /* Notification + Extension.swift in Sources */,
 				F0D0CEAC2970285200F3D360 /* SavedAlbumsResponse.swift in Sources */,
 				F0DE2112296359D800BAA2DD /* WelcomeViewController.swift in Sources */,
 				F0D08DC2296A0E5600144A83 /* UILabel + Extension.swift in Sources */,
@@ -624,6 +642,7 @@
 				F0DE210E296358E700BAA2DD /* LibraryViewController.swift in Sources */,
 				F0C1B54329646CC300DB54B4 /* AuthResponse.swift in Sources */,
 				F03030252971C00100714C78 /* Album.swift in Sources */,
+				F0AB5CF0297C6102007B0230 /* PlayerView.swift in Sources */,
 				F0DE2108296358B500BAA2DD /* HomeViewModel.swift in Sources */,
 				F0CEE14E297751A300035241 /* PlayerViewController.swift in Sources */,
 				F0D2F4FD2967384C0052ECB8 /* Route.swift in Sources */,
@@ -664,6 +683,7 @@
 				F0DE211E296364BE00BAA2DD /* UIButton + Extension.swift in Sources */,
 				F03030272971C01900714C78 /* NewReleasesResponse.swift in Sources */,
 				F0D2F50C29676BF70052ECB8 /* SettingsViewController.swift in Sources */,
+				F060603E297C6F0500DF10AF /* TabBarViewModel.swift in Sources */,
 				F0EF49AA2968B75400C178E8 /* TopTracksResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

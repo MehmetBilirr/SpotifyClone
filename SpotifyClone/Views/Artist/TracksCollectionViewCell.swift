@@ -12,7 +12,7 @@ class TracksCollectionViewCell: UICollectionViewCell {
 
   private let albumImageView = UIImageView()
   private let trackNameLbl = UILabel()
-  private let albumNameLbl = UILabel()
+  private let artistNameLbl = UILabel()
   override init(frame: CGRect) {
     super.init(frame: frame)
     style()
@@ -35,8 +35,8 @@ class TracksCollectionViewCell: UICollectionViewCell {
     trackNameLbl.configureStyle(size: 15, weight: .semibold, color: .white)
     trackNameLbl.text = "Hey You"
 
-    albumNameLbl.configureStyle(size: 13, weight: .thin, color: .white)
-    albumNameLbl.text = "The Wall"
+    artistNameLbl.configureStyle(size: 13, weight: .thin, color: .white)
+    artistNameLbl.text = "The Wall"
 
   }
 
@@ -57,8 +57,8 @@ class TracksCollectionViewCell: UICollectionViewCell {
       make.centerY.equalTo(albumImageView.snp.centerY).offset(-10)
     }
 
-    contentView.addSubview(albumNameLbl)
-    albumNameLbl.snp.makeConstraints { make in
+    contentView.addSubview(artistNameLbl)
+    artistNameLbl.snp.makeConstraints { make in
       make.left.equalTo(trackNameLbl.snp.left)
       make.right.equalToSuperview()
       make.top.equalTo(trackNameLbl.snp.bottom)
@@ -70,6 +70,6 @@ class TracksCollectionViewCell: UICollectionViewCell {
   func configure(track:Track){
     albumImageView.sd_setImage(with: track.album?.images.first?.url.asURL)
     trackNameLbl.text = track.name
-    albumNameLbl.text = track.album?.name
+    artistNameLbl.text = track.album?.artists.first?.name
   }
 }

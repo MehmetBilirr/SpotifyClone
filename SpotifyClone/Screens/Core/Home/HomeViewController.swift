@@ -22,8 +22,8 @@ protocol HomeViewInterface:AnyObject {
 
 class HomeViewController: UIViewController {
 
-  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
-    return self.collectionView.homeSectionLayout(section: sectionIndex)
+  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ -> NSCollectionLayoutSection? in
+    return self?.collectionView.homeSectionLayout(section: sectionIndex)
 
   })
   lazy var viewModel = HomeViewModel(view: self)
@@ -31,29 +31,22 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
       viewModel.viewDidLoad()
-//      APIManager.shared.getUserPlaylist()
 
-//      APIManager.shared.getUserSavedTracks { result in
-//        switch result {
-//
-//        case .success(let tracks):
-//          print(tracks)
-//        case .failure(let error):
-//          print(error.localizedDescription)
-//        }
-//      }
+     
     }
 
 
   override func viewDidLayoutSubviews() {
-    collectionView.frame = view.bounds
+    collectionView.snp.makeConstraints { make in
+      make.bottom.equalTo(-100)
+      make.left.right.top.equalToSuperview()
+    }
   }
 
   private func pushNavigation(viewController:UIViewController){
     navigationController?.pushViewController(viewController, animated: true)
+
   }
-
-
 }
 
 extension HomeViewController:HomeViewInterface {
@@ -64,8 +57,8 @@ extension HomeViewController:HomeViewInterface {
   }
 
   @objc func didTapSettings() {
-    let vc = SettingsViewController()
-    vc.title = "Settings"
+    let vc = ProfileViewController()
+    vc.title = "Profile"
     vc.navigationItem.largeTitleDisplayMode = .never
     navigationController?.pushViewController(vc, animated: true)
   }

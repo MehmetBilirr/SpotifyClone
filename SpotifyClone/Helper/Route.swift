@@ -26,6 +26,7 @@ enum Route {
   case search(String)
   case getArtistTopTracks(String)
   case getArtistAlbums(String)
+  case getTrack(String)
 
   
   var description:String {
@@ -59,6 +60,8 @@ enum Route {
       return "/artists/\(artistID)/top-tracks?market=US"
     case .getArtistAlbums(let artistID):
       return "/artists/\(artistID)/albums?limit=10"
+    case .getTrack(let trackID):
+      return "/tracks/\(trackID)"
     }
 
   }

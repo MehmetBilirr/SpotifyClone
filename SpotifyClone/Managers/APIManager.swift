@@ -13,12 +13,25 @@ final class APIManager {
 
   private init() { }
 
+  // MARK: TabBar Requests
+
+  func getTrack(id:String,completion:@escaping(Result<Track,Error>)-> Void){
+
+    request(route:.getTrack(id) , method: .get, completion: completion)
+
+  }
+
+
+  // MARK: ProfileView Requests
 
   func getCurrentUserProfile(completion:@escaping(Result<UserProfile,Error>)-> Void){
 
     request(route: .getCurrentUserProfile, method: .get, completion: completion)
 
   }
+
+
+  // MARK: HomeView Requests
 
   func getReleases(completion:@escaping(Result<NewReleasesResponse,Error>)->Void){
 
@@ -28,6 +41,24 @@ final class APIManager {
   func getFeaturedPlaylists(completion:@escaping(Result<CategoryPlaylistsResponse,Error>)->Void){
     request(route: .getFeaturedPlaylists, method: .get, completion: completion)
   }
+
+  func getUserPlaylist(completion:@escaping(Result<PlaylistResponse,Error>)->Void){
+
+    request(route: .getUserPlaylists, method: .get, completion: completion)
+  }
+
+  func getUserRecentlyPlayed(completion:@escaping(Result<PlaylistTracksResponse,Error>)->Void){
+    request(route: .getUserRecentlyPlayed, method: .get, completion: completion)
+  }
+
+
+  func getUserSavedAlbums(completion:@escaping(Result<SavedAlbumsResponse,Error>)->Void) {
+    request(route: .getUserSavedAlbums, method: .get, completion: completion)
+  }
+
+
+
+  // MARK: ContentDetailView Requests
 
   func getAlbumDetails(albumID:String,completion:@escaping(Result<AlbumDetailsResponse,Error>)->Void){
 
@@ -40,22 +71,14 @@ final class APIManager {
 
   }
 
-  func getUserPlaylist(completion:@escaping(Result<PlaylistResponse,Error>)->Void){
-
-    request(route: .getUserPlaylists, method: .get, completion: completion)
-  }
-
-  func getUserRecentlyPlayed(completion:@escaping(Result<PlaylistTracksResponse,Error>)->Void){
-    request(route: .getUserRecentlyPlayed, method: .get, completion: completion)
-  }
-
-  func getUserSavedAlbums(completion:@escaping(Result<SavedAlbumsResponse,Error>)->Void) {
-    request(route: .getUserSavedAlbums, method: .get, completion: completion)
-  }
+  // MARK: LibraryView Requests
 
   func getUserSavedTracks(completion:@escaping(Result<SavedTracksResponse,Error>)->Void) {
     request(route: .getUserSavedTracks, method: .get, completion: completion)
   }
+
+
+  // MARK: SearchView Requests
 
   func getAllCategories(completion:@escaping(Result<CategoriesResponse,Error>)->Void){
     request(route: .getAllCategories, method: .get, completion: completion)
@@ -68,7 +91,9 @@ final class APIManager {
   func search(query:String,completion:@escaping(Result<SearchResultResponse,Error>)->Void){
     request(route: .search(query), method: .get, completion: completion)
   }
+  
 
+  // MARK: ArtistView Requests
   func getArtistTopTracks(id:String,completion:@escaping(Result<TopTracksResponse,Error>)->Void){
     request(route: .getArtistTopTracks(id), method: .get, completion: completion)
   }
@@ -77,23 +102,31 @@ final class APIManager {
     request(route: .getArtistAlbums(id), method: .get, completion: completion)
   }
 
-  func getUserPlaylist(){
 
-    createRequest(route: .getUserSavedTracks, method: .get) { request in
+  func getTrack(id:String){
+
+    createRequest(route: .getTrack(id), method: .get) { request in
       URLSession.shared.dataTask(with: request) { data, response, error in
-        if let data = data {
 
+        if let data = data {
           let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
           print("The response is :\n \(responseString)")
-
-
+        }else if let error = error {
+          print("The error is : \(error.localizedDescription)")
         }
 
       }.resume()
     }
 
-  }
+    }
 
+
+
+  /// <#Description#>
+  /// - Parameters:
+  ///   - route: <#route description#>
+  ///   - method: <#method description#>
+  ///   - completion: <#completion description#>
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 
     createRequest(route: route, method: method) { request in
@@ -120,15 +153,15 @@ final class APIManager {
 
   }
 
+  /// <#Description#>
+  /// - Parameters:
+  ///   - result: <#result description#>
+  ///   - completion: <#completion description#>
   private func handleResponse<T:Codable>(result:Result<Data,Error>?,completion: (Result<T,Error>) -> Void){
-
-
     guard let result = result else {
       completion(.failure(AppError.unknownError))
-
-      return
-    }
-
+      return}
+    
     switch result {
 
     case .success(let data):
@@ -147,6 +180,11 @@ final class APIManager {
   }
 
 
+  /// Method is for SPOTIFY WEB API.
+  /// - Parameters:
+  ///   - route: Base Url for Spotify Api.
+  ///   - method: method description
+  ///   - completion: completion description
   private func createRequest (route: Route, method: Method,completion:@escaping(URLRequest)->Void) {
     AuthManager.shared.withValidToken { token in
       let urlString = Route.baseUrl + route.description

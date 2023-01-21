@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
   private let tableView = UITableView()
   private lazy var viewModel = ProfileViewModel(view: self)
   private let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+  private let logOutButton = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
       viewModel.viewDidLoad()
@@ -40,8 +41,27 @@ extension ProfileViewController:ProfileViewInterface {
       self.imageView.sd_setImage(with: self.viewModel.imageUrl().asURL)
     }
 
+    logOutButton.configureStyleTitleButton(title: "Log Out", titleColor: .systemRed)
+    logOutButton.addTarget(self, action: #selector(didTapLogOut), for: .touchUpInside)
+
 
     
+  }
+
+  @objc func didTapLogOut(){
+
+    AuthManager.shared.signOut { [weak self] success in
+        if success {
+            DispatchQueue.main.async {
+                let navC = UINavigationController(rootViewController: WelcomeViewController())
+                navC.navigationBar.prefersLargeTitles = true
+                navC.modalPresentationStyle = .fullScreen
+                self?.present(navC, animated: true, completion: {
+                    self?.navigationController?.popToRootViewController(animated: true)
+                })
+
+            }
+        }}
   }
 
   func layout() {
@@ -58,7 +78,15 @@ extension ProfileViewController:ProfileViewInterface {
       make.top.equalTo(imageView.snp.bottom).offset(100)
       make.left.equalToSuperview()
       make.right.equalToSuperview()
-      make.bottom.equalToSuperview()
+      make.bottom.equalTo(-200)
+    }
+
+    view.addSubview(logOutButton)
+
+    logOutButton.snp.makeConstraints { make in
+      make.centerX.equalToSuperview()
+      make.top.equalTo(tableView.snp.bottom).offset(20)
+
     }
   }
 

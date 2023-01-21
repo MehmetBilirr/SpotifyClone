@@ -55,10 +55,10 @@ class ProfileViewModel:ProfileViewModelInterface {
 
 
   func configureRows(profile:UserProfile) {
-    rows.append("Full Name:  \(profile.displayName)")
-    rows.append("Email:  \(profile.email)")
-    rows.append("User ID:  \(profile.id)")
-    rows.append("Plan:  \(profile.product)")
+    rows.append("User:  \(profile.display_name)")
+    rows.append("E-mail:  \(profile.email)")
+    rows.append("ID:  \(profile.id)")
+    rows.append("Plan:  \(profile.product.capitalized)")
   }
 
   func imageUrl() -> String {

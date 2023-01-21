@@ -116,7 +116,7 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(0.5)),
+            heightDimension: .fractionalHeight(0.35)),
         elementKind: UICollectionView.elementKindSectionHeader,
         alignment: .top) ]
 
@@ -141,10 +141,12 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(80)),
+            heightDimension: .absolute(50)),
         elementKind: UICollectionView.elementKindSectionHeader,
         alignment: .top) ]
 
+
+  
     switch section {
 
 
@@ -169,7 +171,6 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
 
       let section = NSCollectionLayoutSection(group: horizontalGroup)
       section.orthogonalScrollingBehavior = .groupPaging
-      section.boundarySupplementaryItems = sectionBoundaryItem
       return section
 
     default:

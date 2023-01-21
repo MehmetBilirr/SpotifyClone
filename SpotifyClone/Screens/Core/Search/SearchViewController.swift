@@ -101,9 +101,10 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
       navigationController?.pushViewController(vc, animated: true)
 
     case.track(let track):
-      let vc = PlayerViewController(track: track)
-      vc.modalPresentationStyle = .fullScreen
-      present(vc, animated: true)
+
+      let trackID : String = track.id
+      NotificationCenter.default.post(name: .trackNotification, object: trackID)
+
     default:
       let vc = ContentDetailsViewController(content: content)
       navigationController?.pushViewController(vc, animated: true)

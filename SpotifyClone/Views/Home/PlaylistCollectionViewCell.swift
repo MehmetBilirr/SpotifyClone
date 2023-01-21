@@ -33,7 +33,7 @@ class PlaylistCollectionViewCell: UICollectionViewCell {
 
     albumImageView.snp.makeConstraints { make in
       make.top.left.right.equalToSuperview()
-      make.bottom.equalToSuperview().offset(-10)
+      make.bottom.equalToSuperview().offset(-20)
     }
 
     descriptionLbl.snp.makeConstraints { make in
@@ -45,7 +45,7 @@ class PlaylistCollectionViewCell: UICollectionViewCell {
   }
 
   func configure(playlist:Playlist){
-    descriptionLbl.text = playlist.itemDescription
+    descriptionLbl.text = ""
     albumImageView.sd_setImage(with: playlist.images.first?.url.asURL)
   }
 
