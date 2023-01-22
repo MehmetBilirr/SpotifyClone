@@ -38,8 +38,7 @@ class HomeViewController: UIViewController {
 
   override func viewDidLayoutSubviews() {
     collectionView.snp.makeConstraints { make in
-      make.bottom.equalTo(-100)
-      make.left.right.top.equalToSuperview()
+      make.edges.equalToSuperview()
     }
   }
 

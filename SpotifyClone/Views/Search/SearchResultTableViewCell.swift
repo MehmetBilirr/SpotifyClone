@@ -12,7 +12,7 @@ class SearchResultTableViewCell: UITableViewCell {
   private let contentImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
   private let contentName = UILabel()
   private let contentOwner = UILabel()
-  private let button = UIButton()
+  let button = UIButton()
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,7 +33,7 @@ class SearchResultTableViewCell: UITableViewCell {
     contentOwner.configureStyle(size: 14, weight: .light, color: .white)
     contentOwner.text = "Pink Floyd"
 
-    button.configureStyleSymbolButton(systemName: "chevron.forward", tintClr: .gray, pointSize: 20)
+    button.configureStyleSymbolButton(systemName: "suit.heart.fill", backgroundClr: nil, cornerRds: nil, tintClr: .systemGreen, pointSize: 20)
 
   }
   private func layout(){

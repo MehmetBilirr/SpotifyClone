@@ -90,6 +90,7 @@ extension LibraryViewModel:LibraryViewModelInterface{
 
   func cellForRowAt(_ indexPath: IndexPath, _ tableView: UITableView) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
+    
     if  view?.selectedIndex == 0 {
       cell.configure(content: .track(tracks[indexPath.row]))
     }else if view?.selectedIndex == 1 {

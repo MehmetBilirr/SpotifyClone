@@ -49,6 +49,13 @@ final class TabBarViewController: UITabBarController {
     guard let id = track.object as? String else { return}
     viewModel.fetchTrack(id: id)
   }
+  @objc func didTapPlayButton(){
+    if !playerView.isPlaying {
+      player?.pause()
+    }else {
+      player?.play()
+    }
+  }
 
 }
 
@@ -67,6 +74,8 @@ extension TabBarViewController:TabBarViewInterface{
 
 
     NotificationCenter.default.addObserver(self, selector: #selector(didGetTrackID(_:)), name: .trackNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(didTapPlayButton), name: .didTapPlayButton, object: nil)
+
   }
 
   func layout() {

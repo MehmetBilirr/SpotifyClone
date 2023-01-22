@@ -23,7 +23,7 @@ class ProfileViewController: UIViewController {
   private let tableView = UITableView()
   private lazy var viewModel = ProfileViewModel(view: self)
   private let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-  private let logOutButton = UIButton()
+  private let logOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
     override func viewDidLoad() {
         super.viewDidLoad()
       viewModel.viewDidLoad()
@@ -41,7 +41,7 @@ extension ProfileViewController:ProfileViewInterface {
       self.imageView.sd_setImage(with: self.viewModel.imageUrl().asURL)
     }
 
-    logOutButton.configureStyleTitleButton(title: "Log Out", titleColor: .systemRed)
+    logOutButton.configureStyleTitleButton(title:"Log Out", titleColor: .black, backgroundClr: .white.withAlphaComponent(0.9),cornerRds: logOutButton.frame.height / 2)
     logOutButton.addTarget(self, action: #selector(didTapLogOut), for: .touchUpInside)
 
 
@@ -86,6 +86,8 @@ extension ProfileViewController:ProfileViewInterface {
     logOutButton.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
       make.top.equalTo(tableView.snp.bottom).offset(20)
+      make.height.equalTo(50)
+      make.width.equalTo(100)
 
     }
   }

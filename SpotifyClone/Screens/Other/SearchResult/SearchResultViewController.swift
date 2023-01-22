@@ -41,6 +41,7 @@ extension SearchResultViewController:SearchResultViewInterface{
     view.addSubview(tableView)
     tableView.delegate = self
     tableView.dataSource = self
+    tableView.separatorStyle = .none
     tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
     
   }

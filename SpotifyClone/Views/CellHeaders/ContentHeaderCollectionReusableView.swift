@@ -83,7 +83,7 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     case .album(let album):
       imageView.sd_setImage(with: album.images.first?.url.asURL)
       nameLbl.text = album.name
-      descriptionLbl.text = "Release Date: \(String.formattedDate(string: album.releaseDate))"
+      descriptionLbl.text = String.formattedDate(string: album.releaseDate)
       artistLbl.text = album.artists.first?.name ?? ""
     case .playlist(let playlist):
       imageView.sd_setImage(with: playlist.images.first?.url.asURL)

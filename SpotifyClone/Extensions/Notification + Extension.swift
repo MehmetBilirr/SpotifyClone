@@ -10,4 +10,5 @@ import Foundation
 extension NSNotification.Name {
 
     static let trackNotification = NSNotification.Name("trackID")
+    static let didTapPlayButton = NSNotification.Name("tappedPlayButton")
 }

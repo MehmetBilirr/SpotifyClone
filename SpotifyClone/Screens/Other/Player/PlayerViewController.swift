@@ -44,12 +44,15 @@ class PlayerViewController: UIViewController {
   var player : AVPlayer?
   private var playerItem:AVPlayerItem?
   var track:Track?
+  var isPlaying = true
     override func viewDidLoad() {
         super.viewDidLoad()
 
       style()
       layout()
       configurePlayer()
+
+
     }
 
   init(track:Track,player:AVPlayer){
@@ -116,7 +119,7 @@ extension PlayerViewController:PlayerViewInterface {
     backwardButton.configureStyleSymbolButton(systemName: "backward.end.fill", tintClr: .white, pointSize: 40)
     backwardButton.addTarget(self, action: #selector(didTapBackward), for: .touchUpInside)
 
-    playButton.configureStyleSymbolButton(systemName: "pause.circle.fill", tintClr: .white, pointSize: 80)
+    playButton.configureStyleSymbolButton(systemName: "pause.circle.fill" , tintClr: .white, pointSize: 80)
     playButton.addTarget(self, action: #selector(didTapPlayPause), for: .touchUpInside)
 
 
@@ -229,15 +232,16 @@ extension PlayerViewController:PlayerViewInterface {
       if let player = player {
           if player.timeControlStatus == .playing {
               player.pause()
-            playButton.configureStyleSymbolButton(systemName: "play.circle.fill", pointSize: 80)
             playButton.tintColor = .white
+            isPlaying = false
           }
           else if player.timeControlStatus == .paused {
               player.play()
-            playButton.configureStyleSymbolButton(systemName: "pause.circle.fill", pointSize: 80)
             playButton.tintColor = .white
+            isPlaying = true
           }
 
+        playButton.configureStyleSymbolButton(systemName: player.timeControlStatus  == .paused ? "play.circle.fill" : "pause.circle.fill" ,tintClr: .white, pointSize: 80)
         }
   }
 

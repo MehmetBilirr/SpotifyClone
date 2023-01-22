@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 
 extension UICollectionView {
-
-
   func artistSectionLayout(section:Int)->NSCollectionLayoutSection{
 
     switch section {
@@ -141,15 +139,20 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
     let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
         layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(100)),
+        elementKind: UICollectionView.elementKindSectionHeader,
+        alignment: .top) ]
+
+    let RecentlysectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
+        layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
             heightDimension: .absolute(50)),
         elementKind: UICollectionView.elementKindSectionHeader,
         alignment: .top) ]
 
 
-  
+
     switch section {
-
-
     //User recently
     case 0:
 
@@ -171,6 +174,7 @@ func contentDetailSectionLayout(section:Int)->NSCollectionLayoutSection{
 
       let section = NSCollectionLayoutSection(group: horizontalGroup)
       section.orthogonalScrollingBehavior = .groupPaging
+      section.boundarySupplementaryItems = RecentlysectionBoundaryItem
       return section
 
     default:

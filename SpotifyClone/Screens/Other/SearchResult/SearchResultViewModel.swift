@@ -96,6 +96,7 @@ extension SearchResultViewModel:SearchResultViewModelInterface {
 
   func cellForRowAt(_ indexPath: IndexPath, _ tableView: UITableView) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
+    cell.button.isHidden = true
     let section = sections[indexPath.section]
     cell.configure(content: section.results[indexPath.row])
 

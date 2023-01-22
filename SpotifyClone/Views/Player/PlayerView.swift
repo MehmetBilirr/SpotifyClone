@@ -12,6 +12,8 @@ class PlayerView: UIView {
   let trackImageView  = UIImageView()
   let trackNameLbl = UILabel()
   let artistNameLbl = UILabel()
+  let playButton = UIButton()
+  var isPlaying = true
   override init(frame: CGRect) {
     super.init(frame: frame)
     style()
@@ -24,19 +26,28 @@ class PlayerView: UIView {
   }
 
   private func style(){
-    backgroundColor = .black
+    backgroundColor = .systemGray6
     trackImageView.configureImageView(imageName: "dummyalbum", contentModee: .scaleAspectFit)
     trackNameLbl.configureStyle(size: 14, weight: .bold, color: .white)
-    trackNameLbl.text = "Dark Side Of The Moon"
     artistNameLbl.configureStyle(size: 12, weight: .light, color: .white)
-    artistNameLbl.text = "Pink FLoyd"
+    playButton.configureStyleSymbolButton(systemName:"pause.fill", backgroundClr: nil, cornerRds: nil, tintClr: .white, pointSize: 20)
+    playButton.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
+
+  }
+
+  @objc func didTapPlayButton(){
+    isPlaying = !isPlaying
+    playButton.configureStyleSymbolButton(systemName: isPlaying == true ? "pause.fill" : "play.fill", backgroundClr: nil, cornerRds: nil, tintClr: .white, pointSize: 20)
+    NotificationCenter.default.post(name: .didTapPlayButton, object: nil)
+    
+
   }
 
   private func layout(){
     addSubview(trackImageView)
     trackImageView.snp.makeConstraints { make in
-      make.left.top.equalToSuperview().offset(4)
-      make.bottom.equalToSuperview().offset(-4)
+      make.left.top.equalToSuperview().offset(5)
+      make.bottom.equalToSuperview().offset(-5)
       make.width.equalTo(44)
     }
 
@@ -50,6 +61,12 @@ class PlayerView: UIView {
     artistNameLbl.snp.makeConstraints { make in
       make.left.equalTo(trackNameLbl.snp.left)
       make.top.equalTo(trackNameLbl.snp.bottom)
+    }
+    addSubview(playButton)
+    playButton.snp.makeConstraints { make in
+      make.right.top.equalToSuperview()
+      make.right.equalToSuperview().offset(-5)
+      make.height.equalTo(46)
     }
     
 
