@@ -11,7 +11,7 @@ import SDWebImage
 
 protocol ProfileViewInterface:AnyObject {
   func configureTableView()
-  func getUser()
+  func fetchData()
   func reloadData()
   func style()
   func layout()
@@ -20,9 +20,11 @@ protocol ProfileViewInterface:AnyObject {
 }
 
 class ProfileViewController: UIViewController {
-  private let tableView = UITableView()
+  private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
+    return self.collectionView.profileSectionLayout(section: sectionIndex)
+
+  })
   private lazy var viewModel = ProfileViewModel(view: self)
-  private let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
   private let logOutButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +38,6 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController:ProfileViewInterface {
 
   func style() {
-    imageView.configureImageView(contentModee: .scaleAspectFit)
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-      self.imageView.sd_setImage(with: self.viewModel.imageUrl().asURL)
-    }
 
     logOutButton.configureStyleTitleButton(title:"Log Out", titleColor: .black, backgroundClr: .white.withAlphaComponent(0.9),cornerRds: logOutButton.frame.height / 2)
     logOutButton.addTarget(self, action: #selector(didTapLogOut), for: .touchUpInside)
@@ -66,18 +64,10 @@ extension ProfileViewController:ProfileViewInterface {
 
   func layout() {
 
-    view.addSubview(imageView)
-    imageView.snp.makeConstraints { make in
-      make.centerX.equalToSuperview()
-      make.top.equalToSuperview().offset(150)
-      make.width.height.equalTo(200)
-    }
 
-    view.addSubview(tableView)
-    tableView.snp.makeConstraints { make in
-      make.top.equalTo(imageView.snp.bottom).offset(100)
-      make.left.equalToSuperview()
-      make.right.equalToSuperview()
+    view.addSubview(collectionView)
+    collectionView.snp.makeConstraints { make in
+      make.top.left.right.equalToSuperview()
       make.bottom.equalTo(-200)
     }
 
@@ -85,7 +75,7 @@ extension ProfileViewController:ProfileViewInterface {
 
     logOutButton.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.top.equalTo(tableView.snp.bottom).offset(20)
+      make.top.equalTo(collectionView.snp.bottom).offset(20)
       make.height.equalTo(50)
       make.width.equalTo(100)
 
@@ -93,17 +83,21 @@ extension ProfileViewController:ProfileViewInterface {
   }
 
   func configureTableView() {
-    view.addSubview(tableView)
-    tableView.delegate = self
-    tableView.dataSource = self
+    view.addSubview(collectionView)
+    collectionView.delegate = self
+    collectionView.dataSource = self
+    collectionView.register(PlaylistCollectionViewCell.self, forCellWithReuseIdentifier: PlaylistCollectionViewCell.identifier)
+    collectionView.register(ProfileHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier)
+
   }
 
-  func getUser() {
-    viewModel.getUser()
+  func fetchData() {
+    viewModel.fetchData()
   }
+
 
   func reloadData() {
-      self.tableView.reloadData()
+      self.collectionView.reloadData()
 
   }
    func failedToGetProfile() {
@@ -116,17 +110,20 @@ extension ProfileViewController:ProfileViewInterface {
   }
 }
 
-extension ProfileViewController:UITableViewDelegate,UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.numberOfRows()
+extension ProfileViewController:UICollectionViewDelegate,UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return viewModel.numberOfItemsInSection(section: section)
   }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell()
-    cell.textLabel?.text = viewModel.cellForRowAt(indexPath: indexPath)
-    return cell
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    viewModel.cellForItemAt(collectionView: collectionView, indexPath: indexPath)
   }
 
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+    viewModel.configureHeaderView(kind: kind, collectionView: collectionView, indexPath: indexPath)
+
+  }
 
 
 }

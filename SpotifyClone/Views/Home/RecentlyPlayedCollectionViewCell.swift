@@ -30,6 +30,8 @@ class RecentlyPlayedCollectionViewCell: UICollectionViewCell {
     albumImageView.configureImageView(contentModee: .scaleAspectFill)
 
     albumNamelbl.configureStyle(size: 12, weight: .semibold, color: .white)
+    albumNamelbl.numberOfLines = 2
+    albumNamelbl.lineBreakMode = .byTruncatingTail
 
 
 

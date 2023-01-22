@@ -25,13 +25,16 @@ class SearchResultTableViewCell: UITableViewCell {
   }
 
   private func stylee(){
-    contentImageView.configureImageView(imageName: "dummyalbum", contentModee: .scaleAspectFill)
+    contentImageView.configureImageView(contentModee: .scaleAspectFill)
 
     contentName.configureStyle(size: 16, weight: .medium, color: .white)
-    contentName.text = "Dark Side Of The Moon"
+    contentName.numberOfLines  = 1
+    contentName.lineBreakMode = .byTruncatingTail
+
 
     contentOwner.configureStyle(size: 14, weight: .light, color: .white)
-    contentOwner.text = "Pink Floyd"
+    contentOwner.lineBreakMode = .byTruncatingTail
+    contentOwner.numberOfLines  = 1
 
     button.configureStyleSymbolButton(systemName: "suit.heart.fill", backgroundClr: nil, cornerRds: nil, tintClr: .systemGreen, pointSize: 20)
 
@@ -44,26 +47,31 @@ class SearchResultTableViewCell: UITableViewCell {
       make.bottom.equalToSuperview().offset(-5)
       make.width.equalTo(50)
       make.height.equalTo(50)
+      make.left.equalToSuperview()
     }
-
-    contentView.addSubview(contentName)
-    contentName.snp.makeConstraints { make in
-      make.bottom.equalTo(contentView.snp.centerY)
-      make.left.equalTo(contentImageView.snp.right).offset(10)
-    }
-
-    contentView.addSubview(contentOwner)
-    contentOwner.snp.makeConstraints { make in
-      make.top.equalTo(contentName.snp.bottom).offset(2)
-      make.left.equalTo(contentName.snp.left)
-    }
-
     contentView.addSubview(button)
 
     button.snp.makeConstraints { make in
       make.centerY.equalToSuperview()
       make.right.equalToSuperview()
     }
+
+    contentView.addSubview(contentName)
+    contentName.snp.makeConstraints { make in
+      make.bottom.equalTo(contentView.snp.centerY)
+      make.left.equalTo(contentImageView.snp.right).offset(10)
+      make.right.equalToSuperview().offset(-50)
+
+    }
+
+    contentView.addSubview(contentOwner)
+    contentOwner.snp.makeConstraints { make in
+      make.top.equalTo(contentName.snp.bottom).offset(2)
+      make.left.equalTo(contentName.snp.left)
+
+    }
+
+
 
   }
 

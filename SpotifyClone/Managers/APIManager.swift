@@ -186,16 +186,17 @@ final class APIManager {
   ///   - method: method description
   ///   - completion: completion description
   private func createRequest (route: Route, method: Method,completion:@escaping(URLRequest)->Void) {
-    AuthManager.shared.withValidToken { token in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+      guard let accessToken = (UserDefaults.standard.string(forKey: "access_token")) else {return}
       let urlString = Route.baseUrl + route.description
-
       guard let url = urlString.asURL else {return print(AppError.invalidUrl.localizedDescription)}
       var request = URLRequest(url: url)
       request.httpMethod = method.rawValue
       request.timeoutInterval = 30
-      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+      request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
       completion(request)
     }
+
 
   }
 

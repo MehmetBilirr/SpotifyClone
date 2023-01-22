@@ -9,6 +9,47 @@ import Foundation
 import UIKit
 
 extension UICollectionView {
+
+  func profileSectionLayout(section:Int)->NSCollectionLayoutSection{
+
+    switch section {
+
+      //Playlists
+    default:
+
+      let sectionBoundaryItem = [NSCollectionLayoutBoundarySupplementaryItem(
+          layoutSize: NSCollectionLayoutSize(
+              widthDimension: .fractionalWidth(1),
+              heightDimension: .absolute(300)),
+          elementKind: UICollectionView.elementKindSectionHeader,
+          alignment: .top) ]
+
+
+      let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+
+      item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+      //Group
+
+
+      //vertical
+      let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.absolute(200)), subitem: item, count: 1)
+
+
+      //horizontal
+      let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(200)), subitem: verticalGroup, count: 2)
+
+
+      //Section
+
+      let section = NSCollectionLayoutSection(group: horizontalGroup)
+      section.orthogonalScrollingBehavior = .continuous
+      section.boundarySupplementaryItems = sectionBoundaryItem
+      return section
+
+
+    }
+
+  }
   func artistSectionLayout(section:Int)->NSCollectionLayoutSection{
 
     switch section {

@@ -81,28 +81,8 @@ final class AuthManager {
     task.resume()
   }
 
-  private var onRefreshBlocks = [((String) -> Void)]()
 
-  /// <#Description#>
-  /// - Parameter completion: <#completion description#>
-  public func withValidToken(completion: @escaping ((String) -> Void)) {
-      guard !refreshingToken else {
-          onRefreshBlocks.append(completion)
-          return
-      }
-      if shouldRefreshToken {
-          refreshAccesTokenIfNeccessary { [weak self] success in
-              if success {
-                  if let token = self?.accessToken {
-                      completion(token)
-                  }
-              }
-          }
-      } else if let token = accessToken {
-          completion(token)
 
-      }
-  }
 
   /// After 1 hour get the refresh token, it has to be refresh. shouldRefreshToken is true 5 minute before expiration date.
   /// - Parameter completion: If data decoded, saveToken is triggered.
@@ -129,8 +109,7 @@ final class AuthManager {
       }
       do {
           let result = try JSONDecoder().decode(AuthResponse.self, from: data)
-          self.onRefreshBlocks.forEach( { $0(result.access_token)})
-          self.onRefreshBlocks.removeAll()
+
           self.saveToken(result: result)
           print(result)
           completion?(true)
