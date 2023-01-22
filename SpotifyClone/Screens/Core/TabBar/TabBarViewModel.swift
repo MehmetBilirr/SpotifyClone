@@ -13,13 +13,16 @@ protocol TabBarViewModelInterface:AnyObject {
   var view:TabBarViewInterface?{get set}
   func viewDidLoad()
   func fetchTrack(id:String)
+  func getRecentTrack()
   
 }
 
 class TabBarViewModel {
 weak var view: TabBarViewInterface?
-  init(view:TabBarViewInterface){
+  let apiManager:APIManager?
+  init(view:TabBarViewInterface,apiManager:APIManager=APIManager.shared){
     self.view = view
+    self.apiManager  = apiManager
   }
 
 
@@ -31,11 +34,12 @@ extension TabBarViewModel:TabBarViewModelInterface {
     view?.configureViewControllers()
     view?.style()
     view?.layout()
+    view?.getRecentTrack()
 
   }
 
   func fetchTrack(id: String) {
-    APIManager.shared.getTrack(id: id) { result in
+    apiManager?.getTrack(id: id) { result in
       switch result {
 
       case .success(let track):
@@ -45,5 +49,20 @@ extension TabBarViewModel:TabBarViewModelInterface {
         print(error)
       }
     }
+  }
+  func getRecentTrack() {
+
+    apiManager?.getUserRecentlyPlayed(completion: { result in
+      switch result {
+
+      case .success(let tracks):
+        guard let track = tracks.items.first?.track else {return}
+        self.view?.getTrack(track: track)
+        self.view?.configurePlayerView(url: track.previewURL ?? "")
+        self.view?.player?.pause()
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    })
   }
 }

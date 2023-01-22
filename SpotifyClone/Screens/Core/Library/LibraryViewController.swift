@@ -69,13 +69,13 @@ class LibraryViewController: UIViewController {
     view.addSubview(sectionButtonStack)
     sectionButtonStack.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(15)
-      make.top.equalTo(view.safeAreaInsets.top)
+      make.top.equalToSuperview().offset(120)
     }
-
     view.addSubview(tableView)
     tableView.snp.makeConstraints { make in
-      make.bottom.left.right.equalToSuperview()
-      make.top.equalTo(sectionButtonStack.snp.bottom).offset(20)
+      make.left.right.equalToSuperview()
+      make.top.equalTo(sectionButtonStack.snp.bottom).offset(10)
+      make.bottom.equalToSuperview().offset(-50 - (self.tabBarController?.tabBar.frame.height)!)
     }
     for i in buttons {
       i.snp.makeConstraints { make in
@@ -85,15 +85,22 @@ class LibraryViewController: UIViewController {
     }
 
   }
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
+  }
 
 }
-
 extension LibraryViewController:LibraryViewInterface{
+  
 
   func fetchData() {
     viewModel.fetchData()
   }
   func configureTableView() {
+    navigationController?.navigationBar.prefersLargeTitles = false
     view.addSubview(tableView)
     tableView.delegate = self
     tableView.dataSource = self
@@ -133,7 +140,6 @@ extension LibraryViewController:LibraryViewInterface{
       let vc = ContentDetailsViewController(content: .album(album))
       navigationController?.pushViewController(vc, animated: true)
     case .track(let track):
-
       let trackID : String = track.id
       NotificationCenter.default.post(name: .trackNotification, object: trackID)
 

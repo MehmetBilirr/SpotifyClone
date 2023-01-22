@@ -46,21 +46,21 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     imageView.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(70)
       make.right.equalToSuperview().offset(-70)
-      make.top.equalToSuperview()
+      make.top.equalToSuperview().offset(-25)
       make.height.equalTo(height / 1.4)
-    }
-
-    addSubview(artistLbl)
-    artistLbl.snp.makeConstraints { make in
-      make.left.equalToSuperview().offset(5)
-      make.bottom.equalToSuperview()
     }
 
     addSubview(playButton)
     playButton.snp.makeConstraints { make in
       make.right.equalToSuperview()
-      make.bottom.equalToSuperview()
+      make.top.equalTo(imageView.snp.bottom).offset(25)
       make.height.width.equalTo(50)
+    }
+
+    addSubview(artistLbl)
+    artistLbl.snp.makeConstraints { make in
+      make.left.equalToSuperview().offset(5)
+      make.top.equalTo(playButton.snp.bottom)
     }
 
     addSubview(descriptionLbl)

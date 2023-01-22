@@ -12,6 +12,7 @@ extension UserDefaults {
         case accessToken
         case refreshToken
         case expiresIn
+        case didTapTrack
     }
 
     var accessToken:String? {
@@ -30,6 +31,16 @@ extension UserDefaults {
     }
     set {
       setValue(newValue, forKey: UserDefaultsKeys.refreshToken.rawValue)
+    }
+  }
+
+  var didTapTrack:Bool?{
+
+    get {
+      bool(forKey: UserDefaultsKeys.didTapTrack.rawValue)
+    }
+    set {
+      setValue(newValue, forKey: UserDefaultsKeys.didTapTrack.rawValue)
     }
   }
 

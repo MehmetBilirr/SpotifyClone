@@ -10,11 +10,13 @@ import SnapKit
 import AVFoundation
 
 protocol TabBarViewInterface:AnyObject{
+  var player : AVPlayer?{get set}
   func style()
   func layout()
   func configureViewControllers()
   func configurePlayerView(url:String)
   func getTrack(track:Track)
+  func getRecentTrack()
 
 }
 
@@ -22,6 +24,9 @@ final class TabBarViewController: UITabBarController {
   let playerView = PlayerView()
   var player : AVPlayer?
   var track : Track?
+  let vc1 = HomeViewController()
+  let vc2 = SearchViewController()
+  let vc3 = LibraryViewController()
   lazy var viewModel = TabBarViewModel(view: self)
   private var playerItem:AVPlayerItem?
     override func viewDidLoad() {
@@ -32,10 +37,8 @@ final class TabBarViewController: UITabBarController {
     }
 
   @objc func didTapView(_ sender: UITapGestureRecognizer){
-    print("clicked")
     guard let player = player,let track = track else {
       return
-      print("adasd")
     }
 
     let vc = PlayerViewController(track: track, player: player)
@@ -45,7 +48,7 @@ final class TabBarViewController: UITabBarController {
 
 
   @objc func didGetTrackID(_ track:Notification){
-
+    UserDefaults.standard.didTapTrack = true
     guard let id = track.object as? String else { return}
     viewModel.fetchTrack(id: id)
   }
@@ -64,10 +67,7 @@ extension TabBarViewController:TabBarViewInterface{
 
   func style() {
 
-
-    playerView.isHidden = true
     tabBar.backgroundColor = .black
-
     playerView.isUserInteractionEnabled = true
     let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
     playerView.addGestureRecognizer(gesture)
@@ -90,10 +90,6 @@ extension TabBarViewController:TabBarViewInterface{
   }
 
   func configureViewControllers() {
-
-    let vc1 = HomeViewController()
-    let vc2 = SearchViewController()
-    let vc3 = LibraryViewController()
 
     vc1.title = "Spotify"
     vc2.title = "Search"
@@ -118,9 +114,13 @@ extension TabBarViewController:TabBarViewInterface{
     setViewControllers([nav1, nav2, nav3], animated: true)
   }
 
+  func getRecentTrack() {
+    viewModel.getRecentTrack()
+  }
+  
   func configurePlayerView(url:String) {
 
-    playerView.isHidden = false
+
     guard let trackUrl = url.asURL else {return}
 
     self.playerItem = AVPlayerItem(url: trackUrl)
@@ -145,5 +145,7 @@ extension TabBarViewController:TabBarViewInterface{
     playerView.configure(track: track)
     self.track = track
   }
+
+
 
 }

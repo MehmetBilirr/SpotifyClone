@@ -186,7 +186,7 @@ final class APIManager {
   ///   - method: method description
   ///   - completion: completion description
   private func createRequest (route: Route, method: Method,completion:@escaping(URLRequest)->Void) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
       guard let accessToken = (UserDefaults.standard.string(forKey: "access_token")) else {return}
       let urlString = Route.baseUrl + route.description
       guard let url = urlString.asURL else {return print(AppError.invalidUrl.localizedDescription)}

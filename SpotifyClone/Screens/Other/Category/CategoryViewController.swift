@@ -30,7 +30,17 @@ class CategoryViewController: UIViewController {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    collectionView.frame = view.bounds
+    collectionView.snp.makeConstraints { make in
+      make.top.left.right.equalToSuperview()
+      make.bottom.equalToSuperview().offset(-50 - (self.tabBarController?.tabBar.frame.height)!)
+    }
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
   }
 
 }

@@ -13,7 +13,7 @@ class PlayerView: UIView {
   let trackNameLbl = UILabel()
   let artistNameLbl = UILabel()
   let playButton = UIButton()
-  var isPlaying = true
+  var isPlaying = false
   override init(frame: CGRect) {
     super.init(frame: frame)
     style()
@@ -27,10 +27,10 @@ class PlayerView: UIView {
 
   private func style(){
     backgroundColor = .systemGray6
-    trackImageView.configureImageView(imageName: "dummyalbum", contentModee: .scaleAspectFit)
+    trackImageView.configureImageView(contentModee: .scaleAspectFit)
     trackNameLbl.configureStyle(size: 14, weight: .bold, color: .white)
     artistNameLbl.configureStyle(size: 12, weight: .light, color: .white)
-    playButton.configureStyleSymbolButton(systemName:"pause.fill", backgroundClr: nil, cornerRds: nil, tintClr: .white, pointSize: 20)
+    playButton.configureStyleSymbolButton(systemName:"play.fill", backgroundClr: nil, cornerRds: nil, tintClr: .white, pointSize: 20)
     playButton.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
 
   }

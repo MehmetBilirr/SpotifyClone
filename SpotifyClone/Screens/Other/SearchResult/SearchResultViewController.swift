@@ -31,7 +31,11 @@ class SearchResultViewController: UIViewController {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    tableView.frame = view.bounds
+    tableView.snp.makeConstraints { make in
+      make.left.right.bottom.equalToSuperview()
+      make.top.equalToSuperview().offset(100)
+    }
+
   }
   
 }
@@ -58,6 +62,12 @@ extension SearchResultViewController:SearchResultViewInterface{
   func pushToContentDetail(content: ContentType) {
     let vc = ContentDetailsViewController(content: content)
     navigationController?.pushViewController(vc, animated: true)
+  }
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
   }
 
 }

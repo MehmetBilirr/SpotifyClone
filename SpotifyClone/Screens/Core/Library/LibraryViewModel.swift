@@ -39,6 +39,7 @@ extension LibraryViewModel:LibraryViewModelInterface{
     view?.configureSectionButtons()
     view?.configureTableView()
     view?.fetchData()
+    
 
   }
 

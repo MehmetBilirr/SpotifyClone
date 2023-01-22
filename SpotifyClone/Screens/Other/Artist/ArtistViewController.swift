@@ -48,7 +48,10 @@ class ArtistViewController: UIViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     view.addSubview(collectionView)
-    collectionView.frame = view.bounds
+    collectionView.snp.makeConstraints { make in
+      make.top.left.right.equalToSuperview()
+      make.bottom.equalToSuperview().offset(-50 - (self.tabBarController?.tabBar.frame.height)!)
+    }
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -62,6 +65,7 @@ class ArtistViewController: UIViewController {
 }
 
 extension ArtistViewController:ArtistViewInterface{
+
 
 
   func configureCollectionView() {

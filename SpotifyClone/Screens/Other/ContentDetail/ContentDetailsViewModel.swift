@@ -38,7 +38,10 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
     view?.configureCollectionView()
     view?.fetchData()
     view?.configureShareButton()
+    
   }
+
+
 
   func fetchData(content: ContentType) {
     tracks = []

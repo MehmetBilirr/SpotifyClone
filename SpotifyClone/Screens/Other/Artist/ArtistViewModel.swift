@@ -47,6 +47,7 @@ extension ArtistViewModel:ArtistViewModelInterface {
 
     view?.configureCollectionView()
     view?.fetchData()
+  
 
   }
 

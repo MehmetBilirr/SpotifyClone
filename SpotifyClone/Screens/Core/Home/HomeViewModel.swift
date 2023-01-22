@@ -62,6 +62,7 @@ extension HomeViewModel:HomeViewModelInterface {
     view?.configureCollectionView()
     view?.configureNavBarItems()
     view?.fetchData()
+    view?.addObserver()
     
   }
 

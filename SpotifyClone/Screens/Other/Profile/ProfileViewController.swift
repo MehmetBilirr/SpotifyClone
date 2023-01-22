@@ -47,7 +47,7 @@ extension ProfileViewController:ProfileViewInterface {
   }
 
   @objc func didTapLogOut(){
-
+    UserDefaults.standard.didTapTrack = false
     AuthManager.shared.signOut { [weak self] success in
         if success {
             DispatchQueue.main.async {
