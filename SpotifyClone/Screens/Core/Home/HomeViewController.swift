@@ -60,7 +60,10 @@ extension HomeViewController:HomeViewInterface {
 
 
   func configureNavBarItems() {
-    navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage( systemName: "gear"), style: .done, target: self, action: #selector(didTapSettings) )
+    let bellButton = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .done, target: self, action: nil)
+    let historyButton = UIBarButtonItem(image: UIImage(systemName: "clock"), style: .done, target: self, action: nil)
+    let gearButton = UIBarButtonItem(image: UIImage( systemName: "gearshape"), style: .done, target: self, action: #selector(didTapSettings))
+    navigationItem.rightBarButtonItems = [gearButton,historyButton,bellButton]
 
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Good Afternoon", style: .done, target: self, action: nil)
 
@@ -138,8 +141,9 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
 //            let offset = scrollView.contentOffset.y + defaultOffset
 //            print(scrollView.contentOffset.y)
 //
+//    navigationController?.navigationBar.backgroundColor = .black
 //
-//            navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
+////            navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
   }
 
 

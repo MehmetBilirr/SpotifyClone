@@ -40,6 +40,7 @@ final class TabBarViewController: UITabBarController {
     guard let player = player,let track = track else {
       return
     }
+    print(playerView.isPlaying)
     let vc = PlayerViewController(track: track, player: player,isPlaying: playerView.isPlaying)
 
     let navVC = UINavigationController(rootViewController: vc)

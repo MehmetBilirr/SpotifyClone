@@ -30,6 +30,10 @@ class PlayerViewController: UIViewController {
   private let artistLbl = UILabel()
   private let currentTimeLbl = UILabel()
   private let totalTimeLbl = UILabel()
+  private let likeButton = UIButton()
+  private let deviceButton = UIButton()
+  private let shareButton = UIButton()
+  private let stackButton = UIButton()
   private let slider: UISlider = {
       let slider = UISlider()
       slider.value = 0
@@ -61,7 +65,7 @@ class PlayerViewController: UIViewController {
   init(track:Track,player:AVPlayer,isPlaying:Bool){
     self.track = track
     self.player = player
-
+    self.isPlaying = isPlaying
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -146,6 +150,15 @@ extension PlayerViewController:PlayerViewInterface {
     forwardButton.addTarget(self, action: #selector(didTapForward), for: .touchUpInside)
 
     repeatButton.configureStyleSymbolButton(systemName: "arrow.rectanglepath", tintClr: .white, pointSize: 30)
+
+    likeButton.configureStyleSymbolButton(systemName: "suit.heart", tintClr: .gray,pointSize: 20)
+
+    deviceButton.configureStyleSymbolButton(systemName: "hifispeaker.2", tintClr: .white,pointSize: 20)
+
+    shareButton.configureStyleSymbolButton(systemName: "square.and.arrow.up", tintClr: .white,pointSize: 20)
+
+    stackButton.configureStyleSymbolButton(systemName: "text.insert", tintClr: .white,pointSize: 20)
+
 
   }
 
@@ -232,6 +245,30 @@ extension PlayerViewController:PlayerViewInterface {
         make.centerY.equalTo(playButton.snp.centerY)
         make.right.equalTo(slider.snp.right)
       }
+
+    view.addSubview(likeButton)
+    likeButton.snp.makeConstraints { make in
+      make.right.equalToSuperview().offset(-10)
+      make.centerY.equalTo(trackNameLbl.snp.bottom)
+    }
+
+    view.addSubview(deviceButton)
+    deviceButton.snp.makeConstraints { make in
+      make.top.equalTo(playButton.snp.bottom).offset(10)
+      make.left.equalTo(shuffleButton.snp.left)
+    }
+
+    view.addSubview(shareButton)
+    shareButton.snp.makeConstraints { make in
+      make.top.equalTo(playButton.snp.bottom).offset(10)
+      make.centerX.equalTo(forwardButton.snp.right)
+    }
+
+    view.addSubview(stackButton)
+    stackButton.snp.makeConstraints { make in
+      make.top.equalTo(playButton.snp.bottom).offset(10)
+      make.centerX.equalTo(repeatButton.snp.centerX)
+    }
 
     }
 

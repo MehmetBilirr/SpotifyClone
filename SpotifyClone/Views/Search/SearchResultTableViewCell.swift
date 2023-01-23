@@ -12,7 +12,8 @@ class SearchResultTableViewCell: UITableViewCell {
   private let contentImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
   private let contentName = UILabel()
   private let contentOwner = UILabel()
-  let button = UIButton()
+  private let dotButton = UIButton()
+  let likeButton = UIButton()
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,16 +28,18 @@ class SearchResultTableViewCell: UITableViewCell {
   private func stylee(){
     contentImageView.configureImageView(contentModee: .scaleAspectFill)
 
-    contentName.configureStyle(size: 16, weight: .medium, color: .white)
+    contentName.configureStyle(size: 14, weight: .medium, color: .white)
     contentName.numberOfLines  = 1
     contentName.lineBreakMode = .byTruncatingTail
 
 
-    contentOwner.configureStyle(size: 14, weight: .light, color: .white)
+    contentOwner.configureStyle(size: 13, weight: .light, color: .white)
     contentOwner.lineBreakMode = .byTruncatingTail
     contentOwner.numberOfLines  = 1
 
-    button.configureStyleSymbolButton(systemName: "suit.heart.fill", backgroundClr: nil, cornerRds: nil, tintClr: .systemGreen, pointSize: 20)
+    dotButton.configureStyleSymbolButton(systemName: "ellipsis", backgroundClr: nil, cornerRds: nil, tintClr: .gray, pointSize: 20)
+
+    likeButton.configureStyleSymbolButton(systemName: "suit.heart.fill", backgroundClr: nil, cornerRds: nil, tintClr: .systemGreen, pointSize: 20)
 
   }
   private func layout(){
@@ -49,18 +52,26 @@ class SearchResultTableViewCell: UITableViewCell {
       make.height.equalTo(50)
       make.left.equalToSuperview()
     }
-    contentView.addSubview(button)
 
-    button.snp.makeConstraints { make in
+    contentView.addSubview(dotButton)
+
+    dotButton.snp.makeConstraints { make in
       make.centerY.equalToSuperview()
       make.right.equalToSuperview()
+    }
+
+    contentView.addSubview(likeButton)
+    likeButton.snp.makeConstraints { make in
+      make.right.equalTo(dotButton.snp.left).offset(-20)
+      make.centerY.equalToSuperview()
+
     }
 
     contentView.addSubview(contentName)
     contentName.snp.makeConstraints { make in
       make.bottom.equalTo(contentView.snp.centerY)
       make.left.equalTo(contentImageView.snp.right).offset(10)
-      make.right.equalToSuperview().offset(-50)
+      make.right.equalToSuperview().offset(-100)
 
     }
 
@@ -70,8 +81,6 @@ class SearchResultTableViewCell: UITableViewCell {
       make.left.equalTo(contentName.snp.left)
 
     }
-
-
 
   }
 

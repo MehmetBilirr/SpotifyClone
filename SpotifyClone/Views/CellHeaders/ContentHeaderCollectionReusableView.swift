@@ -53,7 +53,6 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     shuffleButton.configureStyleSymbolButton(systemName: "shuffle", tintClr: .gray,pointSize: 25)
 
 
-
   }
 
   private func layout(){
