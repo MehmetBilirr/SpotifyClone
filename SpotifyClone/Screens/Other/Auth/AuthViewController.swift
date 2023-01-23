@@ -16,7 +16,9 @@ final class AuthViewController: UIViewController {
     let webView = WKWebView(frame: .zero, configuration: config)
     webView.navigationDelegate = self
     view.addSubview(webView)
-    guard let url = AuthManager.shared.signInURL else { return WKWebView()}
+    guard let url = AuthManager.shared.signInURL else {
+      print("adasd")
+      return WKWebView()}
     webView.load(URLRequest(url: url))
     return webView
   }()
@@ -28,6 +30,12 @@ final class AuthViewController: UIViewController {
 
 
     }
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
+  }
 
 
   override func viewDidLayoutSubviews() {
@@ -42,7 +50,6 @@ final class AuthViewController: UIViewController {
 extension AuthViewController:WKNavigationDelegate {
 
   func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-
     guard let url = webView.url else { return }
     guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == "code" })?.value else { return }
 

@@ -12,10 +12,10 @@ import AVFoundation
 
 
 protocol PlayerViewInterface {
-
   func style()
   func layout()
   func configurePlayer()
+  func configureBarButtons()
 
 
 }
@@ -38,24 +38,27 @@ class PlayerViewController: UIViewController {
       slider.setThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
       return slider
   }()
-  private let dismissButton = UIButton()
-  private let dotButton = UIButton()
   private let imageView = UIImageView()
-  var player : AVPlayer?
+  var player : AVPlayer
   private var playerItem:AVPlayerItem?
   var track:Track?
-  var isPlaying = true
+  var isPlaying : Bool? {
+    didSet{
+      playButton.configureStyleSymbolButton(systemName: isPlaying  == true ? "pause.circle.fill" : "play.circle.fill" ,tintClr: .white, pointSize: 80)
+    }
+  }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
       style()
       layout()
       configurePlayer()
-
+      configureBarButtons()
 
     }
 
-  init(track:Track,player:AVPlayer){
+  init(track:Track,player:AVPlayer,isPlaying:Bool){
     self.track = track
     self.player = player
 
@@ -66,37 +69,53 @@ class PlayerViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
+  }
 }
 extension PlayerViewController:PlayerViewInterface {
+
+  func configureBarButtons() {
+    let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "chevron.down"), style: .done, target: self, action: #selector(didTapCloseButton))
+    leftBarButton.tintColor = .white
+    navigationItem.leftBarButtonItem = leftBarButton
+
+    let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .done, target: self, action: nil)
+    rightBarButton.tintColor = .gray
+    navigationItem.rightBarButtonItem = rightBarButton
+  }
 
   func configurePlayer() {
 
 
-    self.player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main, using: { [weak self] (time) in
-            if self?.player!.currentItem?.status == .readyToPlay {
-              let currentTime = CMTimeGetSeconds(self?.player!.currentTime() ?? CMTime())
+    self.player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main, using: { [weak self] (time) in
+            if self?.player.currentItem?.status == .readyToPlay {
+              let currentTime = CMTimeGetSeconds(self?.player.currentTime() ?? CMTime())
 
                 let secs = Int(currentTime)
               self?.slider.value = Float(secs)
                 self?.currentTimeLbl.text = NSString(format: "%02d:%02d", secs/60, secs%60) as String//"\(secs/60):\(secs%60)"
         }
-
     })
   }
 
-
   @objc func didTapCloseButton(){
-    print("adad")
+
     dismiss(animated: true)
   }
   
   func style() {
-    dismissButton.configureStyleSymbolButton(systemName: "chevron.down", pointSize: 20)
-    dismissButton.tintColor = .white
-    dismissButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
+    view.backgroundColor = .black
+    title = track?.album?.name
 
-    dotButton.configureStyleSymbolButton(systemName: "ellipsis", pointSize: 20)
-    dotButton.tintColor = .gray
+    let currentTime = CMTimeGetSeconds(self.player.currentTime() ?? CMTime())
+    let secs = Int(currentTime)
+
+    slider.value = Float(secs)
+
 
     imageView.configureImageView(contentModee: .scaleAspectFit)
     imageView.sd_setImage(with: track?.album?.images.first?.url.asURL)
@@ -107,8 +126,8 @@ extension PlayerViewController:PlayerViewInterface {
     artistLbl.configureStyle(size: 15, weight: .thin, color: .white)
     artistLbl.text = track?.artists.first?.name
 
-
     currentTimeLbl.configureStyle(size: 14, weight: .thin, color: .gray)
+    currentTimeLbl.text = NSString(format: "%02d:%02d", secs/60, secs%60) as String
 
     totalTimeLbl.configureStyle(size: 14, weight: .thin, color: .gray)
     totalTimeLbl.text = "0.29"
@@ -119,7 +138,7 @@ extension PlayerViewController:PlayerViewInterface {
     backwardButton.configureStyleSymbolButton(systemName: "backward.end.fill", tintClr: .white, pointSize: 40)
     backwardButton.addTarget(self, action: #selector(didTapBackward), for: .touchUpInside)
 
-    playButton.configureStyleSymbolButton(systemName: "pause.circle.fill" , tintClr: .white, pointSize: 80)
+    playButton.configureStyleSymbolButton(systemName: isPlaying == true ?  "pause.circle.fill" : "play.circle.fill" , tintClr: .white, pointSize: 80)
     playButton.addTarget(self, action: #selector(didTapPlayPause), for: .touchUpInside)
 
 
@@ -141,23 +160,11 @@ extension PlayerViewController:PlayerViewInterface {
 
   func layout() {
 
-    view.addSubview(dismissButton)
-    dismissButton.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(50)
-      make.left.equalToSuperview().offset(10)
-    }
-
-    view.addSubview(dotButton)
-    dotButton.snp.makeConstraints { make in
-      make.right.equalToSuperview()
-      make.top.equalTo(dismissButton.snp.top)
-    }
-
     view.addSubview(imageView)
     imageView.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(30)
       make.right.equalToSuperview().offset(-30)
-      make.top.equalTo(dismissButton.snp.bottom).offset(50)
+      make.top.equalToSuperview().offset(100)
       make.height.equalTo(view.height / 2.3)
     }
 
@@ -229,40 +236,34 @@ extension PlayerViewController:PlayerViewInterface {
     }
 
   @objc func didTapPlayPause() {
-      if let player = player {
+   NotificationCenter.default.post(name: .didTapVCPlayButton, object: nil)
           if player.timeControlStatus == .playing {
               player.pause()
-            playButton.tintColor = .white
             isPlaying = false
           }
           else if player.timeControlStatus == .paused {
               player.play()
-            playButton.tintColor = .white
             isPlaying = true
           }
 
-        playButton.configureStyleSymbolButton(systemName: player.timeControlStatus  == .paused ? "play.circle.fill" : "pause.circle.fill" ,tintClr: .white, pointSize: 80)
-        }
   }
 
   @objc func didTapForward() {
           let moveForword : Float64 = 5
 
           if player == nil { return }
-          if let duration  = player!.currentItem?.duration {
-          let playerCurrentTime = CMTimeGetSeconds(player!.currentTime())
+          if let duration  = player.currentItem?.duration {
+          let playerCurrentTime = CMTimeGetSeconds(player.currentTime())
           let newTime = playerCurrentTime + moveForword
           if newTime < CMTimeGetSeconds(duration)
           {
               let selectedTime: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
-              player!.seek(to: selectedTime)
+              player.seek(to: selectedTime)
           }
           }
       }
 
   @objc func didTapBackward() {
-    guard let player = player else {return}
-
               player.seek(to: .zero)
 
           }

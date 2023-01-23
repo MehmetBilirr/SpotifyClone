@@ -46,8 +46,12 @@ class ContentDetailsViewController: UIViewController {
     }
 
   override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
     view.addSubview(collectionView)
-    collectionView.frame = view.bounds
+    collectionView.snp.makeConstraints { make in
+      make.top.left.right.equalToSuperview()
+      make.bottom.equalToSuperview().offset(-50 - (self.tabBarController?.tabBar.frame.height)!)
+    }
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -98,10 +102,7 @@ extension ContentDetailsViewController:ContentDetailsViewInterface {
     
   }
   func reloadData() {
-    collectionView.snp.makeConstraints { make in
-      make.top.left.right.equalToSuperview()
-      make.bottom.equalToSuperview().offset(-50 - (self.tabBarController?.tabBar.frame.height)!)
-    }
+    collectionView.reloadData()
   }
   func configureShareButton() {
     navigationItem.rightBarButtonItem = UIBarButtonItem(

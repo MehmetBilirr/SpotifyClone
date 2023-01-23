@@ -61,7 +61,6 @@ class ContentetailsCollectionViewCell: UICollectionViewCell {
   }
 
   func configure(track:Track){
-
     trackNamelbl.text = track.name
     artistNameLbl.text = track.artists.first?.name
   }

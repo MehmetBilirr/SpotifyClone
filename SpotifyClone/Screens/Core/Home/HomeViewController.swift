@@ -12,7 +12,6 @@ protocol HomeViewInterface:AnyObject {
   func configureCollectionView()
   func configureNavBarItems()
   func fetchData()
-  func addObserver()
   func reloadData()
   func pushToContentDetailsVC(content:ContentType)
 
@@ -33,6 +32,7 @@ class HomeViewController: UIViewController {
 
       viewModel.viewDidLoad()
 
+
     }
   override func viewWillDisappear(_ animated: Bool) {
     view.isHidden = true
@@ -45,6 +45,7 @@ class HomeViewController: UIViewController {
   override func viewDidLayoutSubviews() {
     collectionView.snp.makeConstraints { make in
       make.top.left.right.equalToSuperview()
+      make.top.equalToSuperview().offset(-50)
       make.bottom.equalToSuperview().offset(-50 - (self.tabBarController?.tabBar.frame.height)!)
     }
   }
@@ -57,23 +58,16 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController:HomeViewInterface {
 
-  
 
   func configureNavBarItems() {
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage( systemName: "gear"), style: .done, target: self, action: #selector(didTapSettings) )
 
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Good Afternoon", style: .done, target: self, action: nil)
+
   }
 
-  func addObserver(){
-    NotificationCenter.default.addObserver(self, selector: #selector(didTapPlayTrack), name: .trackNotification, object: nil)
-  }
 
-  @objc func didTapPlayTrack(){
-    collectionView.snp.remakeConstraints { make in
-      make.left.right.top.equalToSuperview()
-      make.bottom.equalTo(-50 - (self.tabBarController?.tabBar.frame.size.height)!)
-    }
-  }
+
   @objc func didTapSettings() {
     let vc = ProfileViewController()
     vc.title = "Profile"

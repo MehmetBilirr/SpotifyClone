@@ -44,7 +44,6 @@ class SearchResultViewModel {
 extension SearchResultViewModel:SearchResultViewModelInterface {
   func viewDidLoad() {
     view?.configureTableView()
-    
 
   }
 

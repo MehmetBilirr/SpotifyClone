@@ -26,6 +26,7 @@ class SearchResultViewController: UIViewController {
 
         // Do any additional setup after loading the view.
       viewModel.viewDidLoad()
+      
 
     }
 
@@ -37,7 +38,13 @@ class SearchResultViewController: UIViewController {
     }
 
   }
-  
+
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
+  }
 }
 
 extension SearchResultViewController:SearchResultViewInterface{
@@ -62,12 +69,6 @@ extension SearchResultViewController:SearchResultViewInterface{
   func pushToContentDetail(content: ContentType) {
     let vc = ContentDetailsViewController(content: content)
     navigationController?.pushViewController(vc, animated: true)
-  }
-  override func viewWillDisappear(_ animated: Bool) {
-    view.isHidden = true
-  }
-  override func viewWillAppear(_ animated: Bool) {
-    view.isHidden = false
   }
 
 }

@@ -10,15 +10,21 @@ import SnapKit
 
 class ContentHeaderCollectionReusableView: UICollectionReusableView {
   static let identifier = "AlbumHeaderCollectionReusableView"
-  private let imageView = UIImageView()
+  private let albumCoverImageView = UIImageView()
   private let playButton = UIButton()
   private let nameLbl = UILabel()
+  private let artstLbl = UILabel()
   private let descriptionLbl = UILabel()
-  private let artistLbl = UILabel()
+  private let likeButton = UIButton()
+  private let downloadButton = UIButton()
+  private let dotButton  = UIButton()
+  private let shuffleButton = UIButton()
+  private let artistImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
   override init(frame: CGRect) {
     super.init(frame: frame)
     style()
     layout()
+
   }
 
   required init?(coder: NSCoder) {
@@ -26,70 +32,114 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
   }
   private func style(){
 
-    imageView.configureImageView(contentModee: .scaleAspectFit)
+    albumCoverImageView.configureImageView(contentModee: .scaleAspectFit)
+
+    artistImageView.configureImageView(contentModee: .scaleAspectFit)
 
     nameLbl.configureStyle(size: 20, weight: .bold, color: .white)
-    nameLbl.text = "Dark Side Of The Moon"
 
-    descriptionLbl.configureStyle(size: 15, weight: .thin, color: .white)
-    descriptionLbl.text = "Release Date: 8 May 1972"
+    artstLbl.configureStyle(size: 13, weight: .bold, color: .white)
 
-    artistLbl.configureStyle(size: 14, weight: .thin, color: .white)
-    artistLbl.text = "Pink Floyd"
+    descriptionLbl.configureStyle(size: 14, weight: .thin, color: .white)
 
     playButton.configureStyleSymbolButton(systemName: "play.fill", backgroundClr: .systemGreen, cornerRds: 25, tintClr: .black, pointSize: 20)
+
+    likeButton.configureStyleSymbolButton(systemName: "suit.heart", tintClr: .gray,pointSize: 20)
+
+    downloadButton.configureStyleSymbolButton(systemName: "arrow.down.circle",tintClr: .gray,pointSize: 20)
+
+    dotButton.configureStyleSymbolButton(systemName: "ellipsis", tintClr: .gray, pointSize: 20)
+
+    shuffleButton.configureStyleSymbolButton(systemName: "shuffle", tintClr: .gray,pointSize: 25)
+
+
 
   }
 
   private func layout(){
-    addSubview(imageView)
-    imageView.snp.makeConstraints { make in
+    addSubview(albumCoverImageView)
+    albumCoverImageView.snp.makeConstraints { make in
       make.left.equalToSuperview().offset(70)
       make.right.equalToSuperview().offset(-70)
-      make.top.equalToSuperview().offset(-25)
-      make.height.equalTo(height / 1.4)
+      make.top.equalToSuperview().offset(-75)
+      make.height.equalTo(height / 1.2)
+    }
+
+    addSubview(nameLbl)
+    nameLbl.snp.makeConstraints { make in
+      make.top.equalTo(albumCoverImageView.snp.bottom).offset(10)
+      make.left.equalToSuperview().offset(5)
+
+    }
+
+    addSubview(artistImageView)
+    artistImageView.snp.makeConstraints { make in
+      make.left.equalTo(nameLbl.snp.left)
+      make.bottom.equalTo(nameLbl.snp.bottom).offset(20)
+      make.height.width.equalTo(15)
+    }
+
+    addSubview(artstLbl)
+    artstLbl.snp.makeConstraints { make in
+      make.left.equalTo(artistImageView.snp.right).offset(5)
+      make.centerY.equalTo(artistImageView.snp.centerY)
+
+
+    }
+    addSubview(descriptionLbl)
+    descriptionLbl.snp.makeConstraints { make in
+      make.left.equalTo(nameLbl.snp.left)
+      make.top.equalTo(artistImageView.snp.bottom).offset(5)
     }
 
     addSubview(playButton)
     playButton.snp.makeConstraints { make in
-      make.right.equalToSuperview()
-      make.top.equalTo(imageView.snp.bottom).offset(25)
+      make.right.bottom.equalToSuperview()
       make.height.width.equalTo(50)
     }
 
-    addSubview(artistLbl)
-    artistLbl.snp.makeConstraints { make in
-      make.left.equalToSuperview().offset(5)
-      make.top.equalTo(playButton.snp.bottom)
+    addSubview(likeButton)
+    likeButton.snp.makeConstraints { make in
+      make.left.equalTo(nameLbl.snp.left)
+      make.centerY.equalTo(playButton.snp.centerY)
     }
 
-    addSubview(descriptionLbl)
-    descriptionLbl.snp.makeConstraints { make in
-      make.left.equalTo(artistLbl.snp.left)
-      make.bottom.equalTo(artistLbl.snp.top).offset(-5)
-      make.right.equalTo(playButton.snp.left)
+    addSubview(downloadButton)
+    downloadButton.snp.makeConstraints { make in
+      make.left.equalTo(likeButton.snp.right).offset(10)
+      make.centerY.equalTo(playButton.snp.centerY)
     }
-    addSubview(nameLbl)
-    nameLbl.snp.makeConstraints { make in
-      make.bottom.equalTo(descriptionLbl.snp.top).offset(-5)
-      make.left.equalToSuperview().offset(5)
-      make.right.equalTo(playButton.snp.left)
 
+    addSubview(dotButton)
+    dotButton.snp.makeConstraints { make in
+      make.left.equalTo(downloadButton.snp.right).offset(10)
+      make.centerY.equalTo(playButton.snp.centerY)
+    }
+
+    addSubview(shuffleButton)
+    shuffleButton.snp.makeConstraints { make in
+      make.right.equalTo(playButton.snp.left).offset(-10)
+      make.centerY.equalTo(playButton.snp.centerY)
     }
   }
 
   func configure(content:ContentType){
+
     switch content {
+
     case .album(let album):
-      imageView.sd_setImage(with: album.images.first?.url.asURL)
+
+      albumCoverImageView.sd_setImage(with: album.images.first?.url.asURL)
       nameLbl.text = album.name
+      artstLbl.text = album.artists.first?.name
       descriptionLbl.text = String.formattedDate(string: album.releaseDate)
-      artistLbl.text = album.artists.first?.name ?? ""
+      artistImageView.sd_setImage(with: album.images.first?.url.asURL)
     case .playlist(let playlist):
-      imageView.sd_setImage(with: playlist.images.first?.url.asURL)
+      albumCoverImageView.sd_setImage(with: playlist.images.first?.url.asURL)
       nameLbl.text = playlist.name
-      artistLbl.text = playlist.itemDescription.description
-      descriptionLbl.text = playlist.owner.displayName
+      descriptionLbl.text = playlist.itemDescription.description
+      artstLbl.text = playlist.owner.displayName
+      artistImageView.image = UIImage(named: "logo")
     default:
       break
 

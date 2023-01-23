@@ -40,26 +40,30 @@ final class TabBarViewController: UITabBarController {
     guard let player = player,let track = track else {
       return
     }
+    let vc = PlayerViewController(track: track, player: player,isPlaying: playerView.isPlaying)
 
-    let vc = PlayerViewController(track: track, player: player)
-    vc.modalPresentationStyle = .fullScreen
-    present(vc, animated: true)
+    let navVC = UINavigationController(rootViewController: vc)
+    navVC.modalPresentationStyle = .fullScreen
+    present(navVC, animated: true)
   }
 
 
   @objc func didGetTrackID(_ track:Notification){
-    UserDefaults.standard.didTapTrack = true
+    playerView.isPlaying = true
     guard let id = track.object as? String else { return}
     viewModel.fetchTrack(id: id)
   }
   @objc func didTapPlayButton(){
-    if !playerView.isPlaying {
-      player?.pause()
-    }else {
-      player?.play()
-    }
-  }
 
+    if player?.timeControlStatus == .playing {
+        player?.pause()
+    }
+    else if player?.timeControlStatus == .paused {
+        player?.play()
+
+    }
+    
+  }
 }
 
 
@@ -75,6 +79,8 @@ extension TabBarViewController:TabBarViewInterface{
 
     NotificationCenter.default.addObserver(self, selector: #selector(didGetTrackID(_:)), name: .trackNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(didTapPlayButton), name: .didTapPlayButton, object: nil)
+    
+
 
   }
 
@@ -91,7 +97,7 @@ extension TabBarViewController:TabBarViewInterface{
 
   func configureViewControllers() {
 
-    vc1.title = "Spotify"
+    vc1.title = ""
     vc2.title = "Search"
     vc3.title = "Your Library"
 

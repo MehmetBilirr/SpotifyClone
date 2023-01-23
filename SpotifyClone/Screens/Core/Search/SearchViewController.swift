@@ -34,6 +34,7 @@ class SearchViewController: UIViewController {
 
         // Do any additional setup after loading the view.
       viewModel.viewDidLoad()
+      
     }
 
   override func viewDidLayoutSubviews() {

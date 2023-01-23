@@ -30,6 +30,12 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
       viewModel.viewDidLoad()
     }
+  override func viewWillDisappear(_ animated: Bool) {
+    view.isHidden = true
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    view.isHidden = false
+  }
 
 
 }

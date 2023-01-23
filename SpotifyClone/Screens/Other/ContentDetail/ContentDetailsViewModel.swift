@@ -40,7 +40,7 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
     view?.configureShareButton()
     
   }
-
+  
 
 
   func fetchData(content: ContentType) {
@@ -63,6 +63,7 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
 
         case .success(let playlist):
           let tracks = playlist.tracks.items.compactMap({$0.track})
+  
           self.configureTracks(tracks: tracks)
         case .failure(let error):
           print(error.localizedDescription)

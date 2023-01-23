@@ -62,7 +62,7 @@ extension HomeViewModel:HomeViewModelInterface {
     view?.configureCollectionView()
     view?.configureNavBarItems()
     view?.fetchData()
-    view?.addObserver()
+
     
   }
 
@@ -288,8 +288,8 @@ extension HomeViewModel:HomeViewModelInterface {
       view?.pushToContentDetailsVC(content: .playlist(userPlaylists[indexPath.row]))
     case .userRecently:
       let array = Array(userRecentlyPlayed)
-      view?.pushToContentDetailsVC(content: .album(array[indexPath.row]))
 
+      view?.pushToContentDetailsVC(content: .album(array[indexPath.row]))
     case .userSavedAlbums:
       view?.pushToContentDetailsVC(content: .album(userSavedAlbums[indexPath.row]))
 

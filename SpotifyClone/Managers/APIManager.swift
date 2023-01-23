@@ -103,9 +103,9 @@ final class APIManager {
   }
 
 
-  func getTrack(id:String){
+  func getTrack(){
 
-    createRequest(route: .getTrack(id), method: .get) { request in
+    createRequest(route: .getUserSavedAlbums, method: .get) { request in
       URLSession.shared.dataTask(with: request) { data, response, error in
 
         if let data = data {
