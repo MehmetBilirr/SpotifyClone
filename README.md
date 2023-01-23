@@ -15,6 +15,13 @@
 * TableView
 * SDWebImage
 
+# Get Started
+* Clone Repository
+```
+git clone https://github.com/MehmetBilirr/SpotifyClone.git
+
+```
+* Create/login with your Spotify Account in the [Spotify For Developers](https://developer.spotify.com) website.
 
 # Number of Requests and Endpoints
 
