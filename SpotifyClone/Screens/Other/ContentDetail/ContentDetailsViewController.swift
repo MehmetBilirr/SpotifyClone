@@ -132,7 +132,7 @@ extension ContentDetailsViewController:UICollectionViewDelegate,UICollectionView
     }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TracksCollectionViewCell.identifier, for: indexPath) as! TracksCollectionViewCell
     viewModel.didSelectItemAt(indexPath)
 
   }

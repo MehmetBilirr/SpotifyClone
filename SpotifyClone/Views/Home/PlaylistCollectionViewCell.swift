@@ -27,7 +27,7 @@ class PlaylistCollectionViewCell: UICollectionViewCell {
     descriptionLbl.numberOfLines = 2
     descriptionLbl.lineBreakMode = .byTruncatingTail
 
-    albumImageView.configureImageView(contentModee: .scaleAspectFill)
+    albumImageView.configureImageView(contentModee: .scaleAspectFit)
     contentView.addSubview(albumImageView)
 
 

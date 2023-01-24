@@ -30,13 +30,12 @@ class TracksCollectionViewCell: UICollectionViewCell {
     backgroundColor = .systemBackground
 
     albumImageView.configureImageView(contentModee: .scaleAspectFill)
-    albumImageView.image = UIImage(named: "dummyalbum")
 
-    trackNameLbl.configureStyle(size: 15, weight: .semibold, color: .white)
-    trackNameLbl.text = "Hey You"
+
+    trackNameLbl.configureStyle(size: 14, weight: .semibold, color: .white)
 
     artistNameLbl.configureStyle(size: 13, weight: .thin, color: .white)
-    artistNameLbl.text = "The Wall"
+
 
   }
 

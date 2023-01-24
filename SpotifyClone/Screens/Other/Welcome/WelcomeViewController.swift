@@ -18,6 +18,7 @@ class WelcomeViewController: UIViewController {
   private let signInButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
   private lazy var viewModel = WelcomeViewModel(view: self)
   private let imageView = UIImageView()
+  private let label = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,9 +38,9 @@ class WelcomeViewController: UIViewController {
 extension WelcomeViewController:WelcomeViewInterface {
 
   func style (){
-    title = "Welcome to Spotify"
-    navigationController?.navigationBar.prefersLargeTitles = true
-    navigationController?.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
+
+    label.configureStyle(size: 40, weight: .bold, color: .white)
+    label.text = "Millions of songs\n free on Spotify."
 
     signInButton.configureStyleTitleButton(title: "Sign In", titleColor: .black, backgroundClr: .white.withAlphaComponent(0.9),cornerRds: signInButton.frame.height / 2)
 
@@ -72,6 +73,7 @@ extension WelcomeViewController:WelcomeViewInterface {
       }
       let mainAppTabBarVC = TabBarViewController()
       mainAppTabBarVC.modalPresentationStyle = .fullScreen
+    mainAppTabBarVC.modalTransitionStyle = .flipHorizontal
       present(mainAppTabBarVC, animated: true)
   }
 
@@ -94,6 +96,11 @@ extension WelcomeViewController:WelcomeViewInterface {
       make.height.equalTo(view.height / 2)
       make.center.equalToSuperview()
 
+    }
+    view.addSubview(label)
+    label.snp.makeConstraints { make in
+      make.centerX.equalToSuperview()
+      make.bottom.equalTo(imageView.snp.top).offset(-30)
     }
 
   }

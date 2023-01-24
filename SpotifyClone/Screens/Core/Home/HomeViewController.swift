@@ -15,9 +15,6 @@ protocol HomeViewInterface:AnyObject {
   func reloadData()
   func pushToContentDetailsVC(content:ContentType)
 
-
-
-  
 }
 
 class HomeViewController: UIViewController {
@@ -69,8 +66,6 @@ extension HomeViewController:HomeViewInterface {
 
   }
 
-
-
   @objc func didTapSettings() {
     let vc = ProfileViewController()
     vc.title = "Profile"
@@ -83,8 +78,6 @@ extension HomeViewController:HomeViewInterface {
     view.addSubview(collectionView)
     collectionView.dataSource = self
     collectionView.delegate = self
-
-    
 
     collectionView.register(PlaylistCollectionViewCell.self, forCellWithReuseIdentifier: PlaylistCollectionViewCell.identifier)
 
@@ -109,7 +102,6 @@ extension HomeViewController:HomeViewInterface {
   }
 
 }
-
 
 extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

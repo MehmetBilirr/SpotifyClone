@@ -184,7 +184,7 @@ extension HomeViewModel:HomeViewModelInterface {
     })))
 
     sections.append(.newReleases(newAlbums.compactMap({
-      .init(itemDescription: "\($0.name)", externalUrls: $0.externalUrls, id: $0.id, images: $0.images, name: $0.name, owner: .init(displayName: "", externalUrls: .init(spotify: ""), href: "", id: "", type: "", uri: ""))
+      .init(itemDescription: "", externalUrls: $0.externalUrls, id: $0.id, images: $0.images, name: $0.name, owner: .init(displayName: "", externalUrls: .init(spotify: ""), href: "", id: "", type: "", uri: ""))
     })))
 
 
@@ -288,7 +288,6 @@ extension HomeViewModel:HomeViewModelInterface {
       view?.pushToContentDetailsVC(content: .playlist(userPlaylists[indexPath.row]))
     case .userRecently:
       let array = Array(userRecentlyPlayed)
-
       view?.pushToContentDetailsVC(content: .album(array[indexPath.row]))
     case .userSavedAlbums:
       view?.pushToContentDetailsVC(content: .album(userSavedAlbums[indexPath.row]))

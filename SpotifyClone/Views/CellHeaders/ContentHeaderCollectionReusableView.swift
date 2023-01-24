@@ -41,6 +41,8 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     artstLbl.configureStyle(size: 13, weight: .bold, color: .white)
 
     descriptionLbl.configureStyle(size: 14, weight: .thin, color: .white)
+    descriptionLbl.numberOfLines = 1
+    descriptionLbl.lineBreakMode = .byTruncatingTail
 
     playButton.configureStyleSymbolButton(systemName: "play.fill", backgroundClr: .systemGreen, cornerRds: 25, tintClr: .black, pointSize: 20)
 
@@ -89,6 +91,7 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     descriptionLbl.snp.makeConstraints { make in
       make.left.equalTo(nameLbl.snp.left)
       make.top.equalTo(artistImageView.snp.bottom).offset(5)
+      make.right.equalTo(self.snp.centerX).offset(100)
     }
 
     addSubview(playButton)

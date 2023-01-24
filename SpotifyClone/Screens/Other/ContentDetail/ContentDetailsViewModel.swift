@@ -112,6 +112,7 @@ extension ContentDetailsViewModel:ContentDetailsViewModelInterface {
 
 
   func didSelectItemAt(_ indexPath: IndexPath) {
+    
 
     view?.pushToPlayer(track: tracks[indexPath.row])
   }

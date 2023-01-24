@@ -128,6 +128,7 @@ extension TabBarViewController:TabBarViewInterface{
   func configurePlayerView(url:String) {
 
 
+
     guard let trackUrl = url.asURL else {return}
 
     self.playerItem = AVPlayerItem(url: trackUrl)
@@ -137,11 +138,14 @@ extension TabBarViewController:TabBarViewInterface{
 
     self.player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main, using: { [weak self] (time) in
 
+
       if let duration  = self?.player?.currentItem?.duration {
+        self?.playerView.progressView.progress += 1/30
         let playerCurrentTime = CMTimeGetSeconds((self?.player!.currentTime())!)
 
         if playerCurrentTime >  CMTimeGetSeconds(duration) - 1{
         self?.player?.seek(to: .zero)
+          self?.playerView.progressView.progress = 0.0
       }
       }
     })

@@ -51,7 +51,6 @@ final class APIManager {
     request(route: .getUserRecentlyPlayed, method: .get, completion: completion)
   }
 
-
   func getUserSavedAlbums(completion:@escaping(Result<SavedAlbumsResponse,Error>)->Void) {
     request(route: .getUserSavedAlbums, method: .get, completion: completion)
   }

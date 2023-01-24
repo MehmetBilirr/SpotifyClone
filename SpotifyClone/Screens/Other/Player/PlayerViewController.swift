@@ -119,7 +119,7 @@ extension PlayerViewController:PlayerViewInterface {
     let secs = Int(currentTime)
 
     slider.value = Float(secs)
-
+    slider.addTarget(self, action: #selector(sliderDidTap(_:)), for: .valueChanged)
 
     imageView.configureImageView(contentModee: .scaleAspectFit)
     imageView.sd_setImage(with: track?.album?.images.first?.url.asURL)
@@ -185,6 +185,7 @@ extension PlayerViewController:PlayerViewInterface {
     trackNameLbl.snp.makeConstraints { make in
       make.left.equalTo(imageView.snp.left).offset(-10)
       make.top.equalTo(imageView.snp.bottom).offset(20)
+      make.right.equalTo(view.snp.centerX).offset(150)
     }
 
     view.addSubview(artistLbl)
@@ -304,6 +305,14 @@ extension PlayerViewController:PlayerViewInterface {
               player.seek(to: .zero)
 
           }
+
+  @objc func sliderDidTap(_ sender: UISlider){
+
+    let time = CMTime(seconds: Double(sender.value), preferredTimescale: CMTimeScale(1000))
+    player.seek(to: time)
+
+
+  }
 
 
 }
