@@ -26,6 +26,8 @@ git clone https://github.com/MehmetBilirr/SpotifyClone.git
 ```
 * Create/login with your Spotify Account in the [Spotify For Developers](https://developer.spotify.com) website.
 * Give the name and description that you want and in the dashboard select the app that you've just created.
+* Go to your local repo and open 'YourKeys.swift'
+* Back your dashboard, copy the 'Client ID' and 'Client Secret' and paste them in 'YourKeys.swift'.
 
 # Number of Requests and Endpoints
 
