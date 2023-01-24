@@ -1,6 +1,9 @@
 # SpotifyClone
 
 
+# App Recording
+https://user-images.githubusercontent.com/101524266/214428719-bc8931b8-ed3d-4de6-9292-a6ad3677cf5c.mp4
+
 # Technology and Structures
 * MVVM Pattern
 * UIKIT
