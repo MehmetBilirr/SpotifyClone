@@ -19,8 +19,8 @@ https://user-images.githubusercontent.com/101524266/214432445-52daf98f-4295-472e
 # Technology and Structures
 * MVVM Pattern
 * UIKIT
-* REST API
 * URL Session
+* REST API
 * Snapkit
 * Navigation
 * AVFoundation
@@ -28,6 +28,7 @@ https://user-images.githubusercontent.com/101524266/214432445-52daf98f-4295-472e
 * Search Bar
 * CollectionView
 * TableView
+* Webkit
 * SDWebImage
 
 # Getting Started
