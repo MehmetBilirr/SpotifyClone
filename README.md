@@ -26,7 +26,7 @@ https://user-images.githubusercontent.com/101524266/214432445-52daf98f-4295-472e
 * UIKIT
 * URL Session
 * REST API
-* Snapkit
+* Webkit
 * Navigation
 * AVFoundation
 * Tabbar Controller
@@ -36,7 +36,7 @@ https://user-images.githubusercontent.com/101524266/214432445-52daf98f-4295-472e
 
 
 **External Dependencies:**  
-* Webkit
+* Snapkit
 * SDWebImage
 
 # Getting Started
