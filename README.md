@@ -30,7 +30,7 @@ https://user-images.githubusercontent.com/101524266/214432445-52daf98f-4295-472e
 * Navigation
 * AVFoundation
 * Tabbar Controller
-* Search Bar
+* Search Controller
 * CollectionView
 * TableView
 
