@@ -1,5 +1,10 @@
 # SpotifyClone
 
+The iOS App consumes the official Spotify Web API to show (and play) songs, artists, albums, and more. 
+
+The user logs in with a Spotify account and gives permission to access the user's data, user-liked playlists, and songs that the user saved in the music library. 
+
+This API service for developers allows songs to be played preview for 29 seconds.
 
 # App Recording
 
@@ -21,13 +26,17 @@ https://user-images.githubusercontent.com/101524266/214432445-52daf98f-4295-472e
 * UIKIT
 * URL Session
 * REST API
+* Snapkit
+* Navigation
 * AVFoundation
 * Tabbar Controller
 * Search Bar
 * CollectionView
 * TableView
+
+
+**External Dependencies:**  
 * Webkit
-* Snapkit
 * SDWebImage
 
 # Getting Started
