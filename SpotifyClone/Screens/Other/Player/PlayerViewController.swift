@@ -11,7 +11,7 @@ import AVFoundation
 
 
 
-protocol PlayerViewInterface {
+protocol PlayerViewInterface:AnyObject {
   func style()
   func layout()
   func configurePlayer()
@@ -35,12 +35,12 @@ class PlayerViewController: UIViewController {
   private let shareButton = UIButton()
   private let stackButton = UIButton()
   private let slider: UISlider = {
-      let slider = UISlider()
-      slider.value = 0
-      slider.tintColor = .white
-      slider.maximumValue = 29
-      slider.setThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
-      return slider
+    let slider = UISlider()
+    slider.value = 0
+    slider.tintColor = .white
+    slider.maximumValue = 29
+    slider.setThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
+    return slider
   }()
   private let imageView = UIImageView()
   var player : AVPlayer
@@ -51,16 +51,13 @@ class PlayerViewController: UIViewController {
       playButton.configureStyleSymbolButton(systemName: isPlaying  == true ? "pause.circle.fill" : "play.circle.fill" ,tintClr: .white, pointSize: 80)
     }
   }
+  private lazy var viewModel = PlayerViewModel(view: self)
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    viewModel.viewDidLoad()
 
-      style()
-      layout()
-      configurePlayer()
-      configureBarButtons()
-
-    }
+  }
 
   init(track:Track,player:AVPlayer,isPlaying:Bool){
     self.track = track
@@ -96,13 +93,13 @@ extension PlayerViewController:PlayerViewInterface {
 
 
     self.player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main, using: { [weak self] (time) in
-            if self?.player.currentItem?.status == .readyToPlay {
-              let currentTime = CMTimeGetSeconds(self?.player.currentTime() ?? CMTime())
+      if self?.player.currentItem?.status == .readyToPlay {
+        let currentTime = CMTimeGetSeconds(self?.player.currentTime() ?? CMTime())
 
-                let secs = Int(currentTime)
-              self?.slider.value = Float(secs)
-                self?.currentTimeLbl.text = NSString(format: "%02d:%02d", secs/60, secs%60) as String//"\(secs/60):\(secs%60)"
-        }
+        let secs = Int(currentTime)
+        self?.slider.value = Float(secs)
+        self?.currentTimeLbl.text = NSString(format: "%02d:%02d", secs/60, secs%60) as String//"\(secs/60):\(secs%60)"
+      }
     })
   }
 
@@ -162,14 +159,7 @@ extension PlayerViewController:PlayerViewInterface {
 
   }
 
-  func stringFromTimeInterval(interval: TimeInterval) -> String {
 
-         let interval = Int(interval)
-         let seconds = interval % 60
-         let minutes = (interval / 60) % 60
-         let hours = (interval / 3600)
-         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-     }
 
   func layout() {
 
@@ -215,10 +205,10 @@ extension PlayerViewController:PlayerViewInterface {
 
     view.addSubview(playButton)
 
-      playButton.snp.makeConstraints { make in
-        make.top.equalTo(totalTimeLbl.snp.bottom).offset(30)
-        make.centerX.equalToSuperview()
-      }
+    playButton.snp.makeConstraints { make in
+      make.top.equalTo(totalTimeLbl.snp.bottom).offset(30)
+      make.centerX.equalToSuperview()
+    }
 
     view.addSubview(shuffleButton)
     shuffleButton.snp.makeConstraints { make in
@@ -228,24 +218,24 @@ extension PlayerViewController:PlayerViewInterface {
     }
 
     view.addSubview(backwardButton)
-      backwardButton.snp.makeConstraints { make in
-        make.centerY.equalTo(playButton.snp.centerY)
-        make.right.equalTo(playButton.snp.left).offset(-20)
-      }
+    backwardButton.snp.makeConstraints { make in
+      make.centerY.equalTo(playButton.snp.centerY)
+      make.right.equalTo(playButton.snp.left).offset(-20)
+    }
 
 
-      view.addSubview(forwardButton)
-        forwardButton.snp.makeConstraints { make in
-          make.centerY.equalTo(playButton.snp.centerY)
-          make.left.equalTo(playButton.snp.right).offset(20)
-        }
+    view.addSubview(forwardButton)
+    forwardButton.snp.makeConstraints { make in
+      make.centerY.equalTo(playButton.snp.centerY)
+      make.left.equalTo(playButton.snp.right).offset(20)
+    }
 
 
     view.addSubview(repeatButton)
-      repeatButton.snp.makeConstraints { make in
-        make.centerY.equalTo(playButton.snp.centerY)
-        make.right.equalTo(slider.snp.right)
-      }
+    repeatButton.snp.makeConstraints { make in
+      make.centerY.equalTo(playButton.snp.centerY)
+      make.right.equalTo(slider.snp.right)
+    }
 
     view.addSubview(likeButton)
     likeButton.snp.makeConstraints { make in
@@ -271,40 +261,40 @@ extension PlayerViewController:PlayerViewInterface {
       make.centerX.equalTo(repeatButton.snp.centerX)
     }
 
-    }
+  }
 
   @objc func didTapPlayPause() {
-   NotificationCenter.default.post(name: .didTapVCPlayButton, object: nil)
-          if player.timeControlStatus == .playing {
-              player.pause()
-            isPlaying = false
-          }
-          else if player.timeControlStatus == .paused {
-              player.play()
-            isPlaying = true
-          }
+    NotificationCenter.default.post(name: .didTapVCPlayButton, object: nil)
+    if player.timeControlStatus == .playing {
+      player.pause()
+      isPlaying = false
+    }
+    else if player.timeControlStatus == .paused {
+      player.play()
+      isPlaying = true
+    }
 
   }
 
   @objc func didTapForward() {
-          let moveForword : Float64 = 5
+    let moveForword : Float64 = 5
 
-          if player == nil { return }
-          if let duration  = player.currentItem?.duration {
-          let playerCurrentTime = CMTimeGetSeconds(player.currentTime())
-          let newTime = playerCurrentTime + moveForword
-          if newTime < CMTimeGetSeconds(duration)
-          {
-              let selectedTime: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
-              player.seek(to: selectedTime)
-          }
-          }
+    if player == nil { return }
+    if let duration  = player.currentItem?.duration {
+      let playerCurrentTime = CMTimeGetSeconds(player.currentTime())
+      let newTime = playerCurrentTime + moveForword
+      if newTime < CMTimeGetSeconds(duration)
+      {
+        let selectedTime: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
+        player.seek(to: selectedTime)
       }
+    }
+  }
 
   @objc func didTapBackward() {
-              player.seek(to: .zero)
+    player.seek(to: .zero)
 
-          }
+  }
 
   @objc func sliderDidTap(_ sender: UISlider){
 

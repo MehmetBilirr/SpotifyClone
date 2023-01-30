@@ -81,8 +81,6 @@ extension TabBarViewController:TabBarViewInterface{
     NotificationCenter.default.addObserver(self, selector: #selector(didGetTrackID(_:)), name: .trackNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(didTapPlayButton), name: .didTapPlayButton, object: nil)
     
-
-
   }
 
   func layout() {

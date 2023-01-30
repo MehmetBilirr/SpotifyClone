@@ -25,7 +25,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
   private func style(){
     categoryImageView.configureImageView(contentModee: .scaleAspectFill)
 
-    categoryName.configureStyle(size: 20, weight: .bold, color: .white)
+    categoryName.configureStyle(size: 18, weight: .bold, color: .white)
 
 
   }

@@ -102,30 +102,14 @@ final class APIManager {
   }
 
 
-  func getTrack(){
-
-    createRequest(route: .getUserSavedAlbums, method: .get) { request in
-      URLSession.shared.dataTask(with: request) { data, response, error in
-
-        if let data = data {
-          let responseString = String(data:data, encoding: .utf8) ?? "Could not stringify our data"
-          print("The response is :\n \(responseString)")
-        }else if let error = error {
-          print("The error is : \(error.localizedDescription)")
-        }
-
-      }.resume()
-    }
-
-    }
 
 
 
-  /// <#Description#>
+  /// Generics is used in method because of a lot of different codable model and a lot of requests.
   /// - Parameters:
-  ///   - route: <#route description#>
-  ///   - method: <#method description#>
-  ///   - completion: <#completion description#>
+  ///   - route: Base URL of Spotify WEB API + request's end point.
+  ///   - method: Method Enum
+  ///   - completion: Completion is Result Type Codable Model(T) or Error.
   private func request<T:Codable>(route:Route,method:Method, completion: @escaping(Result<T,Error>) -> Void ) {
 
     createRequest(route: route, method: method) { request in
@@ -139,7 +123,6 @@ final class APIManager {
           print("The error is : \(error.localizedDescription)")
         }
 
-
         DispatchQueue.main.async {
 
           // TODO decode our result and send back to the user
@@ -152,10 +135,10 @@ final class APIManager {
 
   }
 
-  /// <#Description#>
+  /// Handle data of request in method.
   /// - Parameters:
-  ///   - result: <#result description#>
-  ///   - completion: <#completion description#>
+  ///   - result: Result type Data of request or Error.
+  ///   - completion: If decode JSON data, completion is T type has to be Codable.
   private func handleResponse<T:Codable>(result:Result<Data,Error>?,completion: (Result<T,Error>) -> Void){
     guard let result = result else {
       completion(.failure(AppError.unknownError))
@@ -179,11 +162,11 @@ final class APIManager {
   }
 
 
-  /// Method is for SPOTIFY WEB API.
+  ///For SPOTIFY WEB API.
   /// - Parameters:
   ///   - route: Base Url for Spotify Api.
-  ///   - method: method description
-  ///   - completion: completion description
+  ///   - method: Method Enum
+  ///   - completion: URLRequest
   private func createRequest (route: Route, method: Method,completion:@escaping(URLRequest)->Void) {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
       guard let accessToken = (UserDefaults.standard.string(forKey: "access_token")) else {return}
@@ -192,7 +175,7 @@ final class APIManager {
       var request = URLRequest(url: url)
       request.httpMethod = method.rawValue
       request.timeoutInterval = 30
-      request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+      request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization") // Header of request Web API
       completion(request)
     }
 

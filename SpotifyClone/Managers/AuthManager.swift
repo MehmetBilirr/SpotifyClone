@@ -15,6 +15,7 @@ final class AuthManager {
 
   private init(){}
 
+  //SignInURL property for sign in with spotify user and get permissions.
   var signInURL: URL? {
       let base = "https://accounts.spotify.com/authorize"
       let scope = Constants.scopes
@@ -36,6 +37,7 @@ final class AuthManager {
       return UserDefaults.standard.object(forKey: "expires_in") as? Date
   }
 
+  // Propoerty return true 5 minute before expiration date.
   private var shouldRefreshToken:Bool {
     //Refresh Token when 5 minutes left.
     guard let tokenExpirationDate = tokenExpirationDate else {

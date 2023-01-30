@@ -48,8 +48,6 @@ class PlayerView: UIView {
     progressView.trackTintColor = .gray
     progressView.tintColor = .white
 
-
-
   }
 
   @objc func didTapPlayerVcButton(){

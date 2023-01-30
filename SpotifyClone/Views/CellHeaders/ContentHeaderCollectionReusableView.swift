@@ -36,7 +36,9 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
 
     artistImageView.configureImageView(contentModee: .scaleAspectFit)
 
-    nameLbl.configureStyle(size: 20, weight: .bold, color: .white)
+    nameLbl.configureStyle(size: 18, weight: .bold, color: .white)
+    nameLbl.numberOfLines = 1
+    nameLbl.lineBreakMode = .byTruncatingTail
 
     artstLbl.configureStyle(size: 13, weight: .bold, color: .white)
 
@@ -70,6 +72,7 @@ class ContentHeaderCollectionReusableView: UICollectionReusableView {
     nameLbl.snp.makeConstraints { make in
       make.top.equalTo(albumCoverImageView.snp.bottom).offset(10)
       make.left.equalToSuperview().offset(5)
+      make.right.equalToSuperview().offset(-75)
 
     }
 

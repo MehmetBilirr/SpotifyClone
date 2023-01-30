@@ -52,13 +52,13 @@ extension AuthViewController:WKNavigationDelegate {
   func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
     guard let url = webView.url else { return }
     guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == "code" })?.value else { return }
-
+    //url:http://localhost:8888/callback?code = code
     AuthManager.shared.exchageCodeForToken(code: code) { [weak self] bool in
       DispatchQueue.main.async {
         self?.navigationController?.popViewController(animated: true)
         self?.completionHandler?(bool)
       }
     }
-    print("codeeeee:\(code)")
+    print("code:\(code)")
   }
 }
