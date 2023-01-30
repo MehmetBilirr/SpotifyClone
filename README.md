@@ -1,6 +1,6 @@
 # SpotifyClone
 
-I built the project myself to learn and experience more about iOS Development, URLSession and RESTful API.
+I built this project myself to learn and experience more about iOS Development, URLSession and RESTful API.
 
 The iOS App consumes the official Spotify Web API to show (and play) songs, artists, albums, and more. 
 
@@ -10,18 +10,7 @@ This API service for developers allows songs to be played preview for 29 seconds
 
 # App Recording
 
-
-https://user-images.githubusercontent.com/101524266/214431947-320cd85b-8c0f-4777-bced-1ccc4d66440c.mp4 
-
-https://user-images.githubusercontent.com/101524266/214432409-f6b51ecf-1237-4e3b-88a3-e2a594951211.mp4
-
-https://user-images.githubusercontent.com/101524266/214432225-051ba6c7-3509-473f-be3e-f65eaea627ad.mp4
-
-https://user-images.githubusercontent.com/101524266/214432427-848b0985-243a-4d67-ac55-e4e559129dbb.mp4
-
-https://user-images.githubusercontent.com/101524266/214432445-52daf98f-4295-472e-b070-ea2d5c2c3629.mp4
-
-
+[YOUTUBE](https://youtu.be/u6809JKqd8k)
 
 # Technology and Structures
 * MVVM Pattern
