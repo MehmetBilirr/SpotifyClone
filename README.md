@@ -1,6 +1,6 @@
 # SpotifyClone
 
-I built this project myself to learn and experience more about iOS Development, URLSession and RESTful API.
+I built this project myself to experience more MVVM Pattern, Protocols, URLSession and REST API.
 
 The iOS App consumes the official Spotify Web API to show (and play) songs, artists, albums, and more. 
 
