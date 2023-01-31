@@ -20,7 +20,7 @@ protocol SearchViewInterface:AnyObject {
 
 }
 
-class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController {
 
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
     return self.collectionView.searchSectionLayout(section: sectionIndex)

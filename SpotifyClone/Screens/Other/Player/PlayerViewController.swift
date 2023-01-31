@@ -20,7 +20,7 @@ protocol PlayerViewInterface:AnyObject {
 
 }
 
-class PlayerViewController: UIViewController {
+final class PlayerViewController: UIViewController {
   private let shuffleButton = UIButton()
   private let backwardButton = UIButton()
   private let playButton = UIButton()

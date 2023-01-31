@@ -23,7 +23,7 @@ protocol SearchResultViewModelInterface:AnyObject{
 
 
 
-class SearchResultViewModel {
+final class SearchResultViewModel {
   var sections = [SearchSection]()
   weak var view: SearchResultViewInterface?
   weak var delegate: SearchViewInterface?

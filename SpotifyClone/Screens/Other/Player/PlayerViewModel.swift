@@ -12,7 +12,7 @@ protocol PlayerViewModelInterface {
   func viewDidLoad()
 }
 
-class PlayerViewModel {
+final class PlayerViewModel {
   weak var view: PlayerViewInterface?
   init(view:PlayerViewInterface){
     self.view = view

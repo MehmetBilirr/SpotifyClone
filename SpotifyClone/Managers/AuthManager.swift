@@ -53,7 +53,7 @@ final class AuthManager {
   /// - Parameters:
   ///   - code: After  authorization code returned from the previous request.
   ///   - completion: If data is decoded, saveToken method is triggered.
-  func exchageCodeForToken(code:String,completion:@escaping ((Bool)->Void)){
+  func getToken(code:String,completion:@escaping ((Bool)->Void)){
     var components = URLComponents()
 
     //Request Body Parameter's of request access token.
@@ -88,7 +88,7 @@ final class AuthManager {
 
   /// After 1 hour get the refresh token, it has to be refresh. shouldRefreshToken is true 5 minute before expiration date.
   /// - Parameter completion: If data decoded, saveToken is triggered.
-   func refreshAccesTokenIfNeccessary(completion: ((Bool) -> Void)?) {
+   func refreshToken(completion: ((Bool) -> Void)?) {
       guard !refreshingToken else { return }
       guard shouldRefreshToken else {
           completion?(true)

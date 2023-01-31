@@ -30,7 +30,7 @@ protocol HomeViewModelInterface:AnyObject {
 
 }
 
-class HomeViewModel {
+final class HomeViewModel {
 
   enum BrowseSectionType {
     case newReleases([Playlist])

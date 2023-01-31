@@ -19,7 +19,7 @@ protocol ProfileViewInterface:AnyObject {
 
 }
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
     return self.collectionView.profileSectionLayout(section: sectionIndex)
 

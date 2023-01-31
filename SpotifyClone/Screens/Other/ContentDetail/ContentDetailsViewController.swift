@@ -17,7 +17,7 @@ protocol ContentDetailsViewInterface:AnyObject {
 
 }
 
-class ContentDetailsViewController: UIViewController {
+final class ContentDetailsViewController: UIViewController {
   var chosenAlbum:Album?
   var chosenPlaylist:Playlist?
   var content:ContentType?

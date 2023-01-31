@@ -18,7 +18,7 @@ protocol SearchResultViewInterface:AnyObject {
 
 }
 
-class SearchResultViewController: UIViewController {
+final class SearchResultViewController: UIViewController {
     let tableView = UITableView()
     lazy var viewModel = SearchResultViewModel(view: self)
     override func viewDidLoad() {

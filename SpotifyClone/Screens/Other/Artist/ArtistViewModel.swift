@@ -21,7 +21,7 @@ protocol ArtistViewModelInterface:AnyObject{
 }
 
 
-class ArtistViewModel {
+final class ArtistViewModel {
 
   enum ArtistSectionType {
     case topTracks([Track])

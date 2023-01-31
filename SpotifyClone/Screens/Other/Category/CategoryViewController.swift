@@ -14,7 +14,7 @@ protocol CategoryViewInterface:AnyObject {
   func pushToContentDetail(content:ContentType)
 }
 
-class CategoryViewController: UIViewController {
+final class CategoryViewController: UIViewController {
   var category:Category?
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ -> NSCollectionLayoutSection? in
     return self?.collectionView.categorySectionLayout(section: sectionIndex)

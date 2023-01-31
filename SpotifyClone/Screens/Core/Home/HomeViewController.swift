@@ -17,7 +17,7 @@ protocol HomeViewInterface:AnyObject {
 
 }
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
 
   private lazy var  collectionView:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ -> NSCollectionLayoutSection? in
     return self?.collectionView.homeSectionLayout(section: sectionIndex)
@@ -138,7 +138,7 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
 ////            navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
   }
 
-  func greetingLogic() -> String {
+  private func greetingLogic() -> String {
     let date = NSDate()
     let calendar = NSCalendar.current
     let currentHour = calendar.component(.hour, from: date as Date)

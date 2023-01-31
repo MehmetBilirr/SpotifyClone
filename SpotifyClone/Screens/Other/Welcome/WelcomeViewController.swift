@@ -14,7 +14,7 @@ protocol WelcomeViewInterface:AnyObject{
 }
 
 
-class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
   private let signInButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
   private lazy var viewModel = WelcomeViewModel(view: self)
   private let imageView = UIImageView()

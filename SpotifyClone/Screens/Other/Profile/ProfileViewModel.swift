@@ -23,7 +23,7 @@ protocol ProfileViewModelInterface:AnyObject {
 }
 
 
-class ProfileViewModel {
+final class ProfileViewModel {
 
 
   weak var view: ProfileViewInterface?

@@ -17,7 +17,7 @@ protocol ArtistViewInterface:AnyObject {
 
 }
 
-class ArtistViewController: UIViewController {
+final class ArtistViewController: UIViewController {
 
   private let artistImageView = UIImageView()
   private let artistName = UILabel()

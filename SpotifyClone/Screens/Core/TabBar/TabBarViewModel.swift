@@ -17,7 +17,7 @@ protocol TabBarViewModelInterface:AnyObject {
   
 }
 
-class TabBarViewModel {
+final class TabBarViewModel {
 weak var view: TabBarViewInterface?
   let apiManager:APIManager?
   init(view:TabBarViewInterface,apiManager:APIManager=APIManager.shared){

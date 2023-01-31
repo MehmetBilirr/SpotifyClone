@@ -19,7 +19,7 @@ protocol ContentDetailsViewModelInterface {
 
 }
 
-class ContentDetailsViewModel {
+final class ContentDetailsViewModel {
   weak var view: ContentDetailsViewInterface?
   var tracks = [Track]()
   var apiManager:APIManager

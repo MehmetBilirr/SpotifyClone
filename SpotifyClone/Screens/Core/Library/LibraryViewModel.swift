@@ -18,7 +18,7 @@ protocol LibraryViewModelInterface:AnyObject {
 }
 
 
-class LibraryViewModel {
+final class LibraryViewModel {
 
   weak var view: LibraryViewInterface?
   private let apiManager:APIManager

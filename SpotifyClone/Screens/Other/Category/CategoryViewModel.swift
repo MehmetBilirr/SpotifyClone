@@ -19,7 +19,7 @@ protocol CategoryViewModelInterface:AnyObject {
 }
 
 
-class CategoryViewModel{
+final class CategoryViewModel{
   weak var view: CategoryViewInterface?
   let apiManager:APIManager?
   var playlists = [Playlist]()

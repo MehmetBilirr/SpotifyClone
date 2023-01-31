@@ -14,7 +14,7 @@ protocol WelcomeViewModelInterface:AnyObject {
 
 }
 
-class WelcomeViewModel:WelcomeViewModelInterface {
+final class WelcomeViewModel:WelcomeViewModelInterface {
   weak var view:(WelcomeViewInterface)?
 
   init(view:WelcomeViewController) {

@@ -20,7 +20,7 @@ protocol SearchViewModelInterface:AnyObject {
 }
 
 
-class SearchViewModel{
+final class SearchViewModel{
   weak var view: SearchViewInterface?
   let apiManager:APIManager?
   var categories = [Category]()

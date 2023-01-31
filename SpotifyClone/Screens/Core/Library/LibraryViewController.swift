@@ -18,7 +18,7 @@ protocol LibraryViewInterface:AnyObject {
 
 }
 
-class LibraryViewController: UIViewController {
+final class LibraryViewController: UIViewController {
   private enum  SectionTabs:String {
       case songs = "Songs"
       case albums = "Albums"
